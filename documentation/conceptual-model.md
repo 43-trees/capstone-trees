@@ -12,13 +12,16 @@
 - treeId
 - treeProfileId
 - treeAddress
-- treeContent
+- treeEndDate
 - treeDate
 - treeImage
+- treeInfo
+- treeLat
+- treeLng
 - treeTitle
 - treeSpecies
 
-## Comments
+## Comment
 - commentId
 - commentProfileId
 - commentTreeId
@@ -31,8 +34,7 @@
 - imageTreeId
 - imageUrl
 
-## Votes
-- voteId
+## Vote
 - voteProfileId
 - voteTreeId
 - voteValue
