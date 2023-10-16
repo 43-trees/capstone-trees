@@ -6,12 +6,16 @@ DROP TABLE IF EXISTS profile;
 
 CREATE TABLE IF NOT EXISTS profile (
     profile_id UUID NOT NULL PRIMARY KEY,
+<<<<<<< HEAD
     profile_activation_token CHAR(32) NOT NULL,
     profile_email VARCHAR (128) NOT NULL,
+=======
+    profile_activation_token CHAR(96) NOT NULL,
+    profile_email VARCHAR (128) NOT NULL UNIQUE,
+>>>>>>> 5a7cc0ee3a946a5adb42e3e83c8c2b8d262d9d03
     profile_hash CHAR (97) NOT NULL,
     profile_join_date DATE NOT NULL,
-    profile_name VARCHAR (96) NOT NULL,
-    UNIQUE(profile_email)
+    profile_name VARCHAR (96) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS tree (
