@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS profile;
 
 CREATE TABLE IF NOT EXISTS profile (
     profile_id UUID NOT NULL PRIMARY KEY,
-    profile_activation_token CHAR(32) NOT NULL,
+    profile_activation_token CHAR(32),
     profile_email VARCHAR (128) NOT NULL,
     profile_hash CHAR (97) NOT NULL,
     profile_join_date DATE NOT NULL,
