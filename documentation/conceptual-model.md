@@ -1,7 +1,7 @@
 # Entities and Attributes
 
 ## Profile
-- profileId
+- profileId - PK
 - profileActivationToken
 - profileEmail
 - profileHash
@@ -9,8 +9,8 @@
 - profileName
 
 ## Tree
-- treeId
-- treeProfileId
+- treeId - PK
+- treeProfileId - FK
 - treeAddress
 - treeEndDate
 - treeDate
@@ -22,19 +22,19 @@
 - treeSpecies
 
 ## Comment
-- commentId
-- commentProfileId
-- commentTreeId
+- commentId - PK
+- commentProfileId -FK
+- commentTreeId - FK
 - commentContent
 - commentDateTime
 - commentImageUrl
 
 ## Image
-- imageId
-- imageTreeId
+- imageId - PK
+- imageTreeId -FK
 - imageUrl
 
 ## Vote
-- voteProfileId
-- voteTreeId
+- voteProfileId - FK
+- voteTreeId - FK
 - voteValue
