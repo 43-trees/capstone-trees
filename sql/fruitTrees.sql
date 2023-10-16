@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS profile;
-DROP TABLE IF EXISTS tree;
-DROP TABLE IF EXISTS comment;
-DROP TABLE IF EXISTS image;
 DROP TABLE IF EXISTS vote;
+DROP TABLE IF EXISTS image;
+DROP TABLE IF EXISTS comment;
+DROP TABLE IF EXISTS tree;
+DROP TABLE IF EXISTS profile;
 
 CREATE TABLE IF NOT EXISTS profile (
     profile_id UUID NOT NULL PRIMARY KEY,
-    profile_activation_token CHAR(96) NOT NULL,
+    profile_activation_token CHAR(32) NOT NULL,
     profile_email VARCHAR (128) NOT NULL,
     profile_hash CHAR (97) NOT NULL,
     profile_join_date DATE NOT NULL,
