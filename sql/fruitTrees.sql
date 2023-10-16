@@ -15,8 +15,22 @@ CREATE TABLE IF NOT EXISTS profile (
 );
 
 CREATE TABLE IF NOT EXISTS tree (
+    tree_id UUID NOT NULL PRIMARY KEY,
+    tree_profile_id UUID NOT NULL,
+    tree_address VARCHAR (128) NOT NULL,
+    tree_end_date DATE NOT NULL,
+    tree_date DATE NOT NULL,
+    tree_image VARCHAR(128) NOT NULL,
+    tree_info VARCHAR (1024) NOT NULL,
+    tree_lat VARCHAR(96) NOT NULL,
+    tree_lng VARCHAR (96) NOT NULL,
+    tree_title VARCHAR (96) NOT NULL,
+    tree_species VARCHAR (96) NOT NULL,
 
+    FOREIGN KEY (tree_profile_id) REFERENCES profile(profile_id)
 );
+
+CREATE INDEX ON tree(tree_profile_id);
 
 CREATE TABLE IF NOT EXISTS comment (
 
