@@ -44,6 +44,7 @@ export const PrivateProfileSchema = z.object({
         required_error: 'profileJoinDate is required',
         invalid_type_error: 'please provide a valid profileJoinDate'
     })
+        .nullable()
 })
 
 export const PublicProfileSchema = PrivateProfileSchema.omit({profileHash: true, profileEmail: true})
