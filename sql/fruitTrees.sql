@@ -33,13 +33,39 @@ CREATE TABLE IF NOT EXISTS tree (
 CREATE INDEX ON tree(tree_profile_id);
 
 CREATE TABLE IF NOT EXISTS comment (
+    comment_id UUID NOT NULL PRIMARY KEY,
+    comment_profile_id UUID NOT NULL,
+    comment_tree_id UUID NOT NULL,
+    comment_content VARCHAR (512) NOT NULL,
+    comment_date_time TIMESTAMPTZ NOT NULL,
+    comment_image_url VARCHAR (256),
 
+    FOREIGN KEY (comment_profile_id) REFERENCES profile(profile_id),
+    FOREIGN KEY (comment_tree_id) REFERENCES tree(tree_id)
 );
+
+CREATE INDEX ON comment(comment_profile_id);
+CREATE INDEX ON comment(comment_tree_id);
 
 CREATE TABLE IF NOT EXISTS image (
+    image_id UUID NOT NULL PRIMARY KEY,
+    image_tree_id UUID NOT NULL,
+    image_url VARCHAR (256),
 
+    FOREIGN KEY (image_tree_id) REFERENCES tree(tree_id)
 );
+
+CREATE INDEX ON image(image_tree_id);
+
 
 CREATE TABLE IF NOT EXISTS vote (
+    vote_profile_id UUID NOT NULL,
+    vote_tree_id UUID NOT NULL,
+    vote_value VARCHAR (32) NOT NULL,
 
+    FOREIGN KEY (vote_profile_id) REFERENCES profile(profile_id),
+    FOREIGN KEY (vote_tree_id) REFERENCES tree(tree_id)
 );
+
+CREATE INDEX ON vote(vote_profile_id);
+CREATE INDEX ON vote(vote_tree_id);
