@@ -10,7 +10,14 @@ import { indexRoute } from './apis/index.route'
 import { signUpRoute } from './apis/sign-up/sign-up.route'
 
 
-// The following class creates the app and instantiates the server
+// // The following class creates the app and instantiates the server
+// declare module 'express-session' {
+//     export interface SessionData {
+//         profile: PublicProfile|undefined
+//         signature: string|undefined
+//         jwt: string|undefined
+//     }
+// }
 export class App {
     app: Application
     redisClient: RedisClientType
@@ -52,6 +59,7 @@ export class App {
     // private method for setting up routes in their basic sense (ie. any route that performs an action on profiles starts with /profiles)
     private routes (): void {
         this.app.use(indexRoute.basePath, indexRoute.router)
+        this.app.use(signUpRoute.basePath, signUpRoute.router)
     }
 
     // starts the server and tells the terminal to post a message that the server is running and on what port
