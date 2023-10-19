@@ -34,7 +34,7 @@ export async function insertProfile (profile: PrivateProfile) : Promise<string> 
 //     return result?.length === 1 ? result[0] : null
 // }
 
-export async function selectPrivateProfileByProfileId(profileId: string): Promise<PrivateProfile|null> {
+export async function selectPrivateProfileByProfileId(profileId: string|null): Promise<PrivateProfile|null> {
     const rowList = await sql `SELECT profile_id, profile_activation_token, profile_email, profile_hash, profile_image_url, profile_join_date, profile_id FROM profile WHERE profile_id = ${profileId}`
 
     const result = PrivateProfileSchema.array().max(1).parse(rowList)
