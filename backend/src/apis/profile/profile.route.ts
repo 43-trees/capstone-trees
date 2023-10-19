@@ -4,7 +4,7 @@ import {
     getPublicProfilesByProfileNameController,
     putProfileController
 } from './profile.controller'
-import {isLoggedInController} from '../../utils/controllers/isLoggedIn.controller';
+import {isLoggedInController} from '../../utils/controllers/isLoggedIn.controller'
 
 const basePath = '/apis/profile'
 
@@ -12,7 +12,7 @@ const router: Router = Router()
 
 router.route('/:profileId')
   .get(getPublicProfileByProfileIdController)
-  .put(isLoggedController, putProfileController)
+  .put(isLoggedInController, putProfileController)
 
 router.route('/profileNames/:profileName')
   .get(getPublicProfilesByProfileNameController)

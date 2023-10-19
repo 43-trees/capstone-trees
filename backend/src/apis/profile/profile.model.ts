@@ -1,6 +1,8 @@
 import { z } from 'zod'
 import {PrivateProfileSchema, PublicProfileSchema} from "./profile.validator";
 import {sql} from "../../utils/database.utils";
+import {Status} from "../../utils/interfaces/Status";
+import {zodErrorResponse} from "../../utils/response.utils";
 
 export type PrivateProfile = z.infer<typeof PrivateProfileSchema>
 
@@ -18,7 +20,7 @@ export async function updateProfile (profile: PublicProfile): Promise<string> {
     return 'Profile updated successfully'
 }
 
-export async function selectPublicProfileByProfileId (profileId:string): Promise<PublicProfile |null> {
+export async function selectPublicProfileByProfileId (profileId:string | null): Promise<PublicProfile |null> {
     const rowList = await sql`SELECT profile_id, profile_name FROM profile WHERE profile_id = ${profileId}`
 
     const result = PublicProfileSchema.array().max(1).parse(rowList)
@@ -32,6 +34,14 @@ export async function selectPublicProfileByProfileName(profileName: string): Pro
     const result = PublicProfileSchema.array().max(1).parse(rowList)
 
     return result?.length === 1 ? result[0] : null
+}
+
+export async function selectPublicProfilesByProfileName(profileName: string): Promise<PublicProfile[]>{
+    const profileNameWithWildCards = `%$(profileName}%`
+
+    const rowList = await sql`SELECT profile_id, profile_image_url, profile_join_date profile_name FROM profile WHERE profile_name LIKE ${profileNameWithWildCards}`
+
+    return PublicProfileSchema.array().parse(rowList)
 }
 
 export async function selectPrivateProfileByProfileId(profileId: string|null): Promise<PrivateProfile|null> {

@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import {
     PrivateProfile,
     selectPrivateProfileByProfileId,
+    selectPublicProfileByProfileId,
     selectPublicProfileByProfileName,
     selectPublicProfilesByProfileName, updateProfile
 } from './profile.model'
@@ -146,12 +147,11 @@ export async function putProfileController(request: Request, response: Response)
         })
     } catch (error: unknown) {
         console.error(error)
-        return response.json({
             return response.json({
                 status: 500,
                 message: 'internal server error',
                 data: null
             })
-        })
+
     }
 }
