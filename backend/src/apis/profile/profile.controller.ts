@@ -10,61 +10,61 @@ import {PublicProfileSchema} from "./profile.validator";
 
 import {Status} from '../../utils/interfaces/Status';
 
-// export async function getPublicProfileByProfileIdController(request: Request, response: Response) : Promise<Response<Status>> {
-//     try {
-//         const validationResult = PublicProfileSchema.pick({profileId: true}).safeParse(request.params)
-//
-//         if (!validationResult.success) {
-//             return zodErrorResponse(response, validationResult.error)
-//         }
-//
-//         const {profileId} = validationResult.data
-//
-//         const data = await selectPublicProfileByProfileId(profileId)
-//
-//         return response.json({
-//             status: 200,
-//             message: null,
-//             data
-//         })
-//     } catch (error: unknown) {
-//         console.error(error)
-//
-//         return response.json({
-//             status: 500,
-//             message: 'internal server error',
-//             data: null
-//         })
-//     }
-// }
+export async function getPublicProfileByProfileIdController(request: Request, response: Response) : Promise<Response<Status>> {
+    try {
+        const validationResult = PublicProfileSchema.pick({profileId: true}).safeParse(request.params)
 
-// export async function getPublicProfileByProfileNameController(request:Request, response: Response) : Promise<Response<Status>> {
-//     try {
-//         const validationResult = PublicProfileSchema.pick({profileName: true}).safeParse(request.params)
-//
-//         if (!validationResult.success) {
-//             return zodErrorResponse(response, validationResult.error)
-//         }
-//
-//         const {profileName} = validationResult.data
-//
-//         const data = await selectPublicProfileByProfileName(profileName)
-//
-//         return response.json({
-//             status: 200,
-//             message: null,
-//             data
-//         })
-//     } catch (error: unknown) {
-//         console.error(error)
-//
-//         return response.json({
-//             status: 500,
-//             message: 'internal server error',
-//             data: null
-//         })
-//     }
-// }
+        if (!validationResult.success) {
+            return zodErrorResponse(response, validationResult.error)
+        }
+
+        const {profileId} = validationResult.data
+
+        const data = await selectPublicProfileByProfileId(profileId)
+
+        return response.json({
+            status: 200,
+            message: null,
+            data
+        })
+    } catch (error: unknown) {
+        console.error(error)
+
+        return response.json({
+            status: 500,
+            message: 'internal server error',
+            data: null
+        })
+    }
+}
+
+export async function getPublicProfileByProfileNameController(request:Request, response: Response) : Promise<Response<Status>> {
+    try {
+        const validationResult = PublicProfileSchema.pick({profileName: true}).safeParse(request.params)
+
+        if (!validationResult.success) {
+            return zodErrorResponse(response, validationResult.error)
+        }
+
+        const {profileName} = validationResult.data
+
+        const data = await selectPublicProfileByProfileName(profileName)
+
+        return response.json({
+            status: 200,
+            message: null,
+            data
+        })
+    } catch (error: unknown) {
+        console.error(error)
+
+        return response.json({
+            status: 500,
+            message: 'internal server error',
+            data: null
+        })
+    }
+}
 
 export async function getPublicProfilesByProfileNameController(request: Request, response: Response): Promise<Response<Status>> {
     try {
