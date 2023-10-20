@@ -7,17 +7,15 @@ export type Tree = z.infer<typeof TreeSchema>
 export async function insertTree(tree: Tree): Promise<string> {
     const {treeProfileId, treeAddress, treeImage, treeInfo, treeTitle, treeSpecies} = tree
 
-    // TO BE FINISHED LATER:
-    // function endDate() {
-    //     let date = new Date() // Now
-    //       date.setDate(date.getDate() + 30) // Set now + 30 days as the new date
-    //       console.log(date)
-    //   }
+    function endDate() {
+        let date = new Date() // Now
+          return new Date(date.setDate(date.getDate() + 30)) // Set now + 30 days as the new date
+      }
 
     // TO BE FINISHED LATER:
     // function to convert address into treeLat and treeLng to pass into sql
 
-    await sql`INSERT INTO tree (tree_id, tree_profile_id, tree_address, [tree_end_date], tree_date, tree_image, tree_info, tree_lat, tree_lng, tree_title, tree_species) VALUES (gen_random_uuid(), ${treeProfileId}, ${treeAddress}, [END DATE], now(), ${treeImage}, ${treeInfo}, ${treeLat}, ${treeLng}, ${treeTitle}, ${treeSpecies})`
+    await sql`INSERT INTO tree (tree_id, tree_profile_id, tree_address, [tree_end_date], tree_date, tree_image, tree_info, tree_lat, tree_lng, tree_title, tree_species) VALUES (gen_random_uuid(), ${treeProfileId}, ${treeAddress}, endDate(), now(), ${treeImage}, ${treeInfo}, ${treeLat}, ${treeLng}, ${treeTitle}, ${treeSpecies})`
 
     return 'Tree successfully posted'
 }
