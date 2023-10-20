@@ -19,7 +19,7 @@ export async function signInController (request:Request, response: Response): Pr
         const profile: PrivateProfile | null = await selectPrivateProfileByProfileEmail(profileEmail)
         const signInFailedStatus: Status = {
             status: 400,
-            message: 'Emaail or password is incorrect please try again',
+            message: 'Email or password is incorrect please try again',
             data: null
         }
         if (profile === null) {
@@ -53,6 +53,7 @@ export async function signInController (request:Request, response: Response): Pr
         })
 
     } catch (error: any) {
+        console.error(error)
         return response.json({
             status:500,
             data: null,

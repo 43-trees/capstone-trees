@@ -53,7 +53,7 @@ export async function selectPrivateProfileByProfileId(profileId: string|null): P
 }
 
 export async function selectPrivateProfileByProfileEmail (profileEmail:string): Promise<PrivateProfile |null> {
-    const rowList = await sql`SELECT profile_id, profile_activation_token, profile_email, profile_hash, profile_join_date, profile_name FROM profile WHERE profile_email = ${profileEmail}`
+    const rowList = await sql`SELECT profile_id, profile_activation_token, profile_email, profile_hash, profile_image_url, profile_join_date, profile_name FROM profile WHERE profile_email = ${profileEmail}`
 
     const result = PrivateProfileSchema.array().max(1).parse(rowList)
 

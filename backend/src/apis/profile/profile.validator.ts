@@ -12,7 +12,7 @@ export const PrivateProfileSchema = z.object({
     required_error: 'Token is required',
     invalid_type_error: 'please provide a valid token'
 })
-        .length(97, 'Activation token must be 97 characters'),
+        .length(32, 'Activation token must be 32 characters'),
 
     profileEmail: z.string({
     required_error: 'profileEmail is required',
@@ -35,6 +35,7 @@ export const PrivateProfileSchema = z.object({
         .url({ message: 'please provide a valid profile image url'})
         .max(255, {message: 'profile image url is too long'})
         .nullable(),
+
     profileName: z.string()
     .trim()
     .min(1, { message: 'please provide a valid profile name (min 1 characters)' })
