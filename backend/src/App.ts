@@ -8,6 +8,7 @@ import RedisStore from 'connect-redis'
 
 import { indexRoute } from './apis/index.route'
 import { signUpRoute } from './apis/sign-up/sign-up.route'
+import {signInRoute} from "./apis/sign-in/sign-in.route";
 
 
 // // The following class creates the app and instantiates the server
@@ -60,6 +61,7 @@ export class App {
     private routes (): void {
         this.app.use(indexRoute.basePath, indexRoute.router)
         this.app.use(signUpRoute.basePath, signUpRoute.router)
+        this.app.use(signInRoute.basePath, signInRoute.router)
     }
 
     // starts the server and tells the terminal to post a message that the server is running and on what port
