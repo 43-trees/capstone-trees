@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS profile (
     profile_activation_token CHAR(32),
     profile_email VARCHAR (128) NOT NULL,
     profile_hash CHAR (97) NOT NULL,
-    profile_image VARCHAR (256),
+    profile_image_url VARCHAR (256),
     profile_join_date DATE NOT NULL,
     profile_name VARCHAR (96) NOT NULL
 );

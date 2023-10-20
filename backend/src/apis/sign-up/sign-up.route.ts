@@ -1,6 +1,6 @@
 import {Router} from "express"
 import { signUpProfileController} from "./sign-up.controller"
-// import { activationController } from "./activation.controller"
+// import { activationController } from "./activation.controllers"
 
 const basePath = '/apis/sign-up'
 
