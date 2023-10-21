@@ -73,6 +73,7 @@ export async function selectTreesByTreeProfileId(treeProfileId: string): Promise
     return TreeSchema.array().parse(rowList)
 }
 
+
 export async function selectTreeByTreeId(treeId: string): Promise<Tree | null> {
     const rowList = <Tree[]>await sql `SELECT tree_id,
        tree_profile_id,
@@ -107,3 +108,10 @@ export async function selectSpeciesOfTrees(species: string): Promise<Tree[]> {
 
     return TreeSchema.array().parse(rowList)
 }
+
+export async function deleteTreeByTreeId(treeId: string): Promise<string> {
+    await sql `DELETE FROM tree WHERE treeId = ${treeId}`
+
+    return 'Tree successfully deleted'
+}
+

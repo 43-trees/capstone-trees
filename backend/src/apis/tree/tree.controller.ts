@@ -1,14 +1,12 @@
 import {Request, response, Response} from 'express'
 import {
-    deleteTreeByTreeId,
-    insertTree,
-    selectAllCommentsByTreeId,
-    selectAllTrees,
-    selectSpeciesOfTree,
-    selectTreeByTreeId,
-    selectTreeByProfileName,
-    selectTreeByTreeProfileId,
-
+    deleteTreeByTreeId, x
+    insertTree,x
+    selectAllTrees,x
+    selectSpeciesOfTrees,x
+    selectTreeByTreeId,x
+    selectTreeByProfileName,x
+    selectTreesByTreeProfileId,x
     Tree
 } from './tree.model'
 import {Status} from '../../utils/interfaces/Status'
