@@ -15,6 +15,11 @@ export async function insertTree(tree: Tree): Promise<string> {
     // TO BE FINISHED LATER:
     // function to convert address into treeLat and treeLng to pass into sql
 
+    function convertTreeAddress (treeAddress) {
+
+    }
+
+
     await sql`INSERT INTO tree (tree_id, tree_profile_id, tree_address, [tree_end_date], tree_date, tree_image, tree_info, tree_lat, tree_lng, tree_title, tree_species) VALUES (gen_random_uuid(), ${treeProfileId}, ${treeAddress}, endDate(), now(), ${treeImage}, ${treeInfo}, ${treeLat}, ${treeLng}, ${treeTitle}, ${treeSpecies})`
 
     return 'Tree successfully posted'
