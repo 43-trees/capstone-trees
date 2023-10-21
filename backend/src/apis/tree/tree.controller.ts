@@ -23,6 +23,5 @@ export async function postTreeController(request: Request, response: Response): 
             return zodErrorResponse(response, validationResult.error)
         }
         const {treeInfo, }
-
     }
 }
