@@ -30,12 +30,16 @@ export async function postTreeController(request: Request, response: Response): 
 
         const tree: Tree = {
             treeId: null,
-            treeProfileId,
-            treeAddress,
-            treeImage,
-            treeInfo,
-            treeTitle,
-            treeSpecies
+            treeProfileId: '',
+            treeAddress: '',
+            treeEndDate: null,
+            treeDate: null,
+            treeImage: '',
+            treeInfo: '',
+            treeLat: null,
+            treeLng: null,
+            treeTitle: '',
+            treeSpecies: ''
         }
 
         const result = await insertTree(tree)
@@ -155,17 +159,20 @@ export async function getTreeByTreeIdController (request: Request, response: Res
             message: null,
             data
         })
-    } catch (error)
+    } catch (error) {
+        console.error(error)
         return response.json({
-            status: 500,
-            message: 'Oops! Something went wrong, try again.',
-            data: []
-        })
+        status: 500,
+        message: 'Oops! Something went wrong, try again.',
+        data: []
+    })}
+
 }
 
 export async function getSpeciesOfTreesController(request: Request, response: Response): Promise<Response<Status>> {
     try {
-        const validationResult = z.string ({
+        const validationResult = z.string()
+            .min(3,{
             message: 'Please provide a valid tree species.'
         })
             .safeParse(request.params.treeSpecies)

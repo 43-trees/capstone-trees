@@ -104,7 +104,7 @@ export async function selectSpeciesOfTrees(species: string): Promise<Tree[]> {
                                                tree_title,
                                                tree_species
                                                FROM tree
-                                               WHERE tree_species = ${treeSpecies}
+                                               WHERE tree_species = ${species}
                                                ORDER BY tree_datetime DESC`
 
     return TreeSchema.array().parse(rowList)
