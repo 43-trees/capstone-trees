@@ -26,7 +26,7 @@ router.route('/profileName/:profileName').get(getTreesByProfileNameController)
 
 router.route('/treeProfileId/:treeProfileId').get(getTreesByTreeProfileIdController)
 
-router.route('/:threadId')
+router.route('/:treeId')
     .get(getTreeByTreeIdController)
     .delete(isLoggedInController, deleteTreeByTreeIdController)
 

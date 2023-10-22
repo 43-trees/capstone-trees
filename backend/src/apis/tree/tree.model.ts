@@ -16,7 +16,6 @@ export async function insertTree(tree: Tree): Promise<string> {
       }
 
     // function to convert address into treeLat and treeLng to pass into sql
-
     async function convertAddress (address: string) {
         let formattedAddress = address.replace(' ', '+')
 
@@ -35,7 +34,7 @@ export async function insertTree(tree: Tree): Promise<string> {
 
 const treeCords = await convertAddress(treeAddress)
 
-    await sql`INSERT INTO tree (tree_id, tree_profile_id, tree_address, tree_end_date, tree_date, tree_image, tree_info, tree_lat, tree_lng, tree_title, tree_species) VALUES (gen_random_uuid(), ${treeProfileId}, ${treeAddress}, endDate(), now(), ${treeImage}, ${treeInfo}, ${treeCords.lat}, ${treeCords.lng}, ${treeTitle}, ${treeSpecies})`
+    await sql`INSERT INTO tree (tree_id, tree_profile_id, tree_address, tree_end_date, tree_date, tree_image, tree_info, tree_lat, tree_lng, tree_title, tree_species) VALUES (gen_random_uuid(), ${treeProfileId}, ${treeAddress}, ${endDate()}, now(), ${treeImage}, ${treeInfo}, ${treeCords.lat}, ${treeCords.lng}, ${treeTitle}, ${treeSpecies})`
 
     return 'Tree successfully posted'
 }

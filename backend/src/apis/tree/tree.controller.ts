@@ -30,16 +30,16 @@ export async function postTreeController(request: Request, response: Response): 
 
         const tree: Tree = {
             treeId: null,
-            treeProfileId: '',
-            treeAddress: '',
+            treeProfileId: treeProfileId,
+            treeAddress: treeAddress,
             treeEndDate: null,
             treeDate: null,
-            treeImage: '',
-            treeInfo: '',
+            treeImage: treeImage,
+            treeInfo: treeInfo,
             treeLat: null,
             treeLng: null,
-            treeTitle: '',
-            treeSpecies: ''
+            treeTitle: treeTitle,
+            treeSpecies: treeSpecies
         }
 
         const result = await insertTree(tree)
