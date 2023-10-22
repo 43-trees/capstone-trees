@@ -7,6 +7,7 @@ export type Tree = z.infer<typeof TreeSchema>
 export async function insertTree(tree: Tree): Promise<string> {
     const {treeProfileId, treeAddress, treeImage, treeInfo, treeTitle, treeSpecies} = tree
 
+    // this function takes the current date and adds 30 days to be added into the dataset as "end date" to serve as the "lifespan" of the tree on the app before it goes inactive
     function endDate() {
         let date = new Date() // Now
           return new Date(date.setDate(date.getDate() + 30)) // Set now + 30 days as the new date
