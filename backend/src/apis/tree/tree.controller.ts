@@ -110,7 +110,7 @@ export async function getTreesByTreeProfileIdController (request: Request, respo
     }
 }
 
-export async function getTreesByProfileName (request: Request, response: Response): Promise<Response<Status>> {
+export async function getTreesByProfileNameController (request: Request, response: Response): Promise<Response<Status>> {
     try {
         const validationResult = PublicProfileSchema.pick({
             profileName: true
