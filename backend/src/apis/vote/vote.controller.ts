@@ -3,7 +3,6 @@ import {
     deleteVote,
     insertVote,
     Vote,
-    selectVoteByVoteId,
     selectVotesByVoteProfileId,
     selectVotesByVoteTreeId,
 } from './vote.model'
