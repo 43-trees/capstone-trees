@@ -4,7 +4,7 @@ import {
     deleteCommentByCommentIdController,
     getAllComments,
     getCommentByCommentIdController,
-    getCommentsByProfileIdController,
+    getCommentsByCommentProfileIdController,
     getCommentsByProfileNameController,
     postCommentController
 } from './comment.controller';
@@ -22,7 +22,7 @@ router.route('/commentTreeId/:commentTreeId')
     .get(getAllCommentsByTreeIdController)
 router.route('/profileName/:profileName')
     .get(getCommentsByProfileNameController)
-router.route('/commentProfileId/:commentProfileId').get(getCommentsByProfileIdController)
+router.route('/commentProfileId/:commentProfileId').get(getCommentsByCommentProfileIdController)
 router.route('/:commentId')
     .get(getCommentByCommentIdController)
     .delete(isLoggedInController, deleteCommentByCommentIdController)
