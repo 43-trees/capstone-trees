@@ -87,9 +87,7 @@ export async function selectAllCommentsByTreeId(treeId: string): Promise<Comment
                                                 comment_image_url
                                          FROM comment
                                          WHERE comment_tree_id = ${treeId}`
-    const result = CommentSchema.array().parse(rowList)
-
-
+    return CommentSchema.array().parse(rowList)
 }
 
 
