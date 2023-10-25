@@ -74,14 +74,14 @@ export async function toggleVoteController(request: Request, response: Response)
 
         const {voteTreeId} = validationResult.data
 
-        const profile = request.session.profile
+        const profile = request.session?.profile
 
-        const voteProfileId = profile.profileId
+        const voteProfileId = profile?.profileId as string
 
         const vote: Vote = {
             voteProfileId,
             voteTreeId,
-            voteValue: null
+            voteValue: ''
         }
 
         const status: Status = {
@@ -117,7 +117,7 @@ export async function postVoteController(request: Request, response: Response): 
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const {voteTreeId} = validationResult.data
+        const {voteTreeId, voteValue} = validationResult.data
 
         const profile = request.session.profile as PublicProfile
 
@@ -126,10 +126,16 @@ export async function postVoteController(request: Request, response: Response): 
         const vote: Vote = {
             voteProfileId,
             voteTreeId,
-            voteValue: null
+            voteValue
         }
 
-      status.message = await insertVote(vote)
+      const message = await insertVote(vote)
+
+        const status = {
+            status: 200,
+            message,
+            data: null
+        }
 
         return response.json(status)
     } catch (error:any) {
@@ -149,13 +155,11 @@ export async function deleteVoteController(request: Request, response: Response)
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const {voteTreeId} = validationResult.data
+        const {voteTreeId, voteValue} = validationResult.data
 
         const profile = request.session.profile as PublicProfile
 
         const voteProfileId = profile.profileId as string
-
-        const voteValue = vote.voteValue as string
 
         const vote: Vote = {
             voteProfileId,
