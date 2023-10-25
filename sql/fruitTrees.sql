@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS tree (
     tree_date DATE NOT NULL,
     tree_image VARCHAR(268) NOT NULL,
     tree_info VARCHAR (1024) NOT NULL,
-    tree_lat VARCHAR(96) NOT NULL,
-    tree_lng VARCHAR (96) NOT NULL,
+    tree_lat DECIMAL NOT NULL,
+    tree_lng DECIMAL NOT NULL,
     tree_title VARCHAR (96) NOT NULL,
     tree_species VARCHAR (96) NOT NULL,
 
