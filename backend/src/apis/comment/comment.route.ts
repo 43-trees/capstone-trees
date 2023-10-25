@@ -4,8 +4,8 @@ import {
     deleteCommentByCommentIdController,
     getAllComments,
     getCommentByCommentIdController,
-    getCommentByProfileIdController,
-    getCommentByProfileNameController,
+    getCommentsByProfileIdController,
+    getCommentsByProfileNameController,
     postCommentController
 } from './comment.controller';
 import {isLoggedInController} from '../../utils/controllers/isLoggedIn.controller';
@@ -21,8 +21,8 @@ router.route('/')
 router.route('/commentTreeId/:commentTreeId')
     .get(getAllCommentsByTreeIdController)
 router.route('/profileName/:profileName')
-    .get(getCommentByProfileNameController)
-router.route('/commentProfileId/:commentProfileId').get(getCommentByProfileIdController)
+    .get(getCommentsByProfileNameController)
+router.route('/commentProfileId/:commentProfileId').get(getCommentsByProfileIdController)
 router.route('/:commentId')
     .get(getCommentByCommentIdController)
     .delete(isLoggedInController, deleteCommentByCommentIdController)

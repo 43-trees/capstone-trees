@@ -55,7 +55,7 @@ export async function getAllComments (request: Request, response: Response): Pro
     }
 }
 
-export async function getCommentsByCommentProfileIdController (request: Request, response: Response): Promise<Response<Status>> {
+export async function getCommentsByProfileIdController (request: Request, response: Response): Promise<Response<Status>> {
     try {
         const validationResult = z.string().uuid({message: 'please provide a valid commentProfileId'}).safeParse(request.commentProfileId)
         if (!validationResult.success) {
@@ -139,7 +139,7 @@ export async function deleteCommentByCommentIdController (request: Request, resp
         if(comment?.commentProfileId !== commentProfileId) {
             return response.json({
                 status: 403,
-                message: 'you are not allowed to delete this comment'
+                message: 'you are not allowed to delete this comment',
                 data: null
             })
         }
