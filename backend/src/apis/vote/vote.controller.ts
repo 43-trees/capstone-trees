@@ -4,11 +4,11 @@ import {
     insertVote,
     Vote,
     selectVotesByVoteProfileId,
-    selectVotesByVoteTreeId,
+    selectVotesByVoteTreeId, selectVoteByVoteId,
 } from './vote.model'
 import {PublicProfile} from "../profile/profile.model"
 import {Status} from '../../utils/interfaces/Status'
-import {VoteSchema} from 'vote.validator'
+import {VoteSchema} from './vote.validator'
 import {zodErrorResponse} from "../../utils/response.utils";
 import {z} from 'zod'
 
@@ -66,7 +66,7 @@ export async function getVotesByVoteProfileIdController(request: Request, respon
 
 export async function toggleVoteController(request: Request, response: Response): Promise<Response<Status>> {
     try{
-        const validationResult = voteSchema.safeParse(request.body)
+        const validationResult = VoteSchema.safeParse(request.body)
 
         if(!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
@@ -155,10 +155,12 @@ export async function deleteVoteController(request: Request, response: Response)
 
         const voteProfileId = profile.profileId as string
 
+        const voteValue = vote.voteValue as string
+
         const vote: Vote = {
             voteProfileId,
             voteTreeId,
-            voteValue: null
+            voteValue: voteValue
         }
 
         const status: Status = {
