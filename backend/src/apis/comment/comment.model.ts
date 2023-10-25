@@ -19,6 +19,7 @@ export async function insertComment(comment: Comment): Promise<string> {
 export async function selectAllComments(): Promise<Comment[]> {
     const rowList = <Comment[]>await sql`SELECT comment_id,
                                                 comment_profile_id,
+                                                comment_tree_id,
                                                 comment_content,
                                                 comment_datetime,
                                                 comment_image_url
@@ -31,6 +32,7 @@ export async function selectCommentsByCommentProfileId(commentProfileId: string)
 
     const rowList = <Comment[]>await sql`SELECT comment_id,
                                                 comment_profile_id,
+                                                comment_tree_id,
                                                 comment_content,
                                                 comment_datetime,
                                                 comment_image_url
@@ -43,6 +45,7 @@ export async function selectCommentsByCommentProfileId(commentProfileId: string)
 export async function selectCommentsByProfileName(profileName: string): Promise<Comment[]> {
     const rowList = <Comment[]>await sql`SELECT comment_id,
                                                 comment_profile_id,
+                                                comment_tree_id,
                                                 comment_content,
                                                 comment_datetime,
                                                 comment_image_url
@@ -55,6 +58,7 @@ export async function selectCommentsByProfileName(profileName: string): Promise<
 export async function selectCommentByCommentId(commentId: string): Promise<Comment | null> {
     const rowList = <Comment[]>await sql`SELECT comment_id,
                                                 comment_profile_id,
+                                                comment_tree_id,
                                                 comment_content,
                                                 comment_datetime,
                                                 comment_image_url
@@ -74,7 +78,19 @@ export async function deleteCommentByCommentId(commentId: string): Promise<strin
 
 }
 
+export async function selectAllCommentsByTreeId(treeId: string): Promise<Comment | null> {
+    const rowList = <Comment[]>await sql`SELECT comment_id,
+                                                comment_profile_id,
+                                                comment_tree_id,
+                                                comment_content,
+                                                comment_datetime,
+                                                comment_image_url
+                                         FROM comment
+                                         WHERE comment_tree_id = ${treeId}`
+    const result = CommentSchema.array().parse(rowList)
 
+
+}
 
 
 

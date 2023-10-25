@@ -14,6 +14,7 @@ import {zodErrorResponse} from "../../utils/response.utils"
 import {z} from 'zod'
 import {PublicProfileSchema} from "../profile/profile.validator"
 import exp from "constants";
+import {commentRoute} from "./comment.route";
 
 export async function postCommentController(request: Request, response: Response): Promise<Response | undefined> {
     try{
@@ -24,9 +25,11 @@ export async function postCommentController(request: Request, response: Response
         const {commentContent, commentImageUrl} = validationResult.data
         const profile: PublicProfile = request.session.profile as PublicProfile
         const commentProfileId: string = profile.profileId as string
+        const commentTreeId: string = tree.treeId as string
         const comment: Comment = {
             commentId: null,
-            commentProfileId,
+            commentProfileId: commentProfileId,
+            commentTreeId: commentTreeId,
             commentContent,
             commentDatetime: null,
             commentImageUrl
@@ -56,7 +59,6 @@ export async function getAllComments (request: Request, response: Response): Pro
     }
 }
 
-export async function getCommentsByProfileIdController (request: Request, response: Response): Promise<Response<Status>> {
 export async function getAllCommentsByTreeIdController(request: Request, response: Response): Promise<Response<Status>> {
     try{
         const validationResult = z.string().uuid({message: 'please provide a valid treeId'}).safeParse(request.params.treeId)
@@ -65,7 +67,7 @@ export async function getAllCommentsByTreeIdController(request: Request, respons
         }
         const treeId = validationResult.data
         const data = await selectAllCommentsByTreeId(treeId)
-        return response.json({status: 200, mesage: null, data})
+        return response.json({status: 200, message: null, data})
     } catch (error){
         return response.json({
             status: 500,
@@ -77,7 +79,7 @@ export async function getAllCommentsByTreeIdController(request: Request, respons
 
 export async function getCommentsByCommentProfileIdController (request: Request, response: Response): Promise<Response<Status>> {
     try {
-        const validationResult = z.string().uuid({message: 'please provide a valid commentProfileId'}).safeParse(request.commentProfileId)
+        const validationResult = z.string().uuid({message: 'please provide a valid commentProfileId'}).safeParse(request.body.commentProfileId)
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
