@@ -5,7 +5,9 @@ import {
     selectAllComments,
     selectCommentByCommentId,
     selectCommentsByProfileName,
-    selectCommentsByCommentProfileId, Comment
+    selectCommentsByCommentProfileId,
+    selectAllCommentsByTreeId,
+    Comment,
 } from "./comment.model"
 import {Status} from "../../utils/interfaces/Status"
 import {PublicProfile} from "../profile/profile.model"
@@ -22,10 +24,9 @@ export async function postCommentController(request: Request, response: Response
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
-        const {commentContent, commentImageUrl} = validationResult.data
+        const {commentTreeId, commentContent, commentImageUrl} = validationResult.data
         const profile: PublicProfile = request.session.profile as PublicProfile
         const commentProfileId: string = profile.profileId as string
-        const commentTreeId: string = tree.treeId as string
         const comment: Comment = {
             commentId: null,
             commentProfileId: commentProfileId,
@@ -72,7 +73,7 @@ export async function getAllCommentsByTreeIdController(request: Request, respons
         return response.json({
             status: 500,
             message: '',
-            data[]
+            data: []
         })
     }
 }
