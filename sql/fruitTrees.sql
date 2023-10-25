@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS tree (
     tree_address VARCHAR (128) NOT NULL,
     tree_end_date DATE NOT NULL,
     tree_date DATE NOT NULL,
-    tree_image VARCHAR(128) NOT NULL,
+    tree_image VARCHAR(268) NOT NULL,
     tree_info VARCHAR (1024) NOT NULL,
     tree_lat VARCHAR(96) NOT NULL,
     tree_lng VARCHAR (96) NOT NULL,
