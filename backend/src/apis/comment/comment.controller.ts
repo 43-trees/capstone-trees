@@ -13,6 +13,7 @@ import {CommentSchema} from "./comment.validator"
 import {zodErrorResponse} from "../../utils/response.utils"
 import {z} from 'zod'
 import {PublicProfileSchema} from "../profile/profile.validator"
+import {commentRoute} from "./comment.route";
 
 export async function postCommentController(request: Request, response: Response): Promise<Response | undefined> {
     try{
@@ -25,7 +26,7 @@ export async function postCommentController(request: Request, response: Response
         const commentProfileId: string = profile.profileId as string
         const comment: Comment = {
             commentId: null,
-            commentProfileId,
+            commentProfileId: commentProfileId,
             commentContent,
             commentDatetime: null,
             commentImageUrl
@@ -57,7 +58,7 @@ export async function getAllComments (request: Request, response: Response): Pro
 
 export async function getCommentsByProfileIdController (request: Request, response: Response): Promise<Response<Status>> {
     try {
-        const validationResult = z.string().uuid({message: 'please provide a valid commentProfileId'}).safeParse(request.commentProfileId)
+        const validationResult = z.string().uuid({message: 'please provide a valid commentProfileId'}).safeParse(request.body.commentProfileId)
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
