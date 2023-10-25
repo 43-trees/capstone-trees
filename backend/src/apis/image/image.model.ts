@@ -28,10 +28,10 @@ export async function deleteImageByImageId(imageId: string): Promise<string> {
 
 export async function insertImage(image: Image): Promise<string> {
 
-    const {imageId, imageTreeId, imageUrl} = image
+    const {imageTreeId, imageUrl} = image
 
     await sql`INSERT INTO image (image_id, image_tree_id, image_url)
-                VALUES (gen_random_uuid()), ${imageTreeId}, ${imageUrl}`
+                VALUES (gen_random_uuid(), ${imageTreeId}, ${imageUrl})`
 
     return 'Image successfully posted'
 }
