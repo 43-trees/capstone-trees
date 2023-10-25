@@ -74,7 +74,7 @@ export async function getAllTrees (request: Request, response: Response): Promis
         console.error(error)
         return response.json({
             status: 500,
-            message: 'Error getting threads. Try again',
+            message: 'Error getting trees. Try again',
             data: []
         })
     }
