@@ -142,7 +142,7 @@ export async function getTreeByTreeIdController (request: Request, response: Res
     try {
         const validationResult = z.string()
             .uuid({
-                message: 'Please provide a valid threadId'
+                message: 'Please provide a valid treeId'
             })
             .safeParse(request.params.treeId)
 
