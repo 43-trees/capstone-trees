@@ -166,8 +166,8 @@ export async function deleteCommentByCommentIdController (request: Request, resp
                 data: null
             })
         }
-        const result = await deleteCommentByCommentId(comment)
-        return response.json({status: 200, mesaage: result, data: null})
+        const result = await deleteCommentByCommentId(commentId)
+        return response.json({status: 200, message: result, data: null})
 
     } catch (error) {
         console.log(error)
