@@ -2,9 +2,9 @@ import { Router } from 'express'
 import {
     deleteTreeByTreeIdController,
     getAllTrees,
-    getSpeciesOfTreeController,
+    getSpeciesOfTreesController,
     getTreeByTreeIdController,
-    getTreeByProfileNameController,
+    getTreesByProfileNameController,
     getTreesByTreeProfileIdController,
     postTreeController
 } from "./tree.controller";
@@ -20,13 +20,13 @@ router.route('/')
     .post(isLoggedInController, postTreeController)
     .get(getAllTrees)
 
-router.route('/page/:page').get(getSpeciesOfTreeController)
+router.route('/species/:species').get(getSpeciesOfTreesController)
 
-router.route('/profileName/:profileName').get(getTreeByProfileNameController)
+router.route('/profileName/:profileName').get(getTreesByProfileNameController)
 
 router.route('/treeProfileId/:treeProfileId').get(getTreesByTreeProfileIdController)
 
-router.route('/:threadId')
+router.route('/:treeId')
     .get(getTreeByTreeIdController)
     .delete(isLoggedInController, deleteTreeByTreeIdController)
 
