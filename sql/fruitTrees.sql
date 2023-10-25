@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS comment (
     comment_profile_id UUID NOT NULL,
     comment_tree_id UUID NOT NULL,
     comment_content VARCHAR (512) NOT NULL,
-    comment_date_time TIMESTAMPTZ NOT NULL,
+    comment_datetime TIMESTAMPTZ NOT NULL,
     comment_image_url VARCHAR (256),
 
     FOREIGN KEY (comment_profile_id) REFERENCES profile(profile_id),
