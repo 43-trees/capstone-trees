@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { imageUploader} from "../../utils/controllers/multer.controller"
-import { imageUploadController } from './image.controller'
+import { imageUploadController } from './imageUpload.controller'
 
 const basePath = '/apis/image'
 

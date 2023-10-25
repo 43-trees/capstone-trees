@@ -8,8 +8,7 @@ export type Comment = z.infer<typeof CommentSchema>
 export async function insertComment(comment: Comment): Promise<string> {
     const {commentId, commentProfileId, commentTreeId, commentContent, commentImageUrl} = comment
 
-    await sql`INSERT INTO comment (comment_id, comment_profile_id, comment_tree_id, comment_content, comment_datetime,
-                                   comment_image_url)
+    await sql`INSERT INTO comment (comment_id, comment_profile_id, comment_tree_id, comment_content, comment_datetime, comment_image_url)
               VALUES (gen_random_uuid(), ${commentProfileId}, ${commentTreeId}, ${commentContent}, now(),
                       ${commentImageUrl})`
 
