@@ -50,7 +50,7 @@ export async function selectAllTrees(): Promise<Tree[]> {
        tree_title,
        tree_species
        FROM tree
-       ORDER BY tree_datetime DESC`
+       ORDER BY tree_date DESC`
 
     return TreeSchema.array().parse(rowList)
 }
@@ -118,13 +118,13 @@ export async function selectSpeciesOfTrees(species: string): Promise<Tree[]> {
                                                tree_species
                                                FROM tree
                                                WHERE tree_species = ${species}
-                                               ORDER BY tree_datetime DESC`
+                                               ORDER BY tree_date DESC`
 
     return TreeSchema.array().parse(rowList)
 }
 
 export async function deleteTreeByTreeId(treeId: string): Promise<string> {
-    await sql `DELETE FROM tree WHERE treeId = ${treeId}`
+    await sql `DELETE FROM tree WHERE tree_id = ${treeId}`
 
     return 'Tree successfully deleted'
 }
