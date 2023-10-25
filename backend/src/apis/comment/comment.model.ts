@@ -65,7 +65,7 @@ export async function selectCommentByCommentId(commentId: string): Promise<Comme
                                          FROM comment
                                          WHERE comment_id = ${commentId}`
     const result = CommentSchema.array().max(1).parse(rowList)
-    return result.length === 0 ? null : result(0)
+    return result.length === 0 ? null : result[0]
 }
 
 export async function deleteCommentByCommentId(commentId: string): Promise<string> {
@@ -78,7 +78,7 @@ export async function deleteCommentByCommentId(commentId: string): Promise<strin
 
 }
 
-export async function selectAllCommentsByTreeId(treeId: string): Promise<Comment | null> {
+export async function selectAllCommentsByTreeId(treeId: string): Promise<Comment[]> {
     const rowList = <Comment[]>await sql`SELECT comment_id,
                                                 comment_profile_id,
                                                 comment_tree_id,
@@ -87,6 +87,7 @@ export async function selectAllCommentsByTreeId(treeId: string): Promise<Comment
                                                 comment_image_url
                                          FROM comment
                                          WHERE comment_tree_id = ${treeId}`
+
     return CommentSchema.array().parse(rowList)
 }
 
