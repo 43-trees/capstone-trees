@@ -13,6 +13,7 @@ import {CommentSchema} from "./comment.validator"
 import {zodErrorResponse} from "../../utils/response.utils"
 import {z} from 'zod'
 import {PublicProfileSchema} from "../profile/profile.validator"
+import exp from "constants";
 
 export async function postCommentController(request: Request, response: Response): Promise<Response | undefined> {
     try{
@@ -56,6 +57,25 @@ export async function getAllComments (request: Request, response: Response): Pro
 }
 
 export async function getCommentsByProfileIdController (request: Request, response: Response): Promise<Response<Status>> {
+export async function getAllCommentsByTreeIdController(request: Request, response: Response): Promise<Response<Status>> {
+    try{
+        const validationResult = z.string().uuid({message: 'please provide a valid treeId'}).safeParse(request.params.treeId)
+        if (!validationResult.success) {
+            return zodErrorResponse(response, validationResult.error)
+        }
+        const treeId = validationResult.data
+        const data = await selectAllCommentsByTreeId(treeId)
+        return response.json({status: 200, mesage: null, data})
+    } catch (error){
+        return response.json({
+            status: 500,
+            message: '',
+            data[]
+        })
+    }
+}
+
+export async function getCommentsByCommentProfileIdController (request: Request, response: Response): Promise<Response<Status>> {
     try {
         const validationResult = z.string().uuid({message: 'please provide a valid commentProfileId'}).safeParse(request.commentProfileId)
         if (!validationResult.success) {
@@ -143,6 +163,9 @@ export async function deleteCommentByCommentIdController (request: Request, resp
                 data: null
             })
         }
+        const result = await deleteCommentByCommentId(comment)
+        return response.json({status: 200, mesaage: result, data: null})
+
     } catch (error) {
         console.log(error)
         return response.json({
