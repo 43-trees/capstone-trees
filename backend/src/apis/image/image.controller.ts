@@ -1,4 +1,4 @@
-import { Request, Response} from "express"
+import {Request, response, Response} from "express"
 import {
     deleteImage,
     insertImage,
@@ -36,14 +36,14 @@ export async function getImagesByImageTreeIdController(request: Request, respons
     }
 }
 
-export async function getImagesByImageProfileIdController(request:Request, response: Response): Promise<Response> {
+/*export async function getImagesByImageProfileIdController(request:Request, response: Response): Promise<Response> {
     try {
         const validationResult = z.string().uuid("please provide a valid imageProfileId").safeParse(request.params.imageProfileId)
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
         const imageProfileId = validationResult.data
-        const data = await selectImagesbyImageProfileID(imageProfileId)
+        const data = await selectImagesbyImageProfileId(imageProfileId)
         return response.json({status: 200, message: null, data})
     }catch (error) {
         console.log(error)
@@ -53,7 +53,7 @@ export async function getImagesByImageProfileIdController(request:Request, respo
             data: []
         })
     }
-}
+}*/
 
 export async function postImageController(request: Request, response: Response): Promise<Response<Status>> {
     try {
@@ -61,13 +61,13 @@ export async function postImageController(request: Request, response: Response):
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
-        const {ImageTreeId} = validationResult.data
+        const {imageTreeId, imageUrl} = validationResult.data
         const profile = request.session.profile as PublicProfile
         const imageProfileId = profile.profileId as string
         const image: Image = {
-            imageProfileId,
             imageTreeId,
-            imageDatetime: null
+            imageId: null,
+            imageUrl
         }
         const status: Status = {
             status: 200,
@@ -96,7 +96,13 @@ export async function deleteImageController(request: Request, response: Response
         const profile: PublicProfile = request.session.profile as PublicProfile
         const imageId = validationResult.data
         const image = await selectImageByImageId(imageId)
-    }
-    const result = await deleteImageByImageId(imageId)
-    return response.json({staus: 200, message: result, data: null})
-}
+        const result = await deleteImageByImageId(imageId)
+        return response.json({status: 200, message: result, data: null})
+    } catch (error) {
+    console.log(error)
+    return response.json({
+        status: 500,
+        message: '',
+        data: []
+    })
+}}

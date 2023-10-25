@@ -16,9 +16,8 @@ export async function deleteImage(image: Image): Promise<string> {
 
 }
 
-export async function deleteImageByImageId(image: Image): Promise<string> {
+export async function deleteImageByImageId(imageId: string): Promise<string> {
 
-    const {imageId} = image
     await sql`DELETE 
               FROM "image"
               WHERE image_id = ${imageId}`
@@ -38,9 +37,7 @@ export async function insertImage(image: Image): Promise<string> {
 }
 
 
-export async function selectImageByImageId(image: Image): Promise<Image | null> {
-    const {imageId, imageTreeId} = image
-
+export async function selectImageByImageId(imageId: string): Promise<Image | null> {
     const rowList = <Image[]>await sql`SELECT image_id, image_tree_id, image_url
                                               FROM "image"
                                               WHERE image_id = ${imageId}`
