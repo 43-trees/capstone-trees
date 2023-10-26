@@ -62,12 +62,12 @@ export async function getAllComments (request: Request, response: Response): Pro
 
 export async function getAllCommentsByTreeIdController(request: Request, response: Response): Promise<Response<Status>> {
     try{
-        const validationResult = z.string().uuid({message: 'please provide a valid treeId'}).safeParse(request.params.treeId)
+        const validationResult = CommentSchema.pick({commentTreeId: true}).safeParse(request.params)
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
-        const treeId = validationResult.data
-        const data = await selectAllCommentsByTreeId(treeId)
+        const {commentTreeId} = validationResult.data
+        const data = await selectAllCommentsByTreeId(commentTreeId)
         return response.json({status: 200, message: null, data})
     } catch (error){
         return response.json({
