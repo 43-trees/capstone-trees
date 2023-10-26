@@ -49,6 +49,6 @@ export const TreeSchema = z.object({
     treeSpecies: z.string ({
         required_error: 'Please provide a valid tree species'
     })
-        .min(1, {message: 'Please provide a minimum title'})
+        .min(1, {message: 'Please provide a minimum of 1 characters'})
         .max(96,{message: 'Please provide a tree species that is no longer than 96 characters'})
 })
