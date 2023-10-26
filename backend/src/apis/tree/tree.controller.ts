@@ -225,7 +225,7 @@ export async function deleteTreeByTreeIdController (request: Request, response: 
         if(tree?.treeProfileId ! === treeProfileId) {
             return response.json ({
                 status: 403,
-                message: 'You are not allowed to delete this thread',
+                message: 'You are not allowed to delete this tree',
                 data: null
             })
         }

@@ -20,7 +20,7 @@ router.route('/')
     .post(isLoggedInController, postTreeController)
     .get(getAllTrees)
 
-router.route('/species/:species').get(getSpeciesOfTreesController)
+router.route('/species/:treeSpecies').get(getSpeciesOfTreesController)
 
 router.route('/profileName/:profileName').get(getTreesByProfileNameController)
 
