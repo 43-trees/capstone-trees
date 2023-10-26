@@ -17,7 +17,6 @@ const router = Router()
 router.route('/')
     .post(isLoggedInController, postCommentController)
     .get(getAllComments)
-
 router.route('/commentTreeId/:commentTreeId')
     .get(getAllCommentsByTreeIdController)
 router.route('/profileName/:profileName')
