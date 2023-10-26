@@ -47,10 +47,12 @@ export async function selectAllTrees(): Promise<Tree[]> {
        tree_date,
        tree_image,
        tree_info,
+       tree_lat,
+       tree_lng,
        tree_title,
        tree_species
        FROM tree
-       ORDER BY tree_datetime DESC`
+       ORDER BY tree_date DESC`
 
     return TreeSchema.array().parse(rowList)
 }
@@ -63,6 +65,8 @@ export async function selectTreeByProfileName(profileName: string): Promise<Tree
        tree_date,
        tree_image,
        tree_info,
+       tree_lat,
+       tree_lng,
        tree_title,
        tree_species
        FROM tree JOIN profile ON tree.tree_profile_id = profile.profile_id
@@ -79,6 +83,8 @@ export async function selectTreesByTreeProfileId(treeProfileId: string): Promise
        tree_date,
        tree_image,
        tree_info,
+       tree_lat,
+       tree_lng,
        tree_title,
        tree_species
        FROM tree
@@ -96,6 +102,8 @@ export async function selectTreeByTreeId(treeId: string): Promise<Tree | null> {
        tree_date,
        tree_image,
        tree_info,
+       tree_lat,
+       tree_lng,
        tree_title,
        tree_species
        FROM tree
@@ -114,17 +122,19 @@ export async function selectSpeciesOfTrees(species: string): Promise<Tree[]> {
                                                tree_date,
                                                tree_image,
                                                tree_info,
+                                               tree_lat,
+                                               tree_lng,
                                                tree_title,
                                                tree_species
                                                FROM tree
                                                WHERE tree_species = ${species}
-                                               ORDER BY tree_datetime DESC`
+                                               ORDER BY tree_date DESC`
 
     return TreeSchema.array().parse(rowList)
 }
 
 export async function deleteTreeByTreeId(treeId: string): Promise<string> {
-    await sql `DELETE FROM tree WHERE treeId = ${treeId}`
+    await sql `DELETE FROM tree WHERE tree_id = ${treeId}`
 
     return 'Tree successfully deleted'
 }

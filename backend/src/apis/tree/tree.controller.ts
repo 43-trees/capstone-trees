@@ -74,7 +74,7 @@ export async function getAllTrees (request: Request, response: Response): Promis
         console.error(error)
         return response.json({
             status: 500,
-            message: 'Error getting threads. Try again',
+            message: 'Error getting trees. Try again',
             data: []
         })
     }
@@ -115,7 +115,7 @@ export async function getTreesByProfileNameController (request: Request, respons
         const validationResult = PublicProfileSchema.pick({
             profileName: true
         })
-            .safeParse(request.params.profileName)
+            .safeParse(request.params)
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
@@ -142,7 +142,7 @@ export async function getTreeByTreeIdController (request: Request, response: Res
     try {
         const validationResult = z.string()
             .uuid({
-                message: 'Please provide a valid threadId'
+                message: 'Please provide a valid treeId'
             })
             .safeParse(request.params.treeId)
 
@@ -171,17 +171,19 @@ export async function getTreeByTreeIdController (request: Request, response: Res
 
 export async function getSpeciesOfTreesController(request: Request, response: Response): Promise<Response<Status>> {
     try {
-        const validationResult = z.string()
-            .min(3,{
-            message: 'Please provide a valid tree species.'
-        })
-            .safeParse(request.params.treeSpecies)
+        const validationResult = TreeSchema.pick({treeSpecies: true})
+            .safeParse(request.params)
+        // const validationResult = z.string()
+        //     .min(3,{
+        //     message: 'Please provide a valid tree species.'
+        // })
+        //     .safeParse(request.params.treeSpecies)
 
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const treeSpecies = validationResult.data
+        const {treeSpecies} = validationResult.data
 
         const data = await selectSpeciesOfTrees(treeSpecies)
 
