@@ -11,6 +11,7 @@ import {Status} from '../../utils/interfaces/Status'
 import {VoteSchema} from './vote.validator'
 import {zodErrorResponse} from "../../utils/response.utils";
 import {z} from 'zod'
+import {deleteImageByImageId} from "../image/image.model";
 
 export async function getVotesByVoteTreeIdController(request: Request, response: Response): Promise<Response> {
     try{
@@ -95,7 +96,7 @@ export async function toggleVoteController(request: Request, response: Response)
         if(selectedVote === null) {
             status.message = await insertVote(vote)
         } else {
-            status.message = await deleteVote(vote)
+            status.message = await deleteVote(voteTreeId)
         }
 
         return response.json(status)
@@ -149,32 +150,20 @@ export async function postVoteController(request: Request, response: Response): 
 
 export async function deleteVoteController(request: Request, response: Response): Promise<Response<Status>> {
     try {
-        const validationResult = VoteSchema.safeParse(request.body)
+        const validationResult = z.string().uuid('Please provide a valid voteTreeId').safeParse(request.params.voteTreeId)
 
         if(!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const {voteTreeId, voteValue} = validationResult.data
-
         const profile = request.session.profile as PublicProfile
 
         const voteProfileId = profile.profileId as string
+        const voteTreeId = validationResult.data
 
-        const vote: Vote = {
-            voteProfileId,
-            voteTreeId,
-            voteValue: voteValue
-        }
+        const result = await deleteVote(voteTreeId)
 
-        const status: Status = {
-            status: 200,
-            message: '',
-            data: null
-        }
-        status.message = await deleteVote(vote)
-
-        return response.json(status)
+        return response.json({status: 200, message: result, data: null})
     } catch (error: any) {
         console.error(error)
         return (response.json({

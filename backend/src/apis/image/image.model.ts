@@ -5,9 +5,8 @@ import {sql} from "../../utils/database.utils"
 export type Image = z.infer<typeof ImageSchema>
 
 
-export async function deleteImage(image: Image): Promise<string> {
+export async function deleteImageByTreeId(imageTreeId: string): Promise<string> {
 
-    const {imageId, imageTreeId} = image
     await sql`DELETE 
               FROM image
               WHERE image_tree_id = ${imageTreeId}`
