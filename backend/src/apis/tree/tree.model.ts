@@ -29,7 +29,6 @@ export async function insertTree(tree: Tree): Promise<string> {
             // responseType: 'stream'
         })
             .then(function (response) {
-                console.log(response.data)
                 const latitude = response.data.results[0].location.lat
                 const longitude = response.data.results[0].location.lng
                 return {lat: latitude, lng: longitude}

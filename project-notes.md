@@ -1,15 +1,12 @@
 ## tree
-TreeSchema (validator)
-- What additional info does treeAddress need if any? (e.g. "nullable" - it's not tho of course)
-  - same for treeEndDate, treeDate, treeLat, treeLng
-
-Tree Controller
-- params/validations? for getSpeciesOfTrees
-
+- 
 
 
 ## comment
-- selectAllCommentsByTreeId
+- selectCommentsByProfileName - 500 error
 
 ## image
-- how does uploading an image to site work?
+- image wont update because of foreign key constraints
+
+## vote
+- cant post vote for foreign key constraints 
