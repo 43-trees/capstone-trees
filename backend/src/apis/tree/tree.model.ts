@@ -17,16 +17,21 @@ export async function insertTree(tree: Tree): Promise<string> {
 
     // function to convert address into treeLat and treeLng to pass into sql
     async function convertAddress (address: string) {
-        let formattedAddress = address.replace(' ', '+')
+
+        let formattedAddress = encodeURIComponent(address.split(' ').join( '+'))
+        console.log(formattedAddress)
+
+        const GEOCODING_API_KEY = process.env.GEOCODING_API_KEY as string
 
         const result = await axios({
             method: 'get',
-            url: `https://maps.googleapis.com/maps/api/geocode/json?address=${formattedAddress}&key=AIzaSyBM_3QTrw7n7kCXGrECNuOcotP_FbbDFfI`,
+            url: `https://api.geocod.io/v1.7/geocode?api_key=${GEOCODING_API_KEY}&q=${formattedAddress}`,
             // responseType: 'stream'
         })
             .then(function (response) {
-                const latitude = response.data.results[0].geometry.location.lat
-                const longitude = response.data.results[0].geometry.location.lng
+                console.log(response.data)
+                const latitude = response.data.results[0].location.lat
+                const longitude = response.data.results[0].location.lng
                 return {lat: latitude, lng: longitude}
             })
         return (result)
