@@ -119,9 +119,9 @@ export async function postVoteController(request: Request, response: Response): 
 
         const {voteTreeId, voteValue} = validationResult.data
 
-        const profile = request.session.profile as PublicProfile
+        const profile: PublicProfile = request.session.profile as PublicProfile
 
-        const voteProfileId = profile.profileId as string
+        const voteProfileId: string = profile.profileId as string
 
         const vote: Vote = {
             voteProfileId,
