@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS comment (
     comment_image_url VARCHAR (256),
 
     FOREIGN KEY (comment_profile_id) REFERENCES profile(profile_id),
-    FOREIGN KEY (comment_tree_id) REFERENCES tree(tree_id)
+    FOREIGN KEY (comment_tree_id) REFERENCES tree(tree_id) ON DELETE CASCADE
 );
 
 CREATE INDEX ON comment(comment_profile_id);
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS image (
     image_tree_id UUID NOT NULL,
     image_url VARCHAR (256),
 
-    FOREIGN KEY (image_tree_id) REFERENCES tree(tree_id)
+    FOREIGN KEY (image_tree_id) REFERENCES tree(tree_id) ON DELETE CASCADE
 );
 
 CREATE INDEX ON image(image_tree_id);
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS vote (
     vote_value VARCHAR (32) NOT NULL,
 
     FOREIGN KEY (vote_profile_id) REFERENCES profile(profile_id),
-    FOREIGN KEY (vote_tree_id) REFERENCES tree(tree_id)
+    FOREIGN KEY (vote_tree_id) REFERENCES tree(tree_id) ON DELETE CASCADE
 );
 
 CREATE INDEX ON vote(vote_profile_id);

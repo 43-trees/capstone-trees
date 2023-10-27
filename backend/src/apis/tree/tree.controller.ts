@@ -222,7 +222,8 @@ export async function deleteTreeByTreeIdController (request: Request, response: 
 
         const tree = await selectTreeByTreeId(treeId)
 
-        if(tree?.treeProfileId ! === treeProfileId) {
+        if(tree?.treeProfileId !== treeProfileId) {
+            console.log(treeProfileId)
             return response.json ({
                 status: 403,
                 message: 'You are not allowed to delete this tree',
