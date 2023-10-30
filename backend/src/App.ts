@@ -5,8 +5,10 @@ import { indexRoute } from './apis/index.route'
 import session from 'express-session'
 import { createClient,  RedisClientType } from 'redis'
 import RedisStore from 'connect-redis'
+import helmet from 'helmet'
 
 // The following class creates the app and instantiates the server
+
 export class App {
     app: Application
     redisClient: RedisClientType
@@ -34,6 +36,7 @@ export class App {
     // private method to setting up the middleware to handle json responses, one for dev and one for prod
     private middlewares (): void {
 
+        this.app.use(helmet())
         this.app.use(morgan('dev'))
         this.app.use(express.json())
         this.app.use(session( {
