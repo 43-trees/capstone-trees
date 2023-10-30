@@ -109,9 +109,9 @@ export async function getCommentsByProfileNameController (request: Request, resp
         const {profileName} = validationResult.data
         const data = await selectCommentsByProfileName(profileName)
         return response.json({
-            status: 500,
-            message: '',
-            data: []
+            status: 200,
+            message: null,
+            data
         })
 
     } catch (error) {

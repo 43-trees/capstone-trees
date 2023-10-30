@@ -22,11 +22,11 @@ router.route('/toggle')
     .post(isLoggedInController, toggleVoteController)
 
 
-router.route('/voteThreadId/:voteThreadId')
+router.route('/voteTreeId/:voteTreeId')
     .get(getVotesByVoteTreeIdController)
     .delete(isLoggedInController, deleteVoteController)
 
-router.route('/profileId/:profileId')
+router.route('/profileId/:voteProfileId')
     .get(getVotesByVoteProfileIdController)
 
 export const voteRoute = {basePath, router}

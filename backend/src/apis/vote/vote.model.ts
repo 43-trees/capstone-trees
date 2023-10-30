@@ -26,14 +26,11 @@ export async function selectVoteByVoteId(vote: Vote): Promise<Vote | null> {
     return result.length === 0 ? null : result[0]
 }
 
-export async function deleteVote(vote: Vote): Promise<string> {
-
-    const {voteProfileId, voteTreeId, voteValue} = vote
+export async function deleteVote(voteTreeId: string): Promise<string> {
 
     await sql `DELETE 
 FROM vote
-WHERE vote_profile_id =${voteProfileId}
-AND vote_tree_id = ${voteTreeId}`
+WHERE vote_tree_id = ${voteTreeId}`
 
     return 'Vote successfully deleted'
 }

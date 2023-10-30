@@ -1,10 +1,9 @@
 import {Request, response, Response} from "express"
 import {
-    deleteImage,
     insertImage,
     Image,
     selectImageByImageId,
-    selectImagesByImageTreeId, deleteImageByImageId,
+    selectImagesByImageTreeId, deleteImageByImageId, deleteImageByTreeId,
 } from './image.model'
 import {PublicProfile} from "../profile/profile.model"
 import {Status} from "../../utils/interfaces/Status"
@@ -87,7 +86,7 @@ export async function postImageController(request: Request, response: Response):
 }
 
 
-export async function deleteImageController(request: Request, response: Response): Promise<Response<Status>> {
+export async function deleteImageByImageIdController(request: Request, response: Response): Promise<Response<Status>> {
     try {
         const validationResult = z.string().uuid({message: 'please provide a valid imageId'}).safeParse(request.params.imageId)
         if (!validationResult.success) {
@@ -106,3 +105,23 @@ export async function deleteImageController(request: Request, response: Response
         data: []
     })
 }}
+
+export async function deleteImageByTreeIdController(request: Request, response: Response): Promise<Response<Status>> {
+    try {
+        const validationResult = z.string().uuid({message: 'please provide a valid imageId'}).safeParse(request.params.treeId)
+        if (!validationResult.success) {
+            return zodErrorResponse(response, validationResult.error)
+        }
+        const profile: PublicProfile = request.session.profile as PublicProfile
+        const imageTreeId = validationResult.data
+        const image = await selectImagesByImageTreeId(imageTreeId)
+        const result = await deleteImageByTreeId(imageTreeId)
+        return response.json({status: 200, message: result, data: null})
+    } catch (error) {
+        console.log(error)
+        return response.json({
+            status: 500,
+            message: '',
+            data: []
+        })
+    }}
