@@ -102,7 +102,7 @@ export async function getCommentsByCommentProfileIdController (request: Request,
 
 export async function getCommentsByProfileNameController (request: Request, response: Response): Promise<Response<Status>> {
     try {
-        const validationResult = PublicProfileSchema.pick({profileName: true}).safeParse(request.params.profileName)
+        const validationResult = PublicProfileSchema.pick({profileName: true}).safeParse(request.params)
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
