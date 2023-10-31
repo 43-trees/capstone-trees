@@ -1,15 +1,13 @@
 type InfoProps = {
     text: string
-    link: string
 }
 
 
-export function Info(infoProps: InfoProps) {
-    const {link, text} = infoProps
+export function InfoBox(infoProps: InfoProps) {
+    const {text} = infoProps
     return (
-        <section>
+        <section className="bg-primary mx-54">
             <p>{text}</p>
-            <a href={link}/>
         </section>
     )
 }
