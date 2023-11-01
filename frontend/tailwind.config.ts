@@ -17,11 +17,11 @@ const config: Config = {
     themes: [
       {
         mytheme: {
-          "primary": "#D1E2C4",
+          "primary": "#EBEBE8",
           "secondary": "#8f4263",
           "accent": "#5c7f67",
           "neutral": "#291e00",
-          "base-100": "#EBEBE8",
+          "base-100": "#D1E2C4",
           "info": "#3abff8",
           "success": "#36d399",
           "warning": "#fbbd23",
