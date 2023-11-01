@@ -7,7 +7,7 @@ type InfoProps = {
 export function Info(infoProps: InfoProps) {
     const {link, text} = infoProps
     return (
-        <section>
+        <section className="">
             <p>{text}</p>
             <a href={link}/>
         </section>
