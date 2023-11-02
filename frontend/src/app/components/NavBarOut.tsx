@@ -19,7 +19,7 @@ export function NavBarOut() {
                         <li><a href={"/about"}>About Us</a></li>
                     </ul>
                 </div>
-                <a className="btn btn-ghost normal-case text-2xl" href={'/'}>Urban Harvest</a>
+                <a className="btn btn-ghost normal-case text-2xl" href={'/'}>Urban Orchard</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu text-xl menu-horizontal px-1">
@@ -27,7 +27,7 @@ export function NavBarOut() {
                     <li tabIndex={0}>
                         <details>
                             <summary>Info</summary>
-                            <ul className="p-2">
+                            <ul className="bg-secondary p-2">
                                 <li><a href={"/harvesting"}>Harvesting Resources</a></li>
                                 <li><a href={"/beginner"}>Beginner Tips</a></li>
                             </ul>

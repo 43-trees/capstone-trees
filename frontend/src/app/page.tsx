@@ -4,7 +4,7 @@ import {NavBarIn} from "@/app/components/NavBarIn";
 export default function Home() {
     return (
       <>
-      <NavBarIn/>
+        <NavBarOut/>
       </>
     )
 }

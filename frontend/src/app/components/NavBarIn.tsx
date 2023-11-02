@@ -3,7 +3,7 @@ export function NavBarIn() {
     return(
         <div className="navbar bg-secondary ">
             <div className="flex-1">
-                <a className="btn btn-ghost normal-case text-primary text-xl">Urban Harvest</a>
+                <a className="btn btn-ghost normal-case text-primary text-xl">Urban Orchard</a>
             </div>
             <div className="flex-none gap-2">
                 <div className="form-control">
