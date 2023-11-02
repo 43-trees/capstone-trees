@@ -1,30 +1,43 @@
 
 type TreeProps = {
-    treeAddress: string
-    treeImage: string
-    treeInfo: string
-    treeSpecies: string
-    treeTitle: string
-    treeVote: string
+   tree: any,
+    treeImages: any
 }
 
 
-export function TreePost(treeProps: TreeProps){
-    const {treeAddress, treeImage, treeInfo, treeSpecies, treeTitle, treeVote} = treeProps
-    let treeSpeciesAlt = `This is a ${treeSpecies} tree`
-    return(
+export function TreePost(treeProps: TreeProps) {
+    const {tree, treeImages} = treeProps
+    // let treeSpeciesAlt = `This is a ${treeSpecies} tree`
+    // let tree = {imageUrl: treeImage, alt: treeSpecies}
+    // let trees = [tree, tree, tree]
+    return (
         <>
-            <section className="bg-primary justify-center">
-                <h2 className="text-2xl">{treeTitle}</h2>
-                <div className="carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box">
-                    <div className="carousel-item object-contain h-72 w-72">
-                        <img src={treeImage} alt={treeSpeciesAlt} className="rounded-box" />
+            <section className="bg-primary py-10 my-8">
+                <h2 className="text-2xl text-center">{tree.treeTitle}</h2>
+                <div className="carousel carousel-center p-4 space-x-4 bg-neutral rounded-box">
+                    {
+                        treeImages.map((image: any) =>
+                    <div className=" carousel-item w-11/12">
+                    <img src={image.imageUrl} alt={image.alt} className="rounded-box h-64 w-64 mx-auto"/>
                     </div>
+                        )}
                 </div>
                 <div>
-                    <h3 className="text-xl justify-center">{treeSpecies}</h3>
+                    <h3 className="bg-base-100 mx-72 rounded-md text-lg font-semibold text-center p-2">{tree.treeSpecies}</h3>
+                </div>
+                <div className="">
+                    <img src="" alt="an apple icon to rank the quality of the tree" className=""/>
+                </div>
+                <div className="">
+                    <img src="" alt="an icon of a map pin" className=""/>
+                    <p className="text-center text-xl py-4">{tree.treeAddress}</p>
+                </div>
+                <div>
+                    <h2 className="text-xl text-center font-semibold">Tree Info</h2>
+                    <p className="md:text-center py-2 px-24 text-justify ">{tree.treeInfo}</p>
                 </div>
             </section>
         </>
     )
 }
+
