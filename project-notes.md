@@ -1,12 +1,24 @@
-## tree
+## Backend
+
+### tree 
+
 - 
 
 
-## comment
+### comment
+
 - 
 
-## image
+### image
+
 - 
 
-## vote
-- get vote by profile Id: 'required' error
+### vote
+
+-
+
+
+
+## Frontend
+### Terms and Conditions
+- A number of "free" generators around, which to use? 
