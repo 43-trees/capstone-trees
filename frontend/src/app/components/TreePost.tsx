@@ -14,13 +14,18 @@ export function TreePost(treeProps: TreeProps) {
         <>
             <section className="bg-primary py-10 my-8">
                 <h2 className="text-2xl text-center">{tree.treeTitle}</h2>
+                <div className="w-1/2 mx-auto">
                 <div className="carousel carousel-center p-4 space-x-4 bg-neutral rounded-box">
+                    <a href="" className="btn btn-circle self-center">❮</a>
                     {
                         treeImages.map((image: any) =>
-                    <div className=" carousel-item w-11/12">
-                    <img src={image.imageUrl} alt={image.alt} className="rounded-box h-64 w-64 mx-auto"/>
+                    <div id="" className=" carousel-item h-60">
+                    <img src={image.imageUrl} alt={image.alt} className="rounded-box "/>
+
                     </div>
                         )}
+                    <a href="" className="btn btn-circle self-center">❯</a>
+                </div>
                 </div>
                 <div>
                     <h3 className="bg-base-100 mx-72 rounded-md text-lg font-semibold text-center p-2">{tree.treeSpecies}</h3>
