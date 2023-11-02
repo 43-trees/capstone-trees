@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './global.css'
 import {NavBarIn} from "@/app/components/NavBarIn";
+import {NavBarOut} from "@/app/components/NavBarOut";
 
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export default function RootLayout(props : RootLayoutProps) {
     return (
         <html data-theme="light" lang="en">
         <body>
-        <NavBarIn></NavBarIn>
+        <NavBarIn/>
         {children}</body>
         </html>
     )
