@@ -15,7 +15,7 @@ export default function Tree() {
 
     return (
         <>
-            <section className="bg-primary p-20 my-12">
+            <section className="md:mx-16 rounded-lg bg-primary p-20 my-12">
          <TreePost treeImages={treeImages} tree={tree}/>
             <Comment commentContent={"I loved the apples from this tree! They were perfect for my home brew."} profileName={"nacholibre"}/>
             </section>

@@ -13,13 +13,13 @@ export function TreePost(treeProps: TreeProps) {
     // let trees = [tree, tree, tree]
     return (
         <>
-            <section className="bg-primary py-10 my-8">
+            <section className="bg-primary mb-12">
 
                 {/*tree title*/}
-                <h2 className="text-3xl font-semibold text-center p-4">{tree.treeTitle}</h2>
+                <h2 className="md:text-5xl text-4xl text-neutral/80 font-bold text-center p-4">{tree.treeTitle}</h2>
 
                 {/*// carousel of tree images*/}
-                <div className="w-1/2 mx-auto">
+                <div className="md:w-1/2 mx-auto flex">
                 <div className="carousel carousel-center p-4 space-x-4 bg-neutral rounded-box">
                     <a href="" className="btn btn-circle self-center">❮</a>
                     {
@@ -35,7 +35,7 @@ export function TreePost(treeProps: TreeProps) {
 
                 {/*// species of tree*/}
                 <div className="p-8">
-                    <h3 className="bg-base-100 dropshadow-md md:mx-auto md:w-48 rounded-lg text-lg font-semibold text-center p-2">{tree.treeSpecies}</h3>
+                    <h3 className="bg-base-100 dropshadow-md md:mx-auto md:w-48 rounded-lg text-xl font-semibold text-center p-2">{tree.treeSpecies}</h3>
                 </div>
 
                 {/*// tree vote rating*/}
@@ -45,15 +45,17 @@ export function TreePost(treeProps: TreeProps) {
 
                 {/*// tree address*/}
                 <div className="flex flex-row justify-center p-4">
-                    <Image src="/map-pin-icon.png" alt="an icon of a map pin" className="" width={50}
-                           height={30}/>
-                    <p className="text-center text-2xl py-4">{tree.treeAddress}</p>
+                    <Image src="/map-pin-icon.png" alt="an icon of a map pin" className="" width={72}
+                           height={35}/>
+                    <p className="text-center text-3xl py-4">{tree.treeAddress}</p>
                 </div>
 
                 {/*// tree info*/}
                 <div>
-                    <h2 className="text-xl text-center font-semibold">Tree Info</h2>
-                    <p className="md:text-center py-2 px-24 text-justify ">{tree.treeInfo}</p>
+                    <h2 className="text-2xl text-center text-neutral/80 font-semibold p-2">Tree Info</h2>
+                    <div className="bg-base-100 p-4 rounded-lg">
+                    <p className="md:text-center py-2 text-justify ">{tree.treeInfo}</p>
+                    </div>
                 </div>
             </section>
         </>
