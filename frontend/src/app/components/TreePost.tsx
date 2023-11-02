@@ -31,7 +31,7 @@ export function TreePost(treeProps: TreeProps) {
                     <h3 className="bg-base-100 mx-72 rounded-md text-lg font-semibold text-center p-2">{tree.treeSpecies}</h3>
                 </div>
                 <div className="">
-                    <img src="" alt="an apple icon to rank the quality of the tree" className=""/>
+                    <img src="https://placekitten.com/50/50" alt="an apple icon to rank the quality of the tree" className="mx-auto"/>
                 </div>
                 <div className="">
                     <img src="" alt="an icon of a map pin" className=""/>
