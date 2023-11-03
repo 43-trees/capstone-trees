@@ -20,8 +20,9 @@ export default function RootLayout(props : RootLayoutProps) {
         <html data-theme="light" lang="en">
         <body>
         <NavBarIn/>
-        {children}</body>
+        {children}
         <Foot/>
+        </body>
         </html>
     )
 }

@@ -19,12 +19,12 @@ export function Foot () {
 
 
         return (
+            <>
             <footer style={footerStyle}>
                 <div style={containerStyle}>
                     <p style={pStyle}>&copy; trees 2023</p>
                 </div>
             </footer>
-
-
+            </>
     )
 }
