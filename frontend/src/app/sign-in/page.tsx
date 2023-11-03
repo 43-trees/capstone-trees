@@ -1,59 +1,26 @@
-'use client'
-import React, { useState } from "react";
 
+export default function SignIn() {
+    return(
+        <>
+            <form  className="md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8">
+                <div className="py-3">
+                    <label htmlFor="name" className="block text-gray text-sm font-bold mb-2">Username</label>
+                    <input type="text" id="name" name="name"
+                           className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"/>
+                </div>
+                <div className="py-3">
+                    <label htmlFor="email" className="block text-gray text-sm font-bold mb-2">Password</label>
+                    <input type="email" id="email" name="email"
+                           className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"/>
+                </div>
 
-export default function App() {
-    const handleSubmit = (username: string, password: string) => {
-        console.log(username, password);
-    };
-    return (
-        <div className="App">
-            <RegistrationForm onSubmit={handleSubmit} />
-        </div>
-    );
-}
+                <div className="py-3">
+                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Send
+                    </button>
+                </div>
+            </form>
 
-function RegistrationForm({ onSubmit}) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [isEnable, setEnable] = useState(true);
-    const handleKeyUp = () => {
-        if (username.length > 0 && password.length > 0) setEnable(false);
-        else setEnable(true);
-    };
-    return (
-        <div className="">
-            <label className="justify-center">User Name</label>
-            <input
-                className="justify-center"
-                type="text"
-                id="username-input"
-                placeholder="username"
-                value={username}
-                onKeyUp={handleKeyUp}
-                onChange={(event) => setUsername(event.target.value)}
-            />
-            <br />
-            <br />
-            <label>Password</label>
-            <input
-                type="password"
-                id="password-input"
-                placeholder="Password"
-                onKeyUp={handleKeyUp}
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-            />
-            <br />
-            <br />
-            <button
-                type="submit"
-                id="button-input"
-                disabled={isEnable}
-                onClick={() => onSubmit(username, password)}
-            >
-                Register
-            </button>
-        </div>
-    );
+        </>
+    )
 }
