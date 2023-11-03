@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './global.css'
 import {NavBarIn} from "@/app/components/NavBarIn";
 import {NavBarOut} from "@/app/components/NavBarOut";
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 
 export const metadata: Metadata = {
