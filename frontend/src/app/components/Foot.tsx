@@ -3,7 +3,7 @@ export function Foot () {
         backgroundColor: '#000000',
         color: '#F8F8FF',
         padding: '20px 0',
-      //  position: 'fixed',
+       position: 'fixed',
         width: '100%',
         bottom: '0',
     };
