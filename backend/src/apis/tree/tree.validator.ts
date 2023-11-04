@@ -35,12 +35,10 @@ export const TreeSchema = z.object({
         .max(1024, {message: 'Please provide tree information that is no longer than 1024 characters.'}),
     treeLat: z.coerce.number ({
         required_error: 'Please provide a valid latitude'
-    })
-        .nullable(),
+    }),
     treeLng: z.coerce.number ({
         required_error: 'Please provide a valid longitude'
-    })
-        .nullable(),
+    }),
     treeTitle: z.string ({
         required_error: 'Please provide a valid title'
     })

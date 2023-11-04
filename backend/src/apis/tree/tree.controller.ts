@@ -15,6 +15,7 @@ import {TreeSchema} from './tree.validator'
 import {zodErrorResponse} from '../../utils/response.utils'
 import {z} from 'zod'
 import {PublicProfileSchema} from '../profile/profile.validator'
+import axios from "axios";
 
 export async function postTreeController(request: Request, response: Response): Promise<Response | undefined> {
     try{
@@ -28,6 +29,29 @@ export async function postTreeController(request: Request, response: Response): 
 
         const treeProfileId: string = profile.profileId as string
 
+        // function to convert address into treeLat and treeLng to pass into sql
+        async function convertAddress (address: string) {
+
+            let formattedAddress = encodeURIComponent(address.split(' ').join( '+'))
+            console.log(formattedAddress)
+
+            const GEOCODING_API_KEY = process.env.GEOCODING_API_KEY as string
+
+            const result = await axios({
+                method: 'get',
+                url: `https://api.geocod.io/v1.7/geocode?api_key=${GEOCODING_API_KEY}&q=${formattedAddress}`,
+                // responseType: 'stream'
+            })
+                .then(function (response) {
+                    const latitude = response.data.results[0].location.lat
+                    const longitude = response.data.results[0].location.lng
+                    return {lat: latitude, lng: longitude}
+                })
+            return (result)
+        }
+
+        const treeCords = await convertAddress(treeAddress)
+
         const tree: Tree = {
             treeId: null,
             treeProfileId: treeProfileId,
@@ -36,8 +60,8 @@ export async function postTreeController(request: Request, response: Response): 
             treeDate: null,
             treeImage: treeImage,
             treeInfo: treeInfo,
-            treeLat: null,
-            treeLng: null,
+            treeLat: treeCords.lat,
+            treeLng: treeCords.lng,
             treeTitle: treeTitle,
             treeSpecies: treeSpecies
         }
