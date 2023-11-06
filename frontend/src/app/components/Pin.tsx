@@ -1,7 +1,8 @@
 'use client'
 import {Marker, Popup} from 'react-map-gl'
-import {useState} from "react";
+import React, {useState} from "react";
 import {Tree} from '../../../../backend/src/apis/tree/tree.model'
+import Link from "next/link";
 
 type PinProps = {
     index: number,
@@ -44,7 +45,7 @@ export function MapPin(props: PinProps) {
         <Popup longitude={treeLng} latitude={treeLat} key={index} onClose={() => setShowPopup(false)} offset={30}
                className={"treePopup"}>
             <div className={"text-center"} id={"mapPopUp"}>
-                <a href={`/tree/${treeId}`}><h3>{treeTitle}</h3></a>
+                <Link href={`/tree/${treeId}`}>{treeTitle}</Link>
                 <p>{treeAddress}</p>
                 <p>{treeSpecies}</p>
                 <p>{treeInfo}</p>

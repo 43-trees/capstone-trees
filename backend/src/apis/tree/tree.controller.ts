@@ -35,7 +35,7 @@ export async function postTreeController(request: Request, response: Response): 
             let formattedAddress = encodeURIComponent(address.split(' ').join( '+'))
             console.log(formattedAddress)
 
-            const GEOCODING_API_KEY = process.env.GEOCODING_API_KEY as string
+            const GEOCODING_API_KEY = process.env.GEOCODING_API_KEY
 
             const result = await axios({
                 method: 'get',

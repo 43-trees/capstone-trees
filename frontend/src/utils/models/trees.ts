@@ -1,6 +1,6 @@
 import {z} from "zod"
 
-const TreeSchema = z.object({
+export const TreeSchema = z.object({
     treeId: z.string ({
         required_error: 'Please provide a valid treeId or null'
     })

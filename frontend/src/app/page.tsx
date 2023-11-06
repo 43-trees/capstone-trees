@@ -1,72 +1,35 @@
-'use client'
-import {NavBarOut} from "@/app/components/NavBarOut";
-import {NavBarIn} from "@/app/components/NavBarIn";
-import Map, {Popup} from 'react-map-gl'
-import {MapPin} from "@/app/components/Pin";
-import {useState} from "react";
-import {Tree} from "../../../backend/src/apis/tree/tree.model";
+import {Map} from "./Map"
+import {Tree, TreeSchema} from "@/utils/models/trees"
 
 
-export default function Home() {
- const data = await getData()
 
-    const [points] = useState([
-        { lat: 35.332, lng: -106.652 },
-        { lat: 35.339, lng: -106.656 },
-        { lat: 35.40, lng: -106.666 },
-        { lat: 35.23, lng: -106.4444 }
-    ])
-
-    const tree: Tree = {
-        treeId: "d11dfebd-14bf-4862-babe-c7259624d504",
-        treeProfileId: "c92ab4bc-7e4f-479e-b7e8-54d2c2882ae2",
-        treeAddress: "1701 Mountain Rd NW, Albuquerque, NM 87104",
-        treeEndDate: null,
-        treeDate: null,
-        treeInfo: "this is an apple tree outside explora",
-        treeImage: "https://img.freepik.com/free-vector/isolated-tree-white-background_1308-26130.jpg?w=2000",
-        treeLat: 35.09746,
-        treeLng: -106.664003,
-        treeTitle: "Explora Apples!",
-        treeSpecies: "apple"
-    }
-
-async function getData() Promise<{trees:Tree[]}> {
-     const result = await fetch (`${process.env.REST_API_URL}/apis/trees}`
-         .then(response => {
-         if(response.status === 200 || response.status === 304) {
-             const result = await response.json()
-             return result.data
-         }
-         throw new Error ('retrieving data failed')
-     }).catch(error => {console.error(error)})
-         const trees = TreeSchema.array().parse(result?.data)
-
-        const profiles = {}
-
-        for (let tree of trees) {
-            const result = await fetch(`process.env.{REST_API_URL}/apis/profile/${tree.treeProfileId}`)
-    }
-        return {trees,profiles}
-    }
+export default async function Home() {
+ const {trees} = await getData()
 
     return (
         <>
-            <div className="flex justify-center">
-            <Map
-                initialViewState={{
-                    latitude: 35.126561,
-                    longitude: -106.602690,
-                    zoom: 9
-                }}
-                mapboxAccessToken={process.env["NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN"]}
-                style={{ width: 600, height: 400 }}
-                mapStyle="mapbox://styles/jderaad/cloire14b003b01qsbhjp5r7i"
-                // mapbox://styles/jderaad/cloire14b003b01qsbhjp5r7i
-            >
-                {points.map((point, index) => <MapPin tree={tree} index={index} key={index}/>)}
-            </Map>
+            <div className="flex justify-center py-6">
+                <Map trees={trees}/>
             </div>
         </>
     )
+}
+
+async function getData(): Promise<{trees:Tree[]}> {
+    const url = `${process.env.REST_API_URL}/apis/tree/`
+
+    const result = await fetch(url)
+        .then(response => {
+
+            if (response.status === 200 || response.status === 304) {
+                return response.json()
+            }
+            throw new Error('retrieving data failed')
+        }).catch(error => {
+            console.error(error)
+        })
+
+    const trees = TreeSchema.array().parse(result?.data)
+
+    return {trees}
 }

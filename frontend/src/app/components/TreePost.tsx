@@ -24,7 +24,7 @@ export function TreePost(treeProps: TreeProps) {
                     <a href="" className="btn btn-circle self-center">❮</a>
                     {
                         treeImages.map((image: any) =>
-                    <div id="" className=" carousel-item h-60">
+                    <div key={image.imageUrl} className=" carousel-item h-60">
                     <img src={image.imageUrl} alt={image.alt} className="rounded-box "/>
 
                     </div>

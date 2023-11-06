@@ -1,31 +1,12 @@
-import {z, zod} from "zod"
+import {z} from "zod"
 
-export const PrivateProfileSchema = z.object({
+export const ProfileSchema = z.object({
     profileId: z.string({
         required_error: 'profileId is required',
         invalid_type_error: 'Please provide a valid profileId'
     })
         .uuid({ message: 'please provide a valid profileId' })
         .nullable(),
-
-    profileActivationToken: z.string({
-        required_error: 'Token is required',
-        invalid_type_error: 'please provide a valid token'
-    })
-        .length(32, 'Activation token must be 32 characters'),
-
-    profileEmail: z.string({
-        required_error: 'profileEmail is required',
-        invalid_type_error: 'please provide a valid profileEmail'
-    })
-        .email({ message: 'please provide a valid email' })
-        .max(128, { message: 'profileEmail is to long' }),
-
-    profileHash: z.string({
-        required_error: 'profileHash is required',
-        invalid_type_error: 'please provide a valid profileHash',
-    })
-        .length(97, { message: 'profile hash must be 97 characters' }),
 
     profileImageUrl: z.string({
         required_error: 'profileImage is required',
@@ -48,4 +29,4 @@ export const PrivateProfileSchema = z.object({
         .nullable()
 })
 
-export const PublicProfileSchema = PrivateProfileSchema.omit({profileHash: true, profileEmail: true})
+export type Profile = z.infer<typeof ProfileSchema>
