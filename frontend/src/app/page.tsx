@@ -8,6 +8,7 @@ import {Tree} from "../../../backend/src/apis/tree/tree.model";
 
 
 export default function Home() {
+ const data = await getData()
 
     const [points] = useState([
         { lat: 35.332, lng: -106.652 },
@@ -28,6 +29,25 @@ export default function Home() {
         treeLng: -106.664003,
         treeTitle: "Explora Apples!",
         treeSpecies: "apple"
+    }
+
+async function getData() Promise<{trees:Tree[]}> {
+     const result = await fetch (`${process.env.REST_API_URL}/apis/trees}`
+         .then(response => {
+         if(response.status === 200 || response.status === 304) {
+             const result = await response.json()
+             return result.data
+         }
+         throw new Error ('retrieving data failed')
+     }).catch(error => {console.error(error)})
+         const trees = TreeSchema.array().parse(result?.data)
+
+        const profiles = {}
+
+        for (let tree of trees) {
+            const result = await fetch(`process.env.{REST_API_URL}/apis/profile/${tree.treeProfileId}`)
+    }
+        return {trees,profiles}
     }
 
     return (
