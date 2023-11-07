@@ -2,8 +2,12 @@ import React from "react";
 import {TreePost} from "@/app/components/TreePost";
 import {Comment} from "@/app/components/CommentPost";
 
+type TreeProps = {
+   params: {treeId: string}
+}
 
-export default function Tree() {
+export default function Tree(props: TreeProps) {
+
     let tree = {
         treeAddress: "1600 Gold Ave NE",
         treeInfo: "You can find this tree on the corner of Gold and 4th. The apples are a little sweet making them perfect for cooking your favorite fall recipes with. I recommend going soon before they rot.",

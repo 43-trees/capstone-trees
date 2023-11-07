@@ -3,10 +3,12 @@ import './global.css'
 import {NavBarIn} from "@/app/components/NavBarIn";
 import {NavBarOut} from "@/app/components/NavBarOut";
 import {Foot} from "@/app/components/Foot";
+import 'mapbox-gl/dist/mapbox-gl.css'
+
 
 
 export const metadata: Metadata = {
-    title: 'Title Goes Here',
+    title: 'Urban Orchard',
     description: 'description goes here',
 }
 
