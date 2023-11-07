@@ -1,5 +1,7 @@
 import {Map} from "./Map"
 import {Tree, TreeSchema} from "@/utils/models/trees"
+import Link from "next/link";
+import React from "react";
 
 
 
@@ -10,6 +12,11 @@ export default async function Home() {
         <>
             <div className="flex justify-center py-6">
                 <Map trees={trees}/>
+                <div className="py-3">
+                    <button type="submit" className="bg-secondary hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">
+                        <Link href={"/submit"}>Submit a tree</Link>
+                    </button>
+                </div>
             </div>
         </>
     )
