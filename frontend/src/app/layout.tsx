@@ -3,7 +3,7 @@ import './global.css'
 import {NavBarIn} from "@/app/components/NavBarIn";
 import {NavBarOut} from "@/app/components/NavBarOut";
 import {Foot} from "@/app/components/Foot";
-import 'mapbox-gl/dist/mapbox-gl.css'
+// import 'mapbox-gl/dist/mapbox-gl.css'
 
 
 

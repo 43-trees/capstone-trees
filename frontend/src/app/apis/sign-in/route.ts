@@ -13,7 +13,6 @@ export async function POST(request: Request){
     )
 
     const cookies = response.headers.getSetCookie()
-    console.log(cookies)
     const result = await response.json()
     result.status === 200 ? result.type = "alert alert-success" : result.type = "alert alert-danger"
     return Response.json(result)
