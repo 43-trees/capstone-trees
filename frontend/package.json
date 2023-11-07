@@ -13,17 +13,11 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
     "formik": "^2.4.5",
-<<<<<<< HEAD
-    "next": "14.0.0",
-    "react": "^18",
-    "react-dom": "^18",
-=======
     "mapbox-gl": "^2.15.0",
     "next": "14.0.0",
     "react": "^18",
     "react-dom": "^18",
     "react-map-gl": "^7.1.6",
->>>>>>> map
     "zod-formik-adapter": "^1.2.0"
   },
   "devDependencies": {
