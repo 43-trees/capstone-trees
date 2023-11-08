@@ -14,6 +14,7 @@ export async function signUpProfileController (request: Request, response: Respo
             return zodErrorResponse(response, validationResult.error)
         }
 
+        console.log(process.env.MAILGUN_API_KEY)
         const mailgun: Mailgun = new Mailgun(formData)
         const mailgunClient = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY as string })
 

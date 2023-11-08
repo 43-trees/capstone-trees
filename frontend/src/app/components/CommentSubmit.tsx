@@ -6,7 +6,7 @@ type CommentSubmitProps = {
     onComment: (comment: string) => void;
 };
 
-export function Comment(commentProps: CommentSubmitProps) {
+export function CommentSubmit(commentProps: CommentSubmitProps) {
     const { profileName, onComment } = commentProps;
     const [comment, setComment] = useState('');
 
