@@ -8,7 +8,7 @@ type TreeProps = {
 
 export function TreePost(treeProps: TreeProps) {
     const {treeId} = treeProps
-    const tree = getData(treeId)
+    const tree = await getData(treeId)
     // let treeSpeciesAlt = `This is a ${treeSpecies} tree`
     // let tree = {imageUrl: treeImage, alt: treeSpecies}
     // let trees = [tree, tree, tree]
