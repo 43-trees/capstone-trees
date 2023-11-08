@@ -52,7 +52,7 @@ export async function signUpProfileController (request: Request, response: Respo
         await insertProfile(profile)
 
         await mailgunClient.messages.create(process.env.MAILGUN_DOMAIN as string, mailgunMessage)
-
+console.log("after mailgun message create")
         const status: Status = {
             status: 200,
             message: 'Profile created successfully please check your email.',
