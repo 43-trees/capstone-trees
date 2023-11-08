@@ -33,7 +33,8 @@ export default function SignUpComponent() {
 
         return (
             <>
-                <h1 className="text-3xl pb-0 font-bold">Login</h1>
+                <div className="md:mx-16 my-8">
+                <h1 className="md:text-5xl text-4xl pb-2 font-bold text-center">Sign Up</h1>
                 <Formik
                     initialValues={initialValues}
                     onSubmit={handleSubmit}
@@ -41,6 +42,7 @@ export default function SignUpComponent() {
                 >
                     {SignUpFormContent}
                 </Formik>
+                </div>
 
             </>
         )
@@ -64,14 +66,14 @@ export default function SignUpComponent() {
 
         return (
             <>
-                <form onSubmit={handleSubmit} className={""}>
+                <form onSubmit={handleSubmit} className="">
                     <div className="form-control">
-                        <label className="label" htmlFor="profileEmail">Email</label>
+                        <label className="label font-semibold self-center" htmlFor="profileEmail">Email</label>
                         <input
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.profileEmail}
-                            className="input input-bordered w-full max"
+                            className="input input-bordered w-1/2 max bg-primary mx-auto"
                             type="text"
                             name="profileEmail"
                             id="profileEmail"
@@ -79,12 +81,12 @@ export default function SignUpComponent() {
                         <DisplayError errors={errors} touched={touched} field={"profileEmail"} />
                     </div>
                     <div className="form-control">
-                        <label className="label" htmlFor="profileName">Name</label>
+                        <label className="label font-semibold self-center" htmlFor="profileName">Name</label>
                         <input
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.profileName}
-                            className="input input-bordered w-full max"
+                            className="input input-bordered w-1/2 max bg-primary mx-auto"
                             type="text"
                             name="profileName"
                             id="profileName"
@@ -92,9 +94,9 @@ export default function SignUpComponent() {
                         <DisplayError errors={errors} touched={touched} field={"profileName"} />
                     </div>
                     <div className=" form-control">
-                        <label className={" label"} htmlFor="password">Password</label>
+                        <label className={" label font-semibold self-center"} htmlFor="password">Password</label>
                         <input
-                            className="input input-bordered w-full max"
+                            className="input input-bordered w-1/2 max bg-primary mx-auto"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.profilePassword}
@@ -105,9 +107,9 @@ export default function SignUpComponent() {
                         <DisplayError errors={errors} touched={touched} field={"profilePassword"} />
                     </div>
                     <div className=" form-control">
-                        <label className={" label"} htmlFor="passwordConfirm">Password Confirm</label>
+                        <label className={" label font-semibold self-center"} htmlFor="passwordConfirm">Password Confirm</label>
                         <input
-                            className="input input-bordered w-full max"
+                            className="input input-bordered w-1/2 max bg-primary mx-auto"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.profilePasswordConfirm}
@@ -117,9 +119,9 @@ export default function SignUpComponent() {
                         />
                         <DisplayError errors={errors} touched={touched} field={"profilePassword"} />
                     </div>
-                    <div className="py-2 flex gap-2">
-                        <button className='btn btn-success' type="submit">Create Account</button>
-                        <button className='btn btn-danger' onClick={handleReset} type="reset">reset</button>
+                    <div className="py-2 flex gap-2 justify-center py-4">
+                        <button className='btn bg-secondary border-secondary btn-success hover:bg-info text-white' type="submit">Create Account</button>
+                        <button className='btn btn-danger bg-accent/90 text-white hover:bg-info' onClick={handleReset} type="reset">reset</button>
                     </div>
                     <DisplayStatus status={status} />
                 </form>
