@@ -119,7 +119,7 @@ export default function SignUpComponent() {
                         />
                         <DisplayError errors={errors} touched={touched} field={"profilePassword"} />
                     </div>
-                    <div className="py-2 flex gap-2 justify-center py-4">
+                    <div className="flex gap-2 justify-center py-4">
                         <button className='btn bg-secondary border-secondary btn-success hover:bg-info text-white' type="submit">Create Account</button>
                         <button className='btn btn-danger bg-accent/90 text-white hover:bg-info' onClick={handleReset} type="reset">reset</button>
                     </div>
