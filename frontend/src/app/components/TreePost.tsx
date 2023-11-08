@@ -1,13 +1,14 @@
 import Image from 'next/image'
+import {Tree, TreeSchema} from "@/utils/models/trees";
 
 type TreeProps = {
-   tree: any,
-    treeImages: any
+   treeId: string
 }
 
 
 export function TreePost(treeProps: TreeProps) {
-    const {tree, treeImages} = treeProps
+    const {treeId} = treeProps
+    const tree = getData(treeId)
     // let treeSpeciesAlt = `This is a ${treeSpecies} tree`
     // let tree = {imageUrl: treeImage, alt: treeSpecies}
     // let trees = [tree, tree, tree]
@@ -62,5 +63,21 @@ export function TreePost(treeProps: TreeProps) {
     )
 }
 
+async function getData(treeId: string): Promise<Tree> {
+    const url = `${process.env.REST_API_URL}/apis/tree/${treeId}`
+
+    const result = await fetch(url)
+        .then(response => {
+
+            if (response.status === 200 || response.status === 304) {
+                return response.json()
+            }
+            throw new Error('retrieving data failed')
+        }).catch(error => {
+            console.error(error)
+        })
+
+    return TreeSchema.parse(result?.data)
+}
 
 

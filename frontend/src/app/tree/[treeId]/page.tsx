@@ -1,15 +1,16 @@
+'use client'
 import React from "react";
 import {TreePost} from "@/app/components/TreePost";
 import {Comment} from "@/app/components/CommentPost";
 import {CommentSubmit} from "@/app/components/CommentSubmit";
+import {Tree, TreeSchema} from "@/utils/models/trees";
+import {useParams} from "next/navigation";
 
-type TreeProps = {
-   params: {treeId: string},
-    tree: Tree[]
-}
 
-export default function Tree(props: TreeProps) {
 
+export default function Tree() {
+const params = useParams()
+    console.log(params)
     // let tree = {
     //     treeAddress: "1600 Gold Ave NE",
     //     treeInfo: "You can find this tree on the corner of Gold and 4th. The apples are a little sweet making them perfect for cooking your favorite fall recipes with. I recommend going soon before they rot.",
@@ -22,10 +23,11 @@ export default function Tree(props: TreeProps) {
     return (
         <>
             <section className="md:mx-16 rounded-lg bg-primary p-20 my-12">
-         <TreePost treeImages={treeImages} tree={tree}/>
+         {/*<TreePost treeId={treeId}/>*/}
             <Comment commentContent={"I loved the apples from this tree! They were perfect for my home brew."} profileName={"nacholibre"}/>
                 <CommentSubmit commentContent={} profileName={} onComment={}/>
             </section>
         </>
     )
 }
+
