@@ -1,15 +1,17 @@
-import Image from 'next/image'
+'use server'
+import Img from 'next/image'
 import {Tree, TreeSchema} from "@/utils/models/trees";
+import {Image, ImageSchema} from "@/utils/models/images";
 
 type TreeProps = {
    treeId: string
 }
 
 
-export function TreePost(treeProps: TreeProps) {
+export async function TreePost(treeProps: TreeProps) {
     const {treeId} = treeProps
-    const tree = await getData(treeId)
-    // let treeSpeciesAlt = `This is a ${treeSpecies} tree`
+    const {tree, images} = await getData(treeId)
+    let treeSpeciesAlt = `This is a ${tree.treeSpecies} tree`
     // let tree = {imageUrl: treeImage, alt: treeSpecies}
     // let trees = [tree, tree, tree]
     return (
@@ -24,9 +26,9 @@ export function TreePost(treeProps: TreeProps) {
                 <div className="carousel carousel-center p-4 space-x-4 bg-neutral rounded-box">
                     <a href="" className="btn btn-circle self-center">❮</a>
                     {
-                        treeImages.map((image: any) =>
+                        images.map((image) =>
                     <div key={image.imageUrl} className=" carousel-item h-60">
-                    <img src={image.imageUrl} alt={image.alt} className="rounded-box "/>
+                    <img src={image.imageUrl} alt={treeSpeciesAlt} className="rounded-box "/>
 
                     </div>
                         )}
@@ -46,7 +48,7 @@ export function TreePost(treeProps: TreeProps) {
 
                 {/*// tree address*/}
                 <div className="flex flex-row justify-center p-4">
-                    <Image src="/map-pin-icon.png" alt="an icon of a map pin" className="" width={72}
+                    <Img src="/map-pin-icon.png" alt="an icon of a map pin" className="" width={72}
                            height={35}/>
                     <p className="text-center text-3xl py-4">{tree.treeAddress}</p>
                 </div>
@@ -63,10 +65,10 @@ export function TreePost(treeProps: TreeProps) {
     )
 }
 
-async function getData(treeId: string): Promise<Tree> {
+async function getData(treeId: string): Promise<{tree: Tree, images: Image[]}> {
     const url = `${process.env.REST_API_URL}/apis/tree/${treeId}`
 
-    const result = await fetch(url)
+    const treeResult = await fetch(url)
         .then(response => {
 
             if (response.status === 200 || response.status === 304) {
@@ -77,7 +79,22 @@ async function getData(treeId: string): Promise<Tree> {
             console.error(error)
         })
 
-    return TreeSchema.parse(result?.data)
+    const tree = TreeSchema.parse(treeResult?.data)
+
+    const imageResult = await fetch(url)
+        .then(response => {
+
+            if (response.status === 200 || response.status === 304) {
+                return response.json()
+            }
+            throw new Error('retrieving data failed')
+        }).catch(error => {
+            console.error(error)
+        })
+
+    const images = ImageSchema.array().parse(imageResult?.data)
+
+    return {tree, images }
 }
 
 
