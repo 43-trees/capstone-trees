@@ -25,7 +25,7 @@ const params = useParams()
             <section className="md:mx-16 rounded-lg bg-primary p-20 my-12">
          {/*<TreePost treeId={treeId}/>*/}
             <Comment commentContent={"I loved the apples from this tree! They were perfect for my home brew."} profileName={"nacholibre"}/>
-                <CommentSubmit commentContent={} profileName={} onComment={}/>
+                <CommentSubmit commentContent={commentContent} profileName={profileName} onComment={}/>
             </section>
         </>
     )
