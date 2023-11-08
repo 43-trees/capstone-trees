@@ -16,6 +16,7 @@ export async function signUpProfileController (request: Request, response: Respo
 
         const mailgun: Mailgun = new Mailgun(formData)
         const mailgunClient = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY as string })
+        console.log(process.env.MAILGUN_API_KEY)
 
         const { profileName, profileEmail, profilePassword } = request.body
 
@@ -27,7 +28,7 @@ export async function signUpProfileController (request: Request, response: Respo
 
         const basePath: string = `${request.protocol}://${request.hostname}:8080${request.originalUrl}activation/${profileActivationToken}`
 
-        const message = `<h2>Welcome to Trees.<h2>
+        const message = `<h2>Welcome to Urban Orchard<h2>
           <p>In order to start finding or posting trees you must confirm your account.</p>
           <p><a href="${basePath}">${basePath}</a></p>`
 
