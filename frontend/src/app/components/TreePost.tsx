@@ -19,17 +19,17 @@ export function TreePost(treeProps: TreeProps) {
                 <h2 className="md:text-5xl text-4xl text-neutral/80 font-bold text-center p-4">{tree.treeTitle}</h2>
 
                 {/*// carousel of tree images*/}
-                <div className="md:w-1/2 mx-auto flex">
-                <div className="carousel carousel-center p-4 space-x-4 bg-neutral rounded-box">
-                    <a href="" className="btn btn-circle self-center">❮</a>
+                <div id="carousel" className="md:w-1/4 mx-auto carousel  rounded-box flex">
+
+                <div id="" className="carousel-item p-4 space-x-4 bg-neutral rounded-box">
                     {
                         treeImages.map((image: any) =>
-                    <div key={image.imageUrl} className=" carousel-item h-60">
-                    <img src={image.imageUrl} alt={image.alt} className="rounded-box "/>
-
+                    <div key={image.imageUrl} className=" carousel-item  w-[24rem] h-72">
+                        <a href="" className="btn btn-circle self-center">❮</a>
+                    <img src={image.imageUrl} alt={image.alt} className="w-11/12 object-contain rounded-box"/>
+                        <a href="" className="btn btn-circle self-center">❯</a>
                     </div>
                         )}
-                    <a href="" className="btn btn-circle self-center">❯</a>
                 </div>
                 </div>
 
