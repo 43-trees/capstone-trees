@@ -4,6 +4,7 @@ import {toFormikValidationSchema} from "zod-formik-adapter";
 import {SignUp, SignUpSchema} from "@/utils/models/sign-up";
 import {DisplayError} from "@/app/components/displayError";
 import {DisplayStatus} from "@/app/components/displayStatus";
+import {FormDebugger} from "@/app/components/formDebugger";
 
 export default function SignUpComponent() {
     const initialValues: SignUp = {
@@ -15,13 +16,14 @@ export default function SignUpComponent() {
 
     const handleSubmit = (values: SignUp, actions: FormikHelpers<SignUp>) => {
         const {setStatus, resetForm} = actions
-        const result = fetch('/apis/sign-up', {
+         fetch('/apis/sign-up', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(values)
         }).then(response => response.json()).then(json => {
+            console.log(json)
             if (json.status === 200) {
                 resetForm()
             }
@@ -108,7 +110,7 @@ export default function SignUpComponent() {
                             className="input input-bordered w-full max"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.profilePassword}
+                            value={values.profilePasswordConfirm}
                             type="password"
                             name="profilePasswordConfirm"
                             id="profilePasswordConfirm"
@@ -121,7 +123,7 @@ export default function SignUpComponent() {
                     </div>
                     <DisplayStatus status={status} />
                 </form>
-
+                 <FormDebugger   {...props}/>
             </>
         )
     }
