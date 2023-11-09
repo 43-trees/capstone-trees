@@ -1,14 +1,47 @@
+
 type AvatarProps = {
-    link: string
+    profileId: string,
+    profileImageUrl: string
 }
 
-export function Avatar(avatarProps: AvatarProps) {
-    const {link} = avatarProps
+export async function Avatar(avatarProps: AvatarProps) {
+    const {profileId} = avatarProps
+    const {profile, image} = await getData(profileId)
+    let avatarAlt = `Profile picture for user ${profile.profileName}`
+
     return (
         <div>
             <div className="max-md:px-16">
-                <img className="rounded-full" src={link} alt="profile picture of current user"/>
+                <img className="rounded-full" src={profile.profileImageUrl} alt="profile picture of current user"/>
             </div>
         </div>
     )}
 
+async function  getData(profileId: string): Promise<{profile: Profile, image: Image[]}> {
+    const url = `${process.env.REST_API_URL}/apis/profile/${profileId}`
+
+    const profileResult = await fetch(url)
+        .then(response => {
+            if (response.status === 200 || response.status === 304) {
+                return response.json()
+            }
+            throw new Error('retrieving data failed')
+        }).catch(error =>{
+            console.error(error)
+        })
+
+    const profile = ProfileSchema.parse(profileResult?.data)
+
+    const imageResult = await fetch(url)
+        .then(response => {
+            if (response.status === 200 || response.status === 304) {
+                return response.json()
+            }
+            throw new Error('retrieving data failed')
+        }).catch(error =>{
+            console.error(error)
+        })
+    const image = ImageSchema.array().parse(imageResult?.data)
+
+    return {profile, image}
+}
