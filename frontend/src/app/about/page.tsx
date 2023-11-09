@@ -3,7 +3,7 @@ export default function About() {
         <>
             <section className="bg-primary p-6 mx-56 my-12 drop-shadow-lg">
                 <h1 className="text-3xl">About the Project</h1>
-                <div className="p-6">
+                <div className="p-6 text-lg">
                     <p>
                         Urban Orchard was created as a capstone project for CNM Ingenuity's Deep Dive Full Stack bootcamp. With this project we hope to not only make fruit more accessible to the public but also to reduce food waste by allowing farmers and community members to list their excess fruit.
                     </p>

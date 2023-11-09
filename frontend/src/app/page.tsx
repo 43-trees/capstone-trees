@@ -6,21 +6,21 @@ import React from "react";
 
 
 export default async function Home() {
- const {trees} = await getData()
+    const {trees} = await getData()
 
     return (
         <>
             <section className="bg-accent/50 my-8 md:mx-72 rounded-md">
-            <div className="flex justify-center py-6">
-                <div>
-                <Map trees={trees}/>
-                    <div className="py-3 flex justify-end">
-                    <button type="submit" className="bg-secondary hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">
-                        <Link href={"/submit"}>Submit a tree</Link>
-                    </button>
+                <div className="flex justify-center py-6">
+                    <div>
+                        <Map trees={trees}/>
+                        <div className="py-3 flex justify-end">
+                            <button type="submit" className="bg-secondary hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">
+                                <Link href={"/submit"}>Submit a tree</Link>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
             </section>
         </>
     )
