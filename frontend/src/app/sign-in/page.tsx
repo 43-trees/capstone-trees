@@ -1,26 +1,100 @@
+"use client";
+import {Formik, FormikHelpers, FormikProps} from "formik";
+import {toFormikValidationSchema} from "zod-formik-adapter";
+// import {FormDebugger} from "@/components/formDebugger";
+import {SignIn, SignInSchema} from "@/utils/models/sign-in";
+import {DisplayStatus} from "@/app/components/displayStatus";
+import {DisplayError} from "@/app/components/displayError";
 
-export default function SignIn() {
+export default function SignInFormComponent() {
+
+    const initialValues : any = {
+        profileEmail: '',
+        profilePassword: ''
+    }
+
+    const handleSubmit = (values: SignIn, actions: FormikHelpers<SignIn>) => {
+        const {setStatus, resetForm} = actions
+        const result = fetch('/apis/sign-in', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values)
+        }).then(response => response.json()).then(json => {
+            if(json.status === 200) {
+                resetForm()
+            }
+            setStatus({type: json.type, message: json.message})
+        })
+    }
+
     return(
         <>
-            <form  className="md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8">
-                <div className="py-3">
-                    <label htmlFor="name" className="block text-gray text-sm font-bold mb-2">Username</label>
-                    <input type="text" id="name" name="name"
-                           className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"/>
-                </div>
-                <div className="py-3">
-                    <label htmlFor="email" className="block text-gray text-sm font-bold mb-2">Password</label>
-                    <input type="email" id="email" name="email"
-                           className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"/>
-                </div>
+            <h1 className="text-3xl pb-0 font-bold">Login</h1>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
+                validationSchema={toFormikValidationSchema(SignInSchema)}
+            >
+                {SignInFormContent}
+            </Formik>
 
-                <div className="py-3">
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Send
-                    </button>
+        </>
+    )
+}
+
+
+function SignInFormContent(props: FormikProps<SignIn>) {
+
+    const {
+        status,
+        values,
+        errors,
+        touched,
+        dirty,
+        isSubmitting,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        handleReset
+    } = props;
+
+    return(
+        <>
+            <form onSubmit={handleSubmit} className={""}>
+                <div className="form-control">
+                    <label className="label" htmlFor="profileEmail">email</label>
+                    <input
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.profileEmail}
+                        className="input input-bordered w-full max"
+                        type="text"
+                        name="profileEmail"
+                        id="profileEmail"
+                    />
+                    <DisplayError errors={errors} touched={touched} field={"profileEmail"} />
                 </div>
+                <div className=" form-control">
+                    <label className={" label"} htmlFor="password">Password</label>
+                    <input
+                        className="input input-bordered w-full max"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.profilePassword}
+                        type="password"
+                        name="profilePassword"
+                        id="password"
+                    />
+                    <DisplayError errors={errors} touched={touched} field={"profilePassword"} />
+                </div>
+                <div className="py-2 flex gap-2">
+                    <button className='btn btn-success' type="submit">Log In</button>
+                    <button className='btn btn-danger' onClick={handleReset} type="reset">reset</button>
+                </div>
+                <DisplayStatus status={status} />
             </form>
-
         </>
     )
 }
