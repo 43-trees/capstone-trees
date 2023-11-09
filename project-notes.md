@@ -25,6 +25,7 @@
   - page
   - test map with more pins
 - comments
+- avatar
 
 ### submission form for:
 - comments
