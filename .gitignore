@@ -19,6 +19,7 @@ project.env
 */.env.development.local
 .env.development
 */.env.test.local
+.env.development
 
 
 */npm-debug.log*
