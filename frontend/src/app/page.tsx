@@ -39,7 +39,6 @@ async function getData(): Promise<{trees:Tree[]}> {
         }).catch(error => {
             console.error(error)
         })
-    console.log("result", result)
     const trees = TreeSchema.array().parse(result?.data)
 
     return {trees}

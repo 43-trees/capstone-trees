@@ -7,6 +7,7 @@ import {Foot} from "@/app/components/Foot";
 
 
 
+
 export const metadata: Metadata = {
     title: 'Urban Orchard',
     description: 'description goes here',
