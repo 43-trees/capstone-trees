@@ -1,3 +1,6 @@
+import {Profile, ProfileSchema} from "@/utils/models/profiles";
+import {Image, ImageSchema} from "@/utils/models/images";
+import Img from "next/image";
 
 type AvatarProps = {
     profileId: string,
@@ -12,7 +15,7 @@ export async function Avatar(avatarProps: AvatarProps) {
     return (
         <div>
             <div className="max-md:px-16">
-                <img className="rounded-full" src={profile.profileImageUrl} alt="profile picture of current user"/>
+                <Img className="rounded-full" src={profile.profileImageUrl as string} alt="profile picture of current user"/>
             </div>
         </div>
     )}
