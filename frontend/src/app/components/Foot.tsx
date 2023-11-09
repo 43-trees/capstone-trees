@@ -1,6 +1,5 @@
 export function Foot () {
     const footerStyle = {
-        backgroundColor: '#000000',
         color: '#F8F8FF',
         padding: '20px 0',
        position: 'fixed',
@@ -20,9 +19,9 @@ export function Foot () {
 
         return (
             <>
-            <footer style={footerStyle}>
+            <footer className='bg-neutral/75' style={footerStyle}>
                 <div style={containerStyle}>
-                    <p style={pStyle}>&copy; trees 2023</p>
+                    <p className='text-center' style={pStyle}>&copy; Urban Orchard 2023</p>
                 </div>
             </footer>
             </>
