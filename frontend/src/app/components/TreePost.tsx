@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 type TreeProps = {
-   tree: any,
+    tree: any,
     treeImages: any
 }
 
@@ -20,17 +20,22 @@ export function TreePost(treeProps: TreeProps) {
 
                 {/*// carousel of tree images*/}
                 <div className="md:w-1/2 mx-auto flex">
-                <div className="carousel carousel-center p-4 space-x-4 bg-neutral rounded-box">
-                    <a href="" className="btn btn-circle self-center">❮</a>
-                    {
-                        treeImages.map((image: any) =>
-                    <div key={image.imageUrl} className=" carousel-item h-60">
-                    <img src={image.imageUrl} alt={image.alt} className="rounded-box "/>
+                    <div className="carousel carousel-center p-4 space-x-4 bg-neutral rounded-box">
 
+                        {
+                            treeImages.map((image: any, index: number) =>
+                                // <a href="" className="btn btn-circle self-center">❮</a>
+                                <div id={`slide${index}`} key={image.imageUrl} className=" carousel-item h-60">
+                                    <img src={image.imageUrl} alt={image.alt} className="rounded-box "/>
+                                    {/*<a href="" className="btn btn-circle self-center">❯</a>*/}
+                                    <div
+                                        className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                                        <a href={`slide${index -1 < 0 ? treeImages.length -1 : index -1}`} className="btn btn-circle">❮</a>
+                                        <a href={`slide${index +1 === treeImages.length ? 0 : index +1}`}className="btn btn-circle">❯</a>
+                                    </div>
+                                </div>
+                            )}
                     </div>
-                        )}
-                    <a href="" className="btn btn-circle self-center">❯</a>
-                </div>
                 </div>
 
                 {/*// species of tree*/}
@@ -40,7 +45,8 @@ export function TreePost(treeProps: TreeProps) {
 
                 {/*// tree vote rating*/}
                 <div className="">
-                    <img src="https://placekitten.com/50/50" alt="an apple icon to rank the quality of the tree" className="mx-auto"/>
+                    <img src="https://placekitten.com/50/50" alt="an apple icon to rank the quality of the tree"
+                         className="mx-auto"/>
                 </div>
 
                 {/*// tree address*/}
@@ -54,7 +60,7 @@ export function TreePost(treeProps: TreeProps) {
                 <div>
                     <h2 className="text-3xl text-center text-neutral/80 font-semibold p-2">Tree Info</h2>
                     <div className="bg-base-100 p-4 rounded-lg">
-                    <p className="md:text-center py-2 text-justify ">{tree.treeInfo}</p>
+                        <p className="md:text-center py-2 text-justify ">{tree.treeInfo}</p>
                     </div>
                 </div>
             </section>
