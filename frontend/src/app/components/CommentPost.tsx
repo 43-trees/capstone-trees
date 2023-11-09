@@ -16,7 +16,13 @@ export async function Comment(commentProps: CommentProps) {
         <>
             <section className="bg-base-100 p-4 rounded-lg md:w-96 mx-auto">
                 <h3 className="text-md text-start font-semibold text-secondary">{profileName}</h3>
-                <p className="text-justify">{commentContent}</p>
+                <div>{
+                    comments.map((comment) =>
+                        <div key={comment.commentContent}>
+                            <p className="text-justify">{comment.commentContent}</p>
+                        </div>
+                    )}
+                </div>
             </section>
         </>
     )
