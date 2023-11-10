@@ -38,7 +38,7 @@ export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
 
     return (
         <>
-            <h1 className="text-3xl font-bold text-neutral">Login</h1>
+            <h1 className="text-2xl font-bold text-neutral">Comment</h1>
             <Formik
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
@@ -78,7 +78,7 @@ function CommentFormContent(props: FormikProps<Comment>) {
                     id="commentContent"
                 >
                 </textarea>
-                <button type="submit">Comment</button>
+                <button type="submit" className="block justify-end bg-secondary border-secondary border-2 rounded-md ">Comment</button>
             </form>
         </>
     )
