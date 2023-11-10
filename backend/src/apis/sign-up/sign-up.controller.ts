@@ -14,8 +14,10 @@ export async function signUpProfileController (request: Request, response: Respo
             return zodErrorResponse(response, validationResult.error)
         }
 
+        console.log(process.env.MAILGUN_API_KEY)
         const mailgun: Mailgun = new Mailgun(formData)
         const mailgunClient = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY as string })
+        console.log(process.env.MAILGUN_API_KEY)
 
         const { profileName, profileEmail, profilePassword } = request.body
 
@@ -27,7 +29,7 @@ export async function signUpProfileController (request: Request, response: Respo
 
         const basePath: string = `${request.protocol}://${request.hostname}:8080${request.originalUrl}activation/${profileActivationToken}`
 
-        const message = `<h2>Welcome to Trees.<h2>
+        const message = `<h2>Welcome to Urban Orchard<h2>
           <p>In order to start finding or posting trees you must confirm your account.</p>
           <p><a href="${basePath}">${basePath}</a></p>`
 
@@ -51,7 +53,7 @@ export async function signUpProfileController (request: Request, response: Respo
         await insertProfile(profile)
 
         await mailgunClient.messages.create(process.env.MAILGUN_DOMAIN as string, mailgunMessage)
-
+console.log("after mailgun message create")
         const status: Status = {
             status: 200,
             message: 'Profile created successfully please check your email.',
@@ -60,6 +62,7 @@ export async function signUpProfileController (request: Request, response: Respo
 
         return response.json(status)
     } catch (error: any) {
+        console.log(error)
         const status: Status = {
             status: 500,
             message: error.message,

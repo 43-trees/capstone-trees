@@ -2,7 +2,7 @@ import {z} from 'zod';
 import {PrivateProfileSchema} from "../profile/profile.validator";
 
 export const SignUpProfileSchema = PrivateProfileSchema
-  .omit ({profileId: true, profileActivationToken: true, profileHash: true, profileImageUrl: true})
+  .omit ({profileId: true, profileActivationToken: true, profileHash: true, profileImageUrl: true, profileJoinDate: true,})
   .extend({
       profilePasswordConfirm: z.string()
           .min(8, {message: 'please provide a valid password (min 8 characters)'})

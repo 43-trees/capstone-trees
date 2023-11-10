@@ -1,0 +1,100 @@
+"use client";
+import {Formik, FormikHelpers, FormikProps} from "formik";
+import {toFormikValidationSchema} from "zod-formik-adapter";
+// import {FormDebugger} from "@/components/formDebugger";
+import {SignIn, SignInSchema} from "@/utils/models/sign-in";
+import {DisplayStatus} from "@/app/components/displayStatus";
+import {DisplayError} from "@/app/components/displayError";
+
+export default function SignInFormComponent() {
+
+    const initialValues : any = {
+        profileEmail: '',
+        profilePassword: ''
+    }
+
+    const handleSubmit = (values: SignIn, actions: FormikHelpers<SignIn>) => {
+        const {setStatus, resetForm} = actions
+        const result = fetch('/apis/sign-in', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values)
+        }).then(response => response.json()).then(json => {
+            if(json.status === 200) {
+                resetForm()
+            }
+            setStatus({type: json.type, message: json.message})
+        })
+    }
+
+    return(
+        <>
+            <h1 className="text-3xl pb-0 font-bold">Login</h1>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
+                validationSchema={toFormikValidationSchema(SignInSchema)}
+            >
+                {SignInFormContent}
+            </Formik>
+
+        </>
+    )
+}
+
+
+function SignInFormContent(props: FormikProps<SignIn>) {
+
+    const {
+        status,
+        values,
+        errors,
+        touched,
+        dirty,
+        isSubmitting,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        handleReset
+    } = props;
+
+    return(
+        <>
+            <form onSubmit={handleSubmit} className={""}>
+                <div className="form-control">
+                    <label className="label" htmlFor="profileEmail">email</label>
+                    <input
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.profileEmail}
+                        className="input input-bordered w-full max"
+                        type="text"
+                        name="profileEmail"
+                        id="profileEmail"
+                    />
+                    <DisplayError errors={errors} touched={touched} field={"profileEmail"} />
+                </div>
+                <div className=" form-control">
+                    <label className={" label"} htmlFor="password">Password</label>
+                    <input
+                        className="input input-bordered w-full max"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.profilePassword}
+                        type="password"
+                        name="profilePassword"
+                        id="password"
+                    />
+                    <DisplayError errors={errors} touched={touched} field={"profilePassword"} />
+                </div>
+                <div className="py-2 flex gap-2">
+                    <button className='btn btn-success' type="submit">Log In</button>
+                    <button className='btn btn-danger' onClick={handleReset} type="reset">reset</button>
+                </div>
+                <DisplayStatus status={status} />
+            </form>
+        </>
+    )
+}
