@@ -4,7 +4,7 @@ import {Tree, TreeSchema} from "@/utils/models/trees";
 import {Image, ImageSchema} from "@/utils/models/images";
 
 type TreeProps = {
-   treeId: string
+    treeId: string
 }
 
 
@@ -22,18 +22,19 @@ export async function TreePost(treeProps: TreeProps) {
                 <h2 className="md:text-5xl text-4xl text-neutral/80 font-bold text-center p-4">{tree.treeTitle}</h2>
 
                 {/*// carousel of tree images*/}
-                <div className="md:w-1/2 mx-auto flex">
-                <div className="carousel carousel-center p-4 space-x-4 bg-neutral rounded-box">
-                    <a href="" className="btn btn-circle self-center">❮</a>
-                    {
-                        images.map((image) =>
-                    <div key={image.imageUrl} className=" carousel-item h-60">
-                    <img src={image.imageUrl} alt={treeSpeciesAlt} className="rounded-box "/>
+                <div id="carousel" className="md:w-1/4 mx-auto carousel  rounded-box flex">
 
+                <div id="" className="carousel-item p-4 space-x-4 bg-neutral rounded-box">
+                    {
+                        images.map((image: any) =>
+                    <div key={image.imageUrl} className=" carousel-item  w-[24rem] h-72">
+                        <a href="" className="btn btn-circle self-center">❮</a>
+                    <img src={image.imageUrl} alt={image.alt} className="w-11/12 object-contain rounded-box"/>
+                        <a href="" className="btn btn-circle self-center">❯</a>
                     </div>
                         )}
-                    <a href="" className="btn btn-circle self-center">❯</a>
                 </div>
+
                 </div>
 
                 {/*// species of tree*/}
@@ -49,7 +50,7 @@ export async function TreePost(treeProps: TreeProps) {
                 {/*// tree address*/}
                 <div className="flex flex-row justify-center p-4">
                     <Img src="/map-pin-icon.png" alt="an icon of a map pin" className="" width={72}
-                           height={35}/>
+                         height={35}/>
                     <p className="text-center text-3xl py-4">{tree.treeAddress}</p>
                 </div>
 
@@ -57,7 +58,7 @@ export async function TreePost(treeProps: TreeProps) {
                 <div>
                     <h2 className="text-3xl text-center text-neutral/80 font-semibold p-2">Tree Info</h2>
                     <div className="bg-base-100 p-4 rounded-lg">
-                    <p className="md:text-center py-2 text-justify ">{tree.treeInfo}</p>
+                        <p className="md:text-center py-2 text-justify ">{tree.treeInfo}</p>
                     </div>
                 </div>
             </section>
