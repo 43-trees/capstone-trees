@@ -38,6 +38,10 @@
 - images on comments
 
 ### styling
+- about me page
+  - images for all of team
+  - short bio for all of team
+
 
 ### images 
 - image upload 
