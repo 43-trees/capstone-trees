@@ -22,7 +22,7 @@ export default function RootLayout(props : RootLayoutProps) {
     return (
         <html data-theme="light" lang="en">
         <body>
-        <NavBarIn/>
+        <NavBarOut/>
         {children}
         <Foot/>
         </body>
