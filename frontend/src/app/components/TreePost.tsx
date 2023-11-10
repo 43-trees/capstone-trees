@@ -29,7 +29,7 @@ export async function TreePost(treeProps: TreeProps) {
                         images.map((image: any) =>
                     <div key={image.imageUrl} className=" carousel-item  w-96 h-72">
                         <a href="" className="btn btn-circle self-center">❮</a>
-                    <img src={image.imageUrl} alt={image.alt} className="w-11/12 object-contain rounded-box" width={200} height={200}/>
+                    <img src={image.imageUrl} alt={image.alt} className="w-11/12 object-contain rounded-box"/>
                         <a href="" className="btn btn-circle self-center">❯</a>
                     </div>
                         )}
