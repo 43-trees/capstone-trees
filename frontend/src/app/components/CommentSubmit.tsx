@@ -1,15 +1,26 @@
 'use client'
 import React, {useState} from "react";
-import {FormikHelpers, FormikProps} from "formik";
+import {Formik, FormikHelpers, FormikProps} from "formik";
+import {Comment, CommentSchema} from "@/utils/models/comments"
+import {toFormikValidationSchema} from "zod-formik-adapter";
+import {Profile} from "@/utils/models/profiles";
 
-
-export function CommentSubmitComponent() {
+type CommentSubmitComponentProps = {
+    treeId: string
+    profile: Profile
+}
+export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
+    const {treeId} = props
     const initialValues: any = {
+        commentId: null,
         commentContent: '',
-        profileName: ''
+        commentDatetime: null,
+        commentImageUrl: null,
+        commentProfileId: '',
+        commentTreeId: treeId
     }
 
-    const handleCommentSubmit = (values: CommentSubmit, actions: FormikHelpers<CommentSubmit>)=> {
+    const handleSubmit = (values: Comment, actions: FormikHelpers<Comment>)=> {
         const {setStatus, resetForm} = actions
         const result = fetch('/apis/comment', {
             method: "POST",
@@ -24,11 +35,22 @@ export function CommentSubmitComponent() {
             setStatus({type: json.type, message: json.message})
         })
     };
-    
 
+    return (
+        <>
+            <h1 className="text-3xl font-bold text-neutral">Login</h1>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
+                validatorSchema={toFormikValidationSchema(CommentSchema)}
+                    >
+                {CommentFormContent}
+            </Formik>
+        </>
+    )
 }
 
-function commentSubmitContent(props: FormikProps<CommentSubmit>) {
+function CommentFormContent(props: FormikProps<Comment>) {
 
     const {
         status,
@@ -45,13 +67,16 @@ function commentSubmitContent(props: FormikProps<CommentSubmit>) {
 
     return (
         <>
-            <form className="bg-base-100 p-4 rounded-lg md:w-96 mx-auto">
-                <h3 className="text-md text-start font-semibold text-secondary">{profileName}</h3>
+            <form onSubmit={handleSubmit} className="bg-base-100 p-4 rounded-lg md:w-96 mx-auto">
+                <label className="label font-semibold text-secondary" htmlFor="commentContent">Comment</label>
                 <textarea
                     placeholder="comment here"
                     value={values.commentContent}
                     onChange={handleChange}
-                    className="text-justify">
+                    className="text-justify"
+                    name="commentContent"
+                    id="commentContent"
+                >
                 </textarea>
                 <button type="submit">Comment</button>
             </form>
