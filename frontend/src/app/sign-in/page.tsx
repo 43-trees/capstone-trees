@@ -64,7 +64,7 @@ function SignInFormContent(props: FormikProps<SignIn>) {
         <>
             <form onSubmit={handleSubmit} className={""}>
                 <div className="form-control">
-                    <label className="label" htmlFor="profileEmail">email</label>
+                    <label className="label" htmlFor="profileEmail">Email</label>
                     <input
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -92,6 +92,7 @@ function SignInFormContent(props: FormikProps<SignIn>) {
                 <div className="py-2 flex gap-2">
                     <button className='btn btn-success' type="submit">Log In</button>
                     <button className='btn btn-danger' onClick={handleReset} type="reset">reset</button>
+                    <a href={"./sign-up"} className='btn btn-error' >Not a member? Sign Up.</a>
                 </div>
                 <DisplayStatus status={status} />
             </form>
