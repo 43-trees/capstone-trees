@@ -1,33 +1,107 @@
-'use client'
+'use server'
 import React from "react";
 import {TreePost} from "@/app/components/TreePost";
-import {Comment} from "@/app/components/CommentPost";
-import {CommentSubmit} from "@/app/components/CommentSubmit";
+import {Comment as CommentComponent} from "@/app/components/CommentPost";
 import {Tree, TreeSchema} from "@/utils/models/trees";
 import {useParams} from "next/navigation";
+import {Comment, CommentSchema} from "@/utils/models/comments";
+import {Profile, ProfileSchema} from "@/utils/models/profiles";
+import {Image, ImageSchema} from "@/utils/models/images";
 
+type Props = {
+    params: {
+        treeId: string
+    }
+}
 
+export default async function Tree(props: Props) {
+    const {params: {treeId}} = props
 
-export default function Tree() {
-const params = useParams()
-    console.log(params)
-    // let tree = {
-    //     treeAddress: "1600 Gold Ave NE",
-    //     treeInfo: "You can find this tree on the corner of Gold and 4th. The apples are a little sweet making them perfect for cooking your favorite fall recipes with. I recommend going soon before they rot.",
-    //     treeSpecies: "apple",
-    //     treeTitle: "a cool tree downtown",
-    //     treeVote:"2"
-    // }
-    // let treeImages = [{imageUrl: "https://images.unsplash.com/photo-1437964706703-40b90bdf563b?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "apple tree"}, {imageUrl: "https://images.unsplash.com/photo-1545308562-050974fb9ac4?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "apple tree"}, {imageUrl: "https://images.unsplash.com/photo-1437964706703-40b90bdf563b?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "apple tree"}]
+    const {tree, images, comments, profiles} = await getData(treeId)
+
+    console.log("treeId", treeId)
 
     return (
         <>
             <section className="md:mx-16 rounded-lg bg-primary p-20 my-12">
-         {/*<TreePost treeId={treeId}/>*/}
-            <Comment commentContent={"I loved the apples from this tree! They were perfect for my home brew."} profileName={"nacholibre"}/>
-                <CommentSubmit commentContent={commentContent} profileName={profileName} onComment={}/>
+         <TreePost tree={tree} images={images}/>
+            <CommentComponent comments={comments} profiles={profiles}/>
+         {/*       <CommentSubmit commentContent={commentContent} profileName={profileName} onComment={}/>*/}
             </section>
         </>
     )
 }
 
+
+async function getData(treeId: string): Promise<{tree: Tree, comments: Comment[], profiles: any, images: Image[]}> {
+    const treeUrl = `${process.env.REST_API_URL}/apis/tree/${treeId}`
+
+    const treeResult = await fetch(treeUrl)
+        .then(response => {
+
+            if (response.status === 200 || response.status === 304) {
+                return response.json()
+            }
+            throw new Error('retrieving data failed')
+        }).catch(error => {
+            console.error(error)
+        })
+
+    const tree = TreeSchema.parse(treeResult?.data)
+
+    const commentUrl = `${process.env.REST_API_URL}/apis/comment/commentTreeId/${treeId}`
+
+    const commentResult = await fetch(commentUrl)
+        .then(response => {
+
+            if (response.status === 200 || response.status === 304) {
+                return response.json()
+            }
+            throw new Error('retrieving comments failed')
+        }).catch(error => {
+            console.error(error)
+        })
+
+    const comments = CommentSchema.array().parse(commentResult?.data)
+
+    let profiles: any = {}
+
+for(let comment of comments) {
+    const profileUrl = `${process.env.REST_API_URL}/apis/profile/${comment.commentProfileId}`
+
+    const profileResult = await fetch(profileUrl, {next:{
+        revalidate:0
+        }})
+        .then(response => {
+            if (response.status === 200 || response.status === 304) {
+                return response.json()
+            }
+            throw new Error('retrieving profiles failed')
+        }).catch(error => {
+            console.error(error)
+        })
+
+    const profile = ProfileSchema.parse(profileResult?.data)
+
+    profiles[profile.profileId] = profile
+}
+    const imageUrl = `${process.env.REST_API_URL}/apis/image/treeId/${treeId}`
+
+    const imageResult = await fetch(imageUrl, {next: {
+        revalidate:0
+        }})
+        .then(response => {
+
+            if (response.status === 200 || response.status === 304) {
+                return response.json()
+            }
+            throw new Error('retrieving images failed')
+        }).catch(error => {
+            console.error(error)
+        })
+console.log("image result", imageResult)
+
+    const images = ImageSchema.array().parse(imageResult?.data)
+
+    return {tree, profiles, comments, images}
+}
