@@ -1,36 +1,60 @@
+'use client'
 import React, {useState} from "react";
+import {FormikHelpers, FormikProps} from "formik";
 
-type CommentSubmitProps = {
-    commentContent: string
-    profileName: string
-    onComment: (comment: string) => void;
-};
 
-export function CommentSubmit(commentProps: CommentSubmitProps) {
-    const { profileName, onComment } = commentProps;
-    const [comment, setComment] = useState('');
+export function CommentSubmitComponent() {
+    const initialValues: any = {
+        commentContent: '',
+        profileName: ''
+    }
 
-    const handleCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>)=> {
-        setComment(event.target.value);
+    const handleCommentSubmit = (values: CommentSubmit, actions: FormikHelpers<CommentSubmit>)=> {
+        const {setStatus, resetForm} = actions
+        const result = fetch('/apis/comment', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(values)
+        }).then(response => response.json()).then(json => {
+            if(json.status === 200){
+                resetForm()
+            }
+            setStatus({type: json.type, message: json.message})
+        })
     };
+    
 
-    const handleCommentSubmit=()=> {
-        onComment(comment);
-        setComment("");
-    };
+}
+
+function commentSubmitContent(props: FormikProps<CommentSubmit>) {
+
+    const {
+        status,
+        values,
+        errors,
+        touched,
+        dirty,
+        isSubmitting,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        handleReset
+    } = props
 
     return (
         <>
-            <section className="bg-base-100 p-4 rounded-lg md:w-96 mx-auto">
+            <form className="bg-base-100 p-4 rounded-lg md:w-96 mx-auto">
                 <h3 className="text-md text-start font-semibold text-secondary">{profileName}</h3>
                 <textarea
                     placeholder="comment here"
-                    value={comment}
-                    onChange={handleCommentChange}
+                    value={values.commentContent}
+                    onChange={handleChange}
                     className="text-justify">
                 </textarea>
-                <button onClick={handleCommentSubmit}>Comment</button>
-            </section>
+                <button type="submit">Comment</button>
+            </form>
         </>
     )
 }

@@ -92,7 +92,7 @@ async function getData(treeId: string): Promise<{tree: Tree, images: Image[]}> {
             console.error(error)
         })
 
-    const images = ImageSchema.array().parse(imageResult?.data)
+    const images = ImageSchema.parse(imageResult?.data)
 
     return {tree, images }
 }
