@@ -49,7 +49,7 @@ async function getData(treeId: string): Promise<{tree: Tree, comments: Comment[]
 
     const tree = TreeSchema.parse(treeResult?.data)
 
-    const commentUrl = `${process.env.REST_API_URL}/commentTreeId/${treeId}`
+    const commentUrl = `${process.env.REST_API_URL}/apis/comment/commentTreeId/${treeId}`
 
     const commentResult = await fetch(commentUrl)
         .then(response => {
@@ -57,7 +57,7 @@ async function getData(treeId: string): Promise<{tree: Tree, comments: Comment[]
             if (response.status === 200 || response.status === 304) {
                 return response.json()
             }
-            throw new Error('retrieving data failed')
+            throw new Error('retrieving comments failed')
         }).catch(error => {
             console.error(error)
         })
@@ -67,33 +67,39 @@ async function getData(treeId: string): Promise<{tree: Tree, comments: Comment[]
     let profiles: any = {}
 
 for(let comment of comments) {
-    const profileUrl = `${process.env.REST_API_URL}/profile/${comment.commentProfileId}`
+    const profileUrl = `${process.env.REST_API_URL}/apis/profile/${comment.commentProfileId}`
 
-    const profileResult = await fetch(profileUrl)
+    const profileResult = await fetch(profileUrl, {next:{
+        revalidate:0
+        }})
         .then(response => {
             if (response.status === 200 || response.status === 304) {
                 return response.json()
             }
-            throw new Error('retrieving data failed')
+            throw new Error('retrieving profiles failed')
         }).catch(error => {
             console.error(error)
         })
 
     const profile = ProfileSchema.parse(profileResult?.data)
+
     profiles[profile.profileId] = profile
 }
     const imageUrl = `${process.env.REST_API_URL}/apis/image/treeId/${treeId}`
 
-    const imageResult = await fetch(imageUrl)
+    const imageResult = await fetch(imageUrl, {next: {
+        revalidate:0
+        }})
         .then(response => {
 
             if (response.status === 200 || response.status === 304) {
                 return response.json()
             }
-            throw new Error('retrieving data failed')
+            throw new Error('retrieving images failed')
         }).catch(error => {
             console.error(error)
         })
+console.log("image result", imageResult)
 
     const images = ImageSchema.array().parse(imageResult?.data)
 

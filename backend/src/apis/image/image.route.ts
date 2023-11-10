@@ -15,7 +15,7 @@ const router = Router()
 router.route('/')
     .post(postImageController)
 
-router.route('treeId/:treeId')
+router.route('/treeId/:treeId')
     .get(getImagesByImageTreeIdController)
     .delete(deleteImageByTreeIdController)
 

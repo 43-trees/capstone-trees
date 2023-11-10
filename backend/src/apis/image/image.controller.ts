@@ -14,7 +14,7 @@ import exp from "constants";
 
 export async function getImagesByImageTreeIdController(request: Request, response: Response): Promise<Response> {
     try{
-        const validationResult = z.string().uuid("Please provide a valide imageTreeId").safeParse(request.params.imageTreeId)
+        const validationResult = z.string().uuid("Please provide a valid imageTreeId").safeParse(request.params.treeId)
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }

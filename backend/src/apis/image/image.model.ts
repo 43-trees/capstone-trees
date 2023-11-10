@@ -44,10 +44,10 @@ export async function selectImageByImageId(imageId: string): Promise<Image | nul
     return result.length === 0 ? null : result[0]
 }
 
-export async function selectImagesByImageTreeId(imageTreeId: string): Promise<Image | null> {
+export async function selectImagesByImageTreeId(imageTreeId: string): Promise<Image[]> {
     const rowList = <Image[]>await sql`SELECT image_id, image_tree_id, image_url
                                               FROM image
                                               WHERE image_tree_id = ${imageTreeId}`
-    const result = ImageSchema.array().max(1).parse(rowList)
-    return result.length === 0 ? null : result[0]
+    const result = ImageSchema.array().parse(rowList)
+    return result
 }
