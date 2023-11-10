@@ -1,19 +1,26 @@
 'use client'
 import React, {useState} from "react";
-import {FormikHelpers, FormikProps} from "formik";
+import {Formik, FormikHelpers, FormikProps} from "formik";
+import {Comment, CommentSchema} from "@/utils/models/comments"
+import {toFormikValidationSchema} from "zod-formik-adapter";
+import {Profile} from "@/utils/models/profiles";
 
 type CommentSubmitComponentProps = {
     treeId: string
+    profile: Profile
 }
 export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
     const {treeId} = props
     const initialValues: any = {
+        commentId: null,
         commentContent: '',
-        profileName: '',
-        treeId
+        commentDatetime: null,
+        commentImageUrl: null,
+        commentProfileId: '',
+        commentTreeId: treeId
     }
 
-    const handleCommentSubmit = (values: , actions: FormikHelpers<CommentSubmit>)=> {
+    const handleSubmit = (values: Comment, actions: FormikHelpers<Comment>)=> {
         const {setStatus, resetForm} = actions
         const result = fetch('/apis/comment', {
             method: "POST",
@@ -28,11 +35,22 @@ export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
             setStatus({type: json.type, message: json.message})
         })
     };
-    
 
+    return (
+        <>
+            <h1 className="text-3xl font-bold text-neutral">Login</h1>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
+                validatorSchema={toFormikValidationSchema(CommentSchema)}
+                    >
+                {CommentFormContent}
+            </Formik>
+        </>
+    )
 }
 
-function commentSubmitContent(props: FormikProps<CommentSubmit>) {
+function CommentFormContent(props: FormikProps<Comment>) {
 
     const {
         status,
@@ -50,7 +68,7 @@ function commentSubmitContent(props: FormikProps<CommentSubmit>) {
     return (
         <>
             <form className="bg-base-100 p-4 rounded-lg md:w-96 mx-auto">
-                <h3 className="text-md text-start font-semibold text-secondary">{profileName}</h3>
+                <h3 className="text-md text-start font-semibold text-secondary">{profile.profileName}</h3>
                 <textarea
                     placeholder="comment here"
                     value={values.commentContent}
