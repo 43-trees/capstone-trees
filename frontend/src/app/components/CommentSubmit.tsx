@@ -38,7 +38,6 @@ export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
 
     return (
         <>
-            <h1 className="text-2xl font-bold text-neutral">Comment</h1>
             <Formik
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
@@ -67,18 +66,21 @@ function CommentFormContent(props: FormikProps<Comment>) {
 
     return (
         <>
-            <form onSubmit={handleSubmit} className="bg-base-100 p-4 rounded-lg md:w-96 mx-auto">
+            <form onSubmit={handleSubmit} className="bg-base-100 p-4 my-6 rounded-lg md:w-96 mx-auto">
                 <label className="label font-semibold text-secondary" htmlFor="commentContent">Comment</label>
                 <textarea
                     placeholder="comment here"
                     value={values.commentContent}
                     onChange={handleChange}
-                    className="text-justify"
+                    className="w-full"
+                    rows={5}
                     name="commentContent"
                     id="commentContent"
                 >
                 </textarea>
-                <button type="submit" className="block justify-end bg-secondary border-secondary border-2 rounded-md ">Comment</button>
+                <div className="py-3 flex justify-end">
+                <button type="submit" className="p-2 my-2 text-white flex justify-end bg-secondary border-secondary border-2 rounded-lg ">Comment Submit</button>
+                </div>
             </form>
         </>
     )
