@@ -45,7 +45,7 @@ export function MapPin(props: PinProps) {
         </Marker>
 
     {showPopup && (
-        <Popup longitude={treeLng} latitude={treeLat} key={index} onClose={() => setShowPopup(false)} offset={10}
+        <Popup longitude={treeLng} latitude={treeLat} key={index} onClose={() => setShowPopup(false)} offset={30}
                className={"treePopup"}>
             <div className={"text-center"} id={"mapPopUp"}>
                 <Link href={`/tree/${treeId}`}>{treeTitle}</Link>
