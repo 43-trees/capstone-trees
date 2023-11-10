@@ -4,14 +4,13 @@ import {Profile, ProfileSchema} from "@/utils/models/profiles";
 
 
 type CommentProps = {
-    treeId: string
+    comments: Comment[],
+    profiles: any
 }
 
 export async function Comment(commentProps: CommentProps) {
-    const { treeId} = commentProps
+    const {comments, profiles} = commentProps
     // const {profiles, comments} = await getData(treeId)
-    const comments = []
-    const profiles = []
     return (
         <>
             <section className="bg-base-100 p-4 rounded-lg md:w-96 mx-auto">
@@ -28,40 +27,40 @@ export async function Comment(commentProps: CommentProps) {
     )
 }
 
-async function getData(treeId: string): Promise<{comments: Comment[], profiles: any}> {
-    const url = `${process.env.REST_API_URL}/commentTreeId/${treeId}`
-
-    const commentResult = await fetch(url)
-        .then(response => {
-
-            if (response.status === 200 || response.status === 304) {
-                return response.json()
-            }
-            throw new Error('retrieving data failed')
-        }).catch(error => {
-            console.error(error)
-        })
-
-    const comments = CommentSchema.array().parse(commentResult?.data)
-
-    let profiles: any = {}
-
-    for(let comment of comments) {
-        const profileUrl = `${process.env.REST_API_URL}/profile/${comment.commentProfileId}`
-
-        const profileResult = await fetch(profileUrl)
-            .then(response => {
-                if (response.status === 200 || response.status === 304) {
-                    return response.json()
-                }
-                throw new Error('retrieving data failed')
-            }).catch(error => {
-                console.error(error)
-            })
-
-        const profile = ProfileSchema.parse(profileResult?.data)
-        profiles[profile.profileId] = profile
-    }
-
-    return {profiles, comments}
-}
+// async function getData(treeId: string): Promise<{comments: Comment[], profiles: any}> {
+//     const url = `${process.env.REST_API_URL}/commentTreeId/${treeId}`
+//
+//     const commentResult = await fetch(url)
+//         .then(response => {
+//
+//             if (response.status === 200 || response.status === 304) {
+//                 return response.json()
+//             }
+//             throw new Error('retrieving data failed')
+//         }).catch(error => {
+//             console.error(error)
+//         })
+//
+//     const comments = CommentSchema.array().parse(commentResult?.data)
+//
+//     let profiles: any = {}
+//
+//     for(let comment of comments) {
+//         const profileUrl = `${process.env.REST_API_URL}/profile/${comment.commentProfileId}`
+//
+//         const profileResult = await fetch(profileUrl)
+//             .then(response => {
+//                 if (response.status === 200 || response.status === 304) {
+//                     return response.json()
+//                 }
+//                 throw new Error('retrieving data failed')
+//             }).catch(error => {
+//                 console.error(error)
+//             })
+//
+//         const profile = ProfileSchema.parse(profileResult?.data)
+//         profiles[profile.profileId] = profile
+//     }
+//
+//     return {profiles, comments}
+// }

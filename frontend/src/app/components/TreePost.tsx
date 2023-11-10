@@ -5,12 +5,12 @@ import {Image, ImageSchema} from "@/utils/models/images";
 
 type TreeProps = {
     tree: Tree,
-    image: Image
+    images: Image[]
 }
 
 
 export async function TreePost(treeProps: TreeProps) {
-    const {tree, image} = treeProps
+    const {tree, images} = treeProps
     let treeSpeciesAlt = `This is a ${tree.treeSpecies} tree`
     // const {tree, images} = await getData(treeId)
 
@@ -29,7 +29,7 @@ export async function TreePost(treeProps: TreeProps) {
                         images.map((image: any) =>
                     <div key={image.imageUrl} className=" carousel-item  w-96 h-72">
                         <a href="" className="btn btn-circle self-center">❮</a>
-                    <Img src={image.imageUrl} alt={image.alt} className="w-11/12 object-contain rounded-box" width={200} height={200}/>
+                    <img src={image.imageUrl} alt={image.alt} className="w-11/12 object-contain rounded-box" width={200} height={200}/>
                         <a href="" className="btn btn-circle self-center">❯</a>
                     </div>
                         )}

@@ -49,7 +49,7 @@ export function MapPin(props: PinProps) {
                className={"treePopup"}>
             <div className={"text-center"} id={"mapPopUp"}>
                 <Link href={`/tree/${treeId}`}>{treeTitle}</Link>
-                <Link href={`/tree/${treeId}`}><Image src={treeImage} width={200} height={200} alt={treeSpeciesAlt}/></Link>
+                <Link href={`/tree/${treeId}`}><img src={treeImage} width={200} height={200} alt={treeSpeciesAlt}/></Link>
                 <p>{treeAddress}</p>
                 <p>{treeSpecies}</p>
                 <p>{treeInfo}</p>

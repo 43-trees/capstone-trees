@@ -24,8 +24,8 @@ export default async function Tree(props: Props) {
     return (
         <>
             <section className="md:mx-16 rounded-lg bg-primary p-20 my-12">
-         <TreePost tree={tree}/>
-            <CommentComponent treeId={treeId}/>
+         <TreePost tree={tree} images={images}/>
+            <CommentComponent comments={comments} profiles={profiles}/>
          {/*       <CommentSubmit commentContent={commentContent} profileName={profileName} onComment={}/>*/}
             </section>
         </>
@@ -49,7 +49,7 @@ async function getData(treeId: string): Promise<{tree: Tree, comments: Comment[]
 
     const tree = TreeSchema.parse(treeResult?.data)
 
-    const commentUrl = `${process.env.REST_API_URL}/commentTreeId/${tree.treeId}`
+    const commentUrl = `${process.env.REST_API_URL}/commentTreeId/${treeId}`
 
     const commentResult = await fetch(commentUrl)
         .then(response => {
