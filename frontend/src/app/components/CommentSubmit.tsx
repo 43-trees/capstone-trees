@@ -2,14 +2,18 @@
 import React, {useState} from "react";
 import {FormikHelpers, FormikProps} from "formik";
 
-
-export function CommentSubmitComponent() {
+type CommentSubmitComponentProps = {
+    treeId: string
+}
+export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
+    const {treeId} = props
     const initialValues: any = {
         commentContent: '',
-        profileName: ''
+        profileName: '',
+        treeId
     }
 
-    const handleCommentSubmit = (values: CommentSubmit, actions: FormikHelpers<CommentSubmit>)=> {
+    const handleCommentSubmit = (values: , actions: FormikHelpers<CommentSubmit>)=> {
         const {setStatus, resetForm} = actions
         const result = fetch('/apis/comment', {
             method: "POST",
