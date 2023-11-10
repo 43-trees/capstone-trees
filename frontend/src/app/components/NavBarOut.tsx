@@ -37,7 +37,7 @@ export function NavBarOut() {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn bg-info border-info text-primary" href={"/sign"}>Sign In</a>
+                <a className="btn bg-info border-info text-primary" href={"/sign-in"}>Sign In</a>
             </div>
         </div>
     )
