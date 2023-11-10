@@ -17,7 +17,7 @@ export async function Comment(commentProps: CommentProps) {
                 <div>{
                     comments.map((comment) =>
                         <div key={comment.commentContent}>
-                            <h3 className="">{profiles[comment.commentProfileId].profileName}</h3>
+                            <h3 className="font-semibold text-secondary">{profiles[comment.commentProfileId].profileName}</h3>
                             <p className="text-justify">{comment.commentContent}</p>
                         </div>
                     )}
