@@ -1,6 +1,6 @@
-export function Footer() {
+export function Foot() {
     return(
-        <footer className="footer flex text-center p-4 bg-neutral/75 text-white">
+        <footer className="footer flex mt-40 text-center p-4 bg-neutral/75 text-white">
             <aside className=" text-center mx-auto">
 
                 <p> © Urban Orchard 2023 </p>
