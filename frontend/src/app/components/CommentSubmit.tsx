@@ -7,7 +7,7 @@ import {Profile} from "@/utils/models/profiles";
 
 type CommentSubmitComponentProps = {
     treeId: string
-    profile: Profile
+    // profile: Profile
 }
 export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
     const {treeId} = props

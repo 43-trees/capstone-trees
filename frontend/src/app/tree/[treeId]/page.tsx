@@ -7,6 +7,7 @@ import {useParams} from "next/navigation";
 import {Comment, CommentSchema} from "@/utils/models/comments";
 import {Profile, ProfileSchema} from "@/utils/models/profiles";
 import {Image, ImageSchema} from "@/utils/models/images";
+import {CommentSubmitComponent} from "@/app/components/CommentSubmit";
 
 type Props = {
     params: {
@@ -26,7 +27,7 @@ export default async function Tree(props: Props) {
             <section className="md:mx-16 rounded-lg bg-primary p-20 my-12">
          <TreePost tree={tree} images={images}/>
             <CommentComponent comments={comments} profiles={profiles}/>
-         {/*       <CommentSubmit commentContent={commentContent} profileName={profileName} onComment={}/>*/}
+                <CommentSubmitComponent treeId={treeId}/>
             </section>
         </>
     )
