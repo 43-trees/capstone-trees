@@ -5,7 +5,7 @@ import {Comment as CommentComponent} from "@/app/components/CommentPost";
 import {Tree, TreeSchema} from "@/utils/models/trees";
 import {useParams} from "next/navigation";
 import {Comment, CommentSchema} from "@/utils/models/comments";
-import {ProfileSchema} from "@/utils/models/profiles";
+import {Profile, ProfileSchema} from "@/utils/models/profiles";
 import {Image, ImageSchema} from "@/utils/models/images";
 
 type Props = {
@@ -17,15 +17,14 @@ type Props = {
 export default async function Tree(props: Props) {
     const {params: {treeId}} = props
 
+    const {tree, images, comments, profiles} = await getData(treeId)
+
     console.log("treeId", treeId)
-
-
-
 
     return (
         <>
             <section className="md:mx-16 rounded-lg bg-primary p-20 my-12">
-         <TreePost treeId={treeId}/>
+         <TreePost tree={tree}/>
             <CommentComponent treeId={treeId}/>
          {/*       <CommentSubmit commentContent={commentContent} profileName={profileName} onComment={}/>*/}
             </section>
@@ -83,6 +82,7 @@ for(let comment of comments) {
     const profile = ProfileSchema.parse(profileResult?.data)
     profiles[profile.profileId] = profile
 }
+    const imageUrl = `${process.env.REST_API_URL}/apis/image/treeId/${treeId}`
 
     const imageResult = await fetch(imageUrl)
         .then(response => {
@@ -95,7 +95,7 @@ for(let comment of comments) {
             console.error(error)
         })
 
-    const images = ImageSchema.parse(imageResult?.data)
+    const images = ImageSchema.array().parse(imageResult?.data)
 
     return {tree, profiles, comments, images}
 }
