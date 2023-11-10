@@ -67,13 +67,16 @@ function CommentFormContent(props: FormikProps<Comment>) {
 
     return (
         <>
-            <form className="bg-base-100 p-4 rounded-lg md:w-96 mx-auto">
-                <h3 className="text-md text-start font-semibold text-secondary">{profile.profileName}</h3>
+            <form onSubmit={handleSubmit} className="bg-base-100 p-4 rounded-lg md:w-96 mx-auto">
+                <label className="label font-semibold text-secondary" htmlFor="commentContent">Comment</label>
                 <textarea
                     placeholder="comment here"
                     value={values.commentContent}
                     onChange={handleChange}
-                    className="text-justify">
+                    className="text-justify"
+                    name="commentContent"
+                    id="commentContent"
+                >
                 </textarea>
                 <button type="submit">Comment</button>
             </form>
