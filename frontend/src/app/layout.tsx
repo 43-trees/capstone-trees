@@ -3,7 +3,6 @@ import './global.css'
 import {NavBarIn} from "@/app/components/NavBarIn";
 import {Foot} from "@/app/components/Foot";
 import 'mapbox-gl/dist/mapbox-gl.css'
-import {session} from "@/utils/models/fetchSession";
 
 
 
@@ -22,7 +21,7 @@ export default function RootLayout(props : RootLayoutProps) {
     return (
         <html data-theme="light" lang="en">
         <body>
-        <NavBarIn session={session}/>
+        <NavBarIn/>
         {children}
         <Foot/>
         </body>

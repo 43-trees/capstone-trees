@@ -1,12 +1,12 @@
-import {Session} from "@/utils/models/fetchSession";
+import {getSession, Session} from "@/utils/models/fetchSession";
 
 type NavBarProps = {
     session: Session | undefined
 }
-export function NavBarIn(props: NavBarProps) {
-    const {session} = props;
+export async function NavBarIn() {
+    const session = await getSession();
     if(session === undefined) {
-        return <>   <div className="navbar rounded-b-lg text-primary bg-secondary">
+        return ( <>   <div className="navbar rounded-b-lg text-primary bg-secondary">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -44,6 +44,7 @@ export function NavBarIn(props: NavBarProps) {
             </div>
         </div>
         </>
+    )
     }
     return(
         <div className="navbar rounded-b-lg text-primary bg-secondary">
@@ -62,8 +63,8 @@ export function NavBarIn(props: NavBarProps) {
                         <li>
                             <a>Info</a>
                             <ul className="p-2">
-                                <li><a href={"/harvesting"}>Harvesting Resources</a></li>
-                                <li><a href={"beginner"}>Beginner Tips</a></li>
+                                <li><a href={"/resources"}>Resources</a></li>
+                                <li><a href={"harvesting"}>Harvesting 101</a></li>
                                 <li><a href={"/about"}>About Us</a></li>
                             </ul>
                         </li>
@@ -76,8 +77,8 @@ export function NavBarIn(props: NavBarProps) {
                 <ul className="menu text-xl menu-horizontal px-1">
 
                     <li><a href={"/about"}>About Us</a></li>
-                    <li><a href={"/harvesting"}>Harvesting Resources</a></li>
-                    <li><a href={"/beginner"}>Beginner Tips</a></li>
+                    <li><a href={"/resources"}>Resources</a></li>
+                    <li><a href={"/harvesting"}>Harvesting 101</a></li>
                 </ul>
             </div>
             </div>
@@ -91,7 +92,7 @@ export function NavBarIn(props: NavBarProps) {
                 </label>
                 <ul tabIndex={0} className="mt-3 z-[1] p-2 text-neutral shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
 
-                    <li><a>User Settings</a></li>
+                    <li><a href={"/settings"}>User Settings</a></li>
                     <li><a>Logout</a></li>
                 </ul>
             </div>

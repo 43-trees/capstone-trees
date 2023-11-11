@@ -12,7 +12,7 @@ export type Session = {
 
 
 
-export let session : Session|undefined = undefined
+let session : Session|undefined = undefined
 
 console.log("session", session)
 

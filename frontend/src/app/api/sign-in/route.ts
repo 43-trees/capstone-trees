@@ -16,7 +16,7 @@ export async function POST(request: Request){
             body: JSON.stringify(data)
         }
     )
-
+console.log(responseFromServer)
     const response =  responseFromServer.clone()
 
     const authorization = response.headers.get("authorization")

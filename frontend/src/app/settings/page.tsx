@@ -1,6 +1,16 @@
 import {Avatar} from "@/app/components/Avatar";
+import {Profile, ProfileSchema} from "@/utils/models/profiles";
+import {getSession} from "@/utils/models/fetchSession";
+import {redirect} from "next/navigation";
 
-export default function Settings() {
+
+export default async function Settings(){
+
+    const session = await getSession();
+    if (session === undefined) {
+        redirect("/")
+    }
+    const {profile} = await getData(session.profile.profileId)
     return (
         <>
             <form  className="md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8">
@@ -8,7 +18,7 @@ export default function Settings() {
                     <h2 className="text-3xl text-center text-neutral/80 font-semibold p-2">User Settings</h2>
                 </div>
                 <div className="flex justify-center">
-                    <Avatar link={'https://placekitten.com/200/200'}/>
+                    <Avatar profileImageUrl={'https://placekitten.com/200/200'}/>
                 </div>
                 <div className="py-3">
                     <label htmlFor="name" className="block text-gray text-sm font-bold mb-2">Username</label>
@@ -40,4 +50,23 @@ export default function Settings() {
 
         </>
     )
+}
+async function  getData(profileId: string): Promise<{profile: Profile}> {
+    console.log(profileId)
+    const url = `${process.env.REST_API_URL}/apis/profile/${profileId}`
+
+    const profileResult = await fetch(url)
+        .then(response => {
+            if (response.status === 200 || response.status === 304) {
+                return response.json()
+            }
+            throw new Error('retrieving data failed')
+        }).catch(error =>{
+            console.error(error)
+        })
+
+    const profile = ProfileSchema.parse(profileResult?.data)
+
+
+    return {profile}
 }
