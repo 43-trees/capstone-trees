@@ -1,11 +1,14 @@
+
 import {Map} from "./Map"
 import {Tree, TreeSchema} from "@/utils/models/trees"
 import Link from "next/link";
 import React from "react";
+import {getSession} from "@/utils/models/fetchSession";
 
 
 
 export default async function Home() {
+    const session = await getSession()
     const {trees} = await getData()
 
 

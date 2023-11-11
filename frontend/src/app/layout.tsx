@@ -6,8 +6,6 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import {session} from "@/utils/models/fetchSession";
 
 
-
-
 export const metadata: Metadata = {
     title: 'Urban Orchard',
     description: 'description goes here',

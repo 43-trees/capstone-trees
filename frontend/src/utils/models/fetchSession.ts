@@ -9,9 +9,6 @@ export type Session = {
     authorization: string
     exp: number
 }
-
-
-
 export let session : Session|undefined = undefined
 
 console.log("session", session)

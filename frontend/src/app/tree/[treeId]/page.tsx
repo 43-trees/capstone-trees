@@ -8,6 +8,7 @@ import {Comment, CommentSchema} from "@/utils/models/comments";
 import {Profile, ProfileSchema} from "@/utils/models/profiles";
 import {Image, ImageSchema} from "@/utils/models/images";
 import {CommentSubmitComponent} from "@/app/components/CommentSubmit";
+import {Session, getSession} from "@/utils/models/fetchSession";
 
 type Props = {
     params: {
