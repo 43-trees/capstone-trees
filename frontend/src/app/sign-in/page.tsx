@@ -5,6 +5,7 @@ import {toFormikValidationSchema} from "zod-formik-adapter";
 import {SignIn, SignInSchema} from "@/utils/models/sign-in";
 import {DisplayStatus} from "@/app/components/displayStatus";
 import {DisplayError} from "@/app/components/displayError";
+import {FormDebugger} from "@/app/components/formDebugger";
 
 export default function SignInFormComponent() {
 
@@ -31,7 +32,7 @@ export default function SignInFormComponent() {
 
     return(
         <>
-            <h1 className="text-3xl pb-0 font-bold">Login</h1>
+            <h1 className="md:text-5xl text-4xl pb-2 font-bold text-center text-neutral mt-6">Login</h1>
             <Formik
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
@@ -62,14 +63,14 @@ function SignInFormContent(props: FormikProps<SignIn>) {
 
     return(
         <>
-            <form onSubmit={handleSubmit} className={""}>
+            <form onSubmit={handleSubmit} className={"md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8"}>
                 <div className="form-control">
-                    <label className="label" htmlFor="profileEmail">email</label>
+                    <label className="label font-semibold" htmlFor="profileEmail">Email</label>
                     <input
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.profileEmail}
-                        className="input input-bordered w-full max"
+                        className="input input-bordered w-full max bg-primary"
                         type="text"
                         name="profileEmail"
                         id="profileEmail"
@@ -77,9 +78,9 @@ function SignInFormContent(props: FormikProps<SignIn>) {
                     <DisplayError errors={errors} touched={touched} field={"profileEmail"} />
                 </div>
                 <div className=" form-control">
-                    <label className={" label"} htmlFor="password">Password</label>
+                    <label className={" label font-semibold"} htmlFor="password">Password</label>
                     <input
-                        className="input input-bordered w-full max"
+                        className="input input-bordered w-full max bg-primary"
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.profilePassword}
@@ -90,11 +91,12 @@ function SignInFormContent(props: FormikProps<SignIn>) {
                     <DisplayError errors={errors} touched={touched} field={"profilePassword"} />
                 </div>
                 <div className="py-2 flex gap-2">
-                    <button className='btn btn-success' type="submit">Log In</button>
-                    <button className='btn btn-danger' onClick={handleReset} type="reset">reset</button>
+                    <button className='btn btn-success bg-secondary text-white border-secondary' type="submit">Log In</button>
+                    <button className='btn btn-danger bg-accent border-accent text-white' onClick={handleReset} type="reset">reset</button>
                 </div>
                 <DisplayStatus status={status} />
             </form>
+            <FormDebugger/>
         </>
     )
 }
