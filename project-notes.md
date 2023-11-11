@@ -27,7 +27,6 @@
 - avatar
 
 ### submission form for:
-- sign-in
 - settings changes
 - tree
 

@@ -5,8 +5,6 @@ import {Foot} from "@/app/components/Foot";
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 
-
-
 export const metadata: Metadata = {
     title: 'Urban Orchard',
     description: 'description goes here',

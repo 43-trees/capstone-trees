@@ -15,8 +15,8 @@ export async function insertProfile (profile: PrivateProfile) : Promise<string> 
 }
 
 export async function updateProfile (profile: PublicProfile): Promise<string> {
-    const {profileName, profileId} = profile
-    await sql `UPDATE profile SET profile_name = ${profileName},profile_id = ${profileId} WHERE profile_id = ${profileId}`
+    const {profileName, profileId, profileImageUrl} = profile
+    await sql `UPDATE profile SET profile_name = ${profileName},profile_id = ${profileId}, profile_image_url = ${profileImageUrl} WHERE profile_id = ${profileId}`
     return 'Profile updated successfully'
 }
 
