@@ -5,8 +5,7 @@ export const ProfileSchema = z.object({
         required_error: 'profileId is required',
         invalid_type_error: 'Please provide a valid profileId'
     })
-        .uuid({ message: 'please provide a valid profileId' })
-        .nullable(),
+        .uuid({ message: 'please provide a valid profileId' }),
 
     profileImageUrl: z.string({
         required_error: 'profileImage is required',

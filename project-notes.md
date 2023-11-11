@@ -21,8 +21,7 @@
 
 ## Frontend
 ### get data for:
-- trees 
-  - page
+- trees
   - test map with more pins
 - comments
 - avatar
@@ -31,6 +30,7 @@
 - comments
 - sign-in
 - settings changes
+- tree
 
 ### other updates
 - fix carousel
@@ -38,6 +38,16 @@
 - images on comments
 
 ### styling
+- about me page
+  - images for all of team
+  - short bio for all of team
+
+
+### images 
+- image upload 
+  - tree submit
+  - comment submit
+  - profile avatar
 
 
 ### pending functions

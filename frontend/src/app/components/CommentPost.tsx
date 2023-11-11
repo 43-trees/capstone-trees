@@ -1,24 +1,23 @@
 'use server'
-import {Tree, TreeSchema} from "@/utils/models/trees";
 import {Comment, CommentSchema} from "@/utils/models/comments";
+import {Profile, ProfileSchema} from "@/utils/models/profiles";
 
 
 type CommentProps = {
-    treeId: string
-    commentContent: string
-    profileName: string
+    comments: Comment[],
+    profiles: any
 }
 
 export async function Comment(commentProps: CommentProps) {
-    const {commentContent, profileName, treeId} = commentProps
-    const {tree, comments} = await getData(treeId)
+    const {comments, profiles} = commentProps
+    // const {profiles, comments} = await getData(treeId)
     return (
         <>
             <section className="bg-base-100 p-4 rounded-lg md:w-96 mx-auto">
-                <h3 className="text-md text-start font-semibold text-secondary">{profileName}</h3>
                 <div>{
                     comments.map((comment) =>
                         <div key={comment.commentContent}>
+                            <h3 className="">{profiles[comment.commentProfileId].profileName}</h3>
                             <p className="text-justify">{comment.commentContent}</p>
                         </div>
                     )}
@@ -28,34 +27,40 @@ export async function Comment(commentProps: CommentProps) {
     )
 }
 
-async function getData(treeId: string): Promise<{tree: Tree, comments: Comment[]}> {
-    const url = `${process.env.REST_API_URL}/apis/tree/${treeId}`
-
-    const treeResult = await fetch(url)
-        .then(response => {
-
-            if (response.status === 200 || response.status === 304) {
-                return response.json()
-            }
-            throw new Error('retrieving data failed')
-        }).catch(error => {
-            console.error(error)
-        })
-
-    const tree = TreeSchema.parse(treeResult?.data)
-
-    const commentResult = await fetch(url)
-        .then(response => {
-
-            if (response.status === 200 || response.status === 304) {
-                return response.json()
-            }
-            throw new Error('retrieving data failed')
-        }).catch(error => {
-            console.error(error)
-        })
-
-    const comments = CommentSchema.array().parse(commentResult?.data)
-
-    return {tree, comments}
-}
+// async function getData(treeId: string): Promise<{comments: Comment[], profiles: any}> {
+//     const url = `${process.env.REST_API_URL}/commentTreeId/${treeId}`
+//
+//     const commentResult = await fetch(url)
+//         .then(response => {
+//
+//             if (response.status === 200 || response.status === 304) {
+//                 return response.json()
+//             }
+//             throw new Error('retrieving data failed')
+//         }).catch(error => {
+//             console.error(error)
+//         })
+//
+//     const comments = CommentSchema.array().parse(commentResult?.data)
+//
+//     let profiles: any = {}
+//
+//     for(let comment of comments) {
+//         const profileUrl = `${process.env.REST_API_URL}/profile/${comment.commentProfileId}`
+//
+//         const profileResult = await fetch(profileUrl)
+//             .then(response => {
+//                 if (response.status === 200 || response.status === 304) {
+//                     return response.json()
+//                 }
+//                 throw new Error('retrieving data failed')
+//             }).catch(error => {
+//                 console.error(error)
+//             })
+//
+//         const profile = ProfileSchema.parse(profileResult?.data)
+//         profiles[profile.profileId] = profile
+//     }
+//
+//     return {profiles, comments}
+// }

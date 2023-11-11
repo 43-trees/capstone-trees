@@ -8,6 +8,7 @@ import React from "react";
 export default async function Home() {
     const {trees} = await getData()
 
+
     return (
         <>
             <section className="bg-accent/50 my-8 md:mx-72 rounded-md">
@@ -39,7 +40,7 @@ async function getData(): Promise<{trees:Tree[]}> {
         }).catch(error => {
             console.error(error)
         })
-    const trees = TreeSchema.array().parse(result?.data)
+     const trees = TreeSchema.array().parse(result?.data)
 
     return {trees}
 }

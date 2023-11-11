@@ -21,7 +21,7 @@ export async function updateProfile (profile: PublicProfile): Promise<string> {
 }
 
 export async function selectPublicProfileByProfileId (profileId:string | null): Promise<PublicProfile |null> {
-    const rowList = await sql`SELECT profile_id, profile_name FROM profile WHERE profile_id = ${profileId}`
+    const rowList = await sql`SELECT profile_id, profile_name, profile_image_url, profile_join_date FROM profile WHERE profile_id = ${profileId}`
 
     const result = PublicProfileSchema.array().max(1).parse(rowList)
 
