@@ -93,6 +93,7 @@ function SignInFormContent(props: FormikProps<SignIn>) {
                 <div className="py-2 flex gap-2">
                     <button className='btn btn-success bg-secondary text-white border-secondary' type="submit">Log In</button>
                     <button className='btn btn-danger bg-accent border-accent text-white' onClick={handleReset} type="reset">reset</button>
+                    <a href={"./sign-up"} className='btn btn-error' >Not a member? Sign Up.</a>
                 </div>
                 <DisplayStatus status={status} />
             </form>
