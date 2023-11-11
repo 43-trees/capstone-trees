@@ -1,7 +1,7 @@
-import {Profile, ProfileSchema} from "@/utils/models/Profile";
+import {Profile, ProfileSchema} from "@/utils/models/profiles";
 import {cookies} from "next/headers";
-import {jwtDecode} from "jwt-decode";
 import { unstable_noStore as noStore } from 'next/cache';
+import {jwtDecode} from "jwt-decode";
 
 noStore()
 export type Session = {
