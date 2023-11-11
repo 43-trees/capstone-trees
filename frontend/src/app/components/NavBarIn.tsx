@@ -36,6 +36,9 @@ export function NavBarIn() {
                 </ul>
             </div>
             </div>
+            <div className="navbar-end">
+                <a className="btn bg-info border-info text-primary" href={"/sign-in"}>Sign In</a>
+            </div>
             <div>
             <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
