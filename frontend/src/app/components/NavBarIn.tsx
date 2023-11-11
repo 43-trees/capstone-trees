@@ -1,32 +1,69 @@
 
 export function NavBarIn() {
     return(
-        <div className="navbar bg-secondary ">
-            <div className="flex-1">
-                <a className="btn btn-ghost normal-case text-primary text-xl">Urban Orchard</a>
-            </div>
-            <div className="flex-none gap-2">
-                <div className="form-control">
-                    <input type="text" placeholder="Search" className="input input-bordered bg-primary w-24 md:w-auto" />
-                </div>
-                <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img src="https://placekitten.com/200/300" alt="placeholder profile picture"/>
-                        </div>
+        <div className="navbar rounded-b-lg text-primary bg-secondary">
+            <div className="">
+                <div className="dropdown">
+                    <label tabIndex={0} className="btn btn-ghost md:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                  d="M4 6h16M4 12h8m-8 6h16"/>
+                        </svg>
                     </label>
-                    <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                    <ul tabIndex={0}
+                        className="menu menu-sm  dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-neutral">
+
                         <li>
-                            <a className="justify-between">
-                                Profile
-                                <span className="badge">New</span>
-                            </a>
+                            <a>Info</a>
+                            <ul className="p-2">
+                                <li><a href={"/harvesting"}>Harvesting Resources</a></li>
+                                <li><a href={"beginner"}>Beginner Tips</a></li>
+                                <li><a href={"/about"}>About Us</a></li>
+                            </ul>
                         </li>
-                        <li><a>Settings</a></li>
-                        <li><a>Logout</a></li>
                     </ul>
                 </div>
+                <a className="btn btn-ghost normal-case text-2xl" href={'/'}>Urban Orchard</a>
+            </div>
+            <div className="flex mx-auto">
+            <div className="navbar-center hidden md:flex">
+                <ul className="menu text-xl menu-horizontal px-1">
+
+                    <li><a href={"/about"}>About Us</a></li>
+                    <li><a href={"/harvesting"}>Harvesting Resources</a></li>
+                    <li><a href={"/beginner"}>Beginner Tips</a></li>
+                </ul>
+            </div>
+            </div>
+            <div>
+            <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                    <div className="w-10 rounded-full">
+                        <img src="https://placekitten.com/200/300" alt="placeholder profile picture"/>
+                    </div>
+                </label>
+                <ul tabIndex={0} className="mt-3 z-[1] p-2 text-neutral shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+
+                    <li><a>User Settings</a></li>
+                    <li><a>Logout</a></li>
+                </ul>
+            </div>
             </div>
         </div>
     )
 }
+
+
+// <div className="dropdown dropdown-end">
+//     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+//         <div className="w-10 rounded-full">
+//             <img src="https://placekitten.com/200/300" alt="placeholder profile picture"/>
+//         </div>
+//     </label>
+//     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+//
+//         <li><a>User Settings</a></li>
+//         <li><a>Logout</a></li>
+//     </ul>
+// </div>
