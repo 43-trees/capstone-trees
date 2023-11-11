@@ -90,11 +90,11 @@ function SignInFormContent(props: FormikProps<SignIn>) {
                     />
                     <DisplayError errors={errors} touched={touched} field={"profilePassword"} />
                 </div>
-                <div className="py-2 flex gap-2">
+                <div className="py-2 flex gap-4">
                     <button className='btn btn-success bg-secondary text-white border-secondary' type="submit">Log In</button>
                     <button className='btn btn-danger bg-accent border-accent text-white' onClick={handleReset} type="reset">reset</button>
-                    <a href={"./sign-up"} className='btn btn-error' >Not a member? Sign Up.</a>
                 </div>
+                <a href={"./sign-up"} className='btn bg-neutral/90 text-white font-semibold rounded-lg' >Not a member? Sign Up</a>
                 <DisplayStatus status={status} />
             </form>
             <FormDebugger/>
