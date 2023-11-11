@@ -18,6 +18,7 @@ type Props = {
 export default async function Tree(props: Props) {
     const {params: {treeId}} = props
 
+    const session = await getSession()
     const {tree, images, comments, profiles} = await getData(treeId)
 
     console.log("treeId", treeId)
@@ -27,7 +28,7 @@ export default async function Tree(props: Props) {
             <section className="md:mx-16 rounded-lg bg-primary p-20 my-12">
          <TreePost tree={tree} images={images}/>
             <CommentComponent comments={comments} profiles={profiles}/>
-                <CommentSubmitComponent treeId={treeId}/>
+                <CommentSubmitComponent treeId={treeId} session={session}/>
             </section>
         </>
     )
