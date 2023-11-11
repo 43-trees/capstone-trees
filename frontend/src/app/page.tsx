@@ -2,6 +2,7 @@ import {Map} from "./Map"
 import {Tree, TreeSchema} from "@/utils/models/trees"
 import Link from "next/link";
 import React from "react";
+import {FilterSpecies} from "@/app/components/FilterSpecies";
 
 
 
@@ -12,11 +13,11 @@ export default async function Home() {
     return (
         <>
             <section className="bg-accent/50 my-8 md:mx-72 rounded-md">
-                <div>
-
-                </div>
                 <div className="flex justify-center py-6">
                     <div>
+                        <div className="py-2 flex justify-end">
+                            <FilterSpecies trees={trees}/>
+                        </div>
                         <Map trees={trees}/>
                         <div className="py-3 flex justify-end">
                             <button type="submit" className="bg-secondary hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">
