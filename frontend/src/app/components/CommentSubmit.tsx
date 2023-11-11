@@ -3,14 +3,21 @@ import React, {useState} from "react";
 import {Formik, FormikHelpers, FormikProps} from "formik";
 import {Comment, CommentSchema} from "@/utils/models/comments"
 import {toFormikValidationSchema} from "zod-formik-adapter";
-import {Profile} from "@/utils/models/profiles";
+
 
 type CommentSubmitComponentProps = {
+    session : Session|undefined
     treeId: string
-    // profile: Profile
 }
 export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
-    const {treeId} = props
+    const {treeId, session} = props
+
+    if(session === undefined) {
+        return <></>
+    }
+
+    const {profile, authorization} = session
+
     const initialValues: any = {
         commentId: null,
         commentContent: '',
@@ -25,7 +32,8 @@ export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
         const result = fetch('/apis/comment', {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "authorization": `${authorization}`
             },
             body: JSON.stringify(values)
         }).then(response => response.json()).then(json => {
