@@ -12,6 +12,9 @@ export default async function Home() {
     return (
         <>
             <section className="bg-accent/50 my-8 md:mx-72 rounded-md">
+                <div>
+
+                </div>
                 <div className="flex justify-center py-6">
                     <div>
                         <Map trees={trees}/>
