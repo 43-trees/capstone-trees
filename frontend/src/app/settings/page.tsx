@@ -46,21 +46,18 @@ export default async function Settings(){
                            className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"/>
                 </div>
 
-                <div className="py-3">
+                <div className="py-3 space-x-4">
                     <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Apply
                     </button>
-                </div>
-                <div className="py-3">
                     <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Cancel
                     </button>
                 </div>
             </form>
-            <div>
+            <div className="py-3 font-semibold text-center text-lg text-neutral hover:text-neutral/60">
                 {trees .map(tree => (<h1><a href={`tree/edit/${tree.treeId}`}>{tree.treeTitle}</a></h1>))}
             </div>
-
         </>
     )
 }
