@@ -1,7 +1,7 @@
 import {Map} from "./Map"
 import {Tree, TreeSchema} from "@/utils/models/trees"
 import Link from "next/link";
-import React from "react";
+import {FilterSpecies} from "@/app/components/FilterSpecies";
 
 
 
