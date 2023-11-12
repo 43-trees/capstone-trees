@@ -1,12 +1,14 @@
 'use client'
 import {useState} from "react";
+import {Tree} from "@/utils/models/trees";
 
 type FilterSpeciesProps = {
-    trees: Tree[]
+    setTreeSpecies: any
+    treeSpecies: string
 }
 
-export function FilterSpecies({trees}: FilterSpeciesProps) {
-    const [treeSpecies, setTreeSpecies] = useState('')
+export function FilterSpecies(props: FilterSpeciesProps) {
+    const {setTreeSpecies, treeSpecies} = props
 
     const handleChange = (event: any) => {
         setTreeSpecies(event.target.value)
@@ -16,20 +18,19 @@ export function FilterSpecies({trees}: FilterSpeciesProps) {
     return (
         <>
             <div>
-                <select tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 font-semibold">
-                    <option>Filter by Species</option>
-                    <option>Apple</option>
-                    <option>Apricot</option>
-                    <option>Cherry</option>
-                    <option>Fig</option>
-                    <option>Peach</option>
-                    <option>Pear</option>
-                    <option>Plum</option>
-                    <option>Pomegranate</option>
-                    <option>Other</option>
+                <select tabIndex={0} value={treeSpecies} onChange={handleChange} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 font-semibold">
+                    <option value={''}>Filter by Species</option>
+                    <option value={'Apple'}>Apple</option>
+                    <option value={'Apricot'}>Apricot</option>
+                    <option value={'Cherry'}>Cherry</option>
+                    <option value={'Fig'}>Fig</option>
+                    <option value={'Peach'}>Peach</option>
+                    <option value={'Pear'}>Pear</option>
+                    <option value={'Plum'}>Plum</option>
+                    <option value={'Pomegranate'}>Pomegranate</option>
+                    <option value={'Other'}>Other</option>
                 </select>
             </div>
         </>
     )
-
 }
