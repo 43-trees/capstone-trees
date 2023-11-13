@@ -4,21 +4,16 @@ import {toFormikValidationSchema} from "zod-formik-adapter";
 import React from "react";
 import {Session} from "@/utils/models/fetchSession";
 import {DisplayStatus} from "@/app/components/displayStatus";
-import {useDropzone} from "react-dropzone";
+// import {useDropzone} from "react-dropzone";
 
 
 type TreeEditComponentProps = {
-    session : Session|undefined
+    session : Session
     tree: Tree
 }
 export function TreeEditComponent(props: TreeEditComponentProps) {
     const {tree, session} = props
 
-    if(session === undefined) {
-        return <></>
-    }
-
-    const {profile, authorization} = session
 
     const initialValues: any = {
         treeId: tree.treeId,
@@ -41,7 +36,7 @@ export function TreeEditComponent(props: TreeEditComponentProps) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "authorization": `${authorization}`
+                "authorization": `${session.authorization}`
             },
             body: JSON.stringify(values)
         })
@@ -51,6 +46,9 @@ export function TreeEditComponent(props: TreeEditComponentProps) {
                     resetForm()
                 }
                 setStatus({type: json.type, message: json.message})
+            })
+            .catch(error => {
+                console.error(error)
             })
     };
 
@@ -86,11 +84,11 @@ function EditTreeContent(props: FormikProps<Tree>) {
         <>
             <form  className="md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8">
                 <div>
-                    <h2 className="text-3xl text-center text-neutral/80 font-semibold p-2">Submit a Tree</h2>
+                    <h2 className="text-3xl text-center text-neutral/80 font-semibold p-2">Edit a Tree</h2>
                 </div>
                 <div className="py-3 dropdown flex justify-center">
-                    <label tabIndex={0} className="btn bg-secondary text-white m-1">Species</label>
-                    <select tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                    <label className="dropdown-content z-[1] menu"></label>
+                    <select tabIndex={0} className="p-2 shadow bg-base-100 rounded-box w-52"
                             value={values.treeSpecies}
                             onBlur={handleBlur}
                             onChange={handleChange}>
@@ -149,7 +147,6 @@ function EditTreeContent(props: FormikProps<Tree>) {
                     </button>
                 </div>
             </form>
-
         </>
     )
 }
