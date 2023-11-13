@@ -32,7 +32,6 @@
 
 ### other updates
 - fix carousel
-- filter species on map
 - images on comments
 
 ### styling
