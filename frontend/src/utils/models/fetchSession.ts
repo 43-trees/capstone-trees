@@ -18,7 +18,6 @@ console.log("session", session)
 const currentTimeInSeconds = new Date().getTime() / 1000
 
 export async function getSession(): Promise<Session|undefined > {
-
     const cookieStore = cookies()
     const jwtToken = cookieStore.get("jwt-token")
     if (session === undefined &&  jwtToken) {
@@ -30,8 +29,7 @@ export async function getSession(): Promise<Session|undefined > {
 
 }
 
-
-function setJwtToken(jwtToken: string) {
+export function setJwtToken(jwtToken: string) {
     console.log("jwtToken", jwtToken)
     try {
         const  parsedJwtToken = jwtDecode(jwtToken) as any

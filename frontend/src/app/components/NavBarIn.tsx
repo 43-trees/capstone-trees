@@ -1,10 +1,15 @@
-import {getSession, Session} from "@/utils/models/fetchSession";
+import {getSession, Session, setJwtToken} from "@/utils/models/fetchSession";
 
 type NavBarProps = {
     session: Session | undefined
 }
 export async function NavBarIn() {
     const session = await getSession();
+    function logout() {
+        setJwtToken('')
+        fetch('/apis/sign-out/')
+    }
+
     if(session === undefined) {
         return ( <>   <div className="navbar rounded-b-lg text-primary bg-secondary">
             <div className="navbar-start">
@@ -93,7 +98,6 @@ export async function NavBarIn() {
                 <ul tabIndex={0} className="mt-3 z-[1] p-2 text-neutral shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
 
                     <li><a href={"/settings"}>User Settings</a></li>
-                    <li><a>Logout</a></li>
                 </ul>
             </div>
             </div>

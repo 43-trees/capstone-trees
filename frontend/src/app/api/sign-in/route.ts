@@ -5,6 +5,7 @@ export async function POST(request: Request){
 
 
     const data = await request.json()
+    console.log(process.env.PUBLIC_API_URL)
 
     const responseFromServer =  await fetch(`${process.env.PUBLIC_API_URL}/apis/sign-in`,
         {

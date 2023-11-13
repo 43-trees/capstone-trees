@@ -1,6 +1,8 @@
 
 import {Tree, TreeSchema} from "@/utils/models/trees";
 import {TreeEditComponent} from "@/app/components/EditTree";
+import {getSession} from "@/utils/models/fetchSession";
+import React from "react";
 
 type EditProps = {
     params: {
@@ -13,15 +15,20 @@ export default async function TreeEditPage(props: EditProps) {
 
     const tree = await getData(treeId)
 
+    const session = await getSession()
+
+    if(session === undefined) {
+
+        return <>
+            <p>poop</p>
+        </>
+    }
+
     return (
         <>
             <TreeEditComponent tree={tree} session={session}/>
-
         </>
     )
-
-
-
 }
 
 

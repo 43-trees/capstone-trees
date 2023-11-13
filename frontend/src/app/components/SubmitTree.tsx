@@ -1,36 +1,35 @@
+'use client'
 import {Tree, TreeSchema} from "@/utils/models/trees";
 import {Formik, FormikHelpers, FormikProps} from "formik";
 import {toFormikValidationSchema} from "zod-formik-adapter";
-import React from "react";
-import {Session} from "@/utils/models/fetchSession";
 import {DisplayStatus} from "@/app/components/displayStatus";
-// import {useDropzone} from "react-dropzone";
+import React from "react";
+import {useDropzone} from "react-dropzone";
+import {Session} from "@/utils/models/fetchSession";
+import {FormDebugger} from "@/app/components/formDebugger";
 
-
-type TreeEditComponentProps = {
+type TreeSubmitProps = {
     session : Session
-    tree: Tree
 }
-export function TreeEditComponent(props: TreeEditComponentProps) {
-    const {tree, session} = props
-
+export function SubmitTreeComponent(props: TreeSubmitProps) {
+    const { session} = props
 
     const initialValues: any = {
-        treeId: tree.treeId,
-        treeProfileId: tree.treeProfileId,
-        treeAddress: tree.treeAddress,
-        treeEndDate: tree.treeEndDate,
-        treeDate: tree.treeDate,
-        treeImage: tree.treeImage,
-        treeInfo: tree.treeInfo,
-        treeLat: tree.treeLat,
-        treeLng: tree.treeLng,
-        treeTitle: tree.treeTitle,
-        treeSpecies: tree.treeSpecies,
-        imageUrl: ''
+        treeId: null,
+        treeProfileId: session.profile.profileId,
+        treeAddress: '',
+        treeEndDate: null,
+        treeDate: null,
+        treeImage: null,
+        treeInfo: '',
+        treeLat: null,
+        treeLng: null,
+        treeTitle: '',
+        treeSpecies: '',
     }
 
     const handleSubmit = (values: Tree, actions: FormikHelpers<Tree>)=> {
+        console.log("values here", values)
         const {setStatus, resetForm} = actions
         fetch('/apis/tree', {
             method: "POST",
@@ -45,6 +44,7 @@ export function TreeEditComponent(props: TreeEditComponentProps) {
                 if(json.status === 200){
                     resetForm()
                 }
+                console.log("success")
                 setStatus({type: json.type, message: json.message})
             })
             .catch(error => {
@@ -54,18 +54,20 @@ export function TreeEditComponent(props: TreeEditComponentProps) {
 
     return (
         <>
-            <Formik
-                initialValues={initialValues}
-                onSubmit={handleSubmit}
-                validatorSchema={toFormikValidationSchema(TreeSchema)}
-            >
-                {EditTreeContent}
-            </Formik>
+            <div className="test">
+                <Formik
+                    initialValues={initialValues}
+                    onSubmit={handleSubmit}
+                    validatorSchema={toFormikValidationSchema(TreeSchema)}
+                >
+                    {SubmitTreeContent}
+                </Formik>
+            </div>
         </>
     )
 }
+export function SubmitTreeContent(props: FormikProps<Tree>) {
 
-function EditTreeContent(props: FormikProps<Tree>) {
     const {
         status,
         values,
@@ -82,16 +84,19 @@ function EditTreeContent(props: FormikProps<Tree>) {
 
     return (
         <>
-            <form  className="md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8">
+
+            <form  className="md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8" onSubmit={handleSubmit}>
                 <div>
-                    <h2 className="text-3xl text-center text-neutral/80 font-semibold p-2">Edit a Tree</h2>
+                    <h2 className="text-3xl text-center text-neutral/80 font-semibold p-2">Submit a Tree</h2>
                 </div>
                 <div className="py-3 dropdown flex justify-center">
-                    <label className="dropdown-content z-[1] menu"></label>
-                    <select tabIndex={0} className="p-2 shadow bg-base-100 rounded-box w-52"
+                    <select className=" p-2 shadow bg-base-100 rounded-box w-52"
                             value={values.treeSpecies}
                             onBlur={handleBlur}
-                            onChange={handleChange}>
+                            onChange={handleChange}
+                            id="treeSpeciesDropdown"
+                            name="treeSpecies"
+                            >
                         <option value={''}>Filter by Species</option>
                         <option value={'Apple'}>Apple</option>
                         <option value={'Apricot'}>Apricot</option>
@@ -106,46 +111,36 @@ function EditTreeContent(props: FormikProps<Tree>) {
                 </div>
                 <div className="py-3">
                     <label htmlFor="title" className="block text-gray text-sm font-bold mb-2">Title</label>
-                    <input type="text" id="title" name="title"
-                           className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"
+                    <input type="text" id="title" name="treeTitle"
+                           className="input input-bordered mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"
                            onBlur={handleBlur}
                            onChange={handleChange}
                            value={values.treeTitle}
-                    />
+                           />
                 </div>
                 <div className="py-3">
                     <label htmlFor="address" className="block text-gray text-sm font-bold mb-2">Address</label>
-                    <input type="text" id="address" name="address"
-                           className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"
+                    <input type="text" id="address" name="treeAddress"
+                           className="input input-bordered mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"
                            onBlur={handleBlur}
                            onChange={handleChange}
                            value={values.treeAddress}/>
                 </div>
                 <div className="py-3">
                     <label htmlFor="info" className="block text-gray text-sm font-bold mb-2">Info</label>
-                    <input type="text" id="info" name="info"
-                           className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"
+                    <input type="text" id="info" name="treeInfo"
+                           className="input input-bordered mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"
                            onBlur={handleBlur}
                            onChange={handleChange}
                            value={values.treeInfo}/>
                 </div>
-                <div>
-                    {/*<ImageDropZone*/}
-                    {/*    formikProps={{*/}
-                    {/*        values,*/}
-                    {/*        handleChange,*/}
-                    {/*        handleBlur,*/}
-                    {/*        setFieldValue,*/}
-                    {/*        fieldValue: 'imageTreeId'*/}
-                    {/*    }}*/}
-                    {/*/>*/}
-                    {/*<DisplayStatus status={status} />*/}
-                </div>
+                <DisplayStatus status={status} />
                 <div className="py-3">
                     <button type="submit" className="bg-secondary hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">
                         Submit
                     </button>
                 </div>
+                <FormDebugger {...props}/>
             </form>
         </>
     )

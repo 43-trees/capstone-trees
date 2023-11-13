@@ -29,10 +29,12 @@
 ### submission form for:
 - settings changes
 - tree
+  - adding image (updating image table not tree table)
+- tree edit page
+  - adding image (updating image table not tree table)
 
 ### other updates
 - fix carousel
-- filter species on map
 - images on comments
 
 ### styling

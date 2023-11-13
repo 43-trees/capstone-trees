@@ -25,7 +25,7 @@ const trees = props.trees
                     zoom: 9
                 }}
                 mapboxAccessToken={process.env["NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN"]}
-                style={{ width: 600, height: 400 }}
+                style={{ maxWidth: 640, width:'100%', height: 400 }}
                 mapStyle="mapbox://styles/jderaad/cloire14b003b01qsbhjp5r7i"
                 // mapbox://styles/jderaad/cloire14b003b01qsbhjp5r7i
             >
