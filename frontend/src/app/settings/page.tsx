@@ -10,7 +10,8 @@ import {Session} from "@/utils/models/fetchSession";
 type SettingsFormProps = {
     session: Session,
     profile: Profile
-}export default async function Settings(){
+}
+export default async function Settings(){
 
     const session = await getSession();
     if (session === undefined) {
@@ -158,7 +159,7 @@ function SettingsFormContent(props: FormikProps<Profile>) {
          <FormDebugger/>
         </>
     )
-}
+}}
 
 
 
