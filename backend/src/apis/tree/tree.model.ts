@@ -7,7 +7,7 @@ import axios from "axios"
 export type Tree = z.infer<typeof TreeSchema>
 
 export async function insertTree(tree: Tree): Promise<string> {
-    const {treeProfileId, treeAddress, treeImage, treeInfo, treeLat, treeLng, treeTitle, treeSpecies} = tree
+    const {treeId, treeProfileId, treeAddress, treeImage, treeInfo, treeLat, treeLng, treeTitle, treeSpecies} = tree
 
     // this function takes the current date and adds 30 days to be added into the dataset as "end date" to serve as the "lifespan" of the tree on the app before it goes inactive
     function endDate() {
@@ -38,9 +38,11 @@ export async function insertTree(tree: Tree): Promise<string> {
 //
 // const treeCords = await convertAddress(treeAddress)
 
-    await sql`INSERT INTO tree (tree_id, tree_profile_id, tree_address, tree_end_date, tree_date, tree_image, tree_info, tree_lat, tree_lng, tree_title, tree_species) VALUES (gen_random_uuid(), ${treeProfileId}, ${treeAddress}, ${endDate()}, now(), ${treeImage}, ${treeInfo}, ${treeLat}, ${treeLng}, ${treeTitle}, ${treeSpecies})`
+    const result = await sql`INSERT INTO tree (tree_id, tree_profile_id, tree_address, tree_end_date, tree_date, tree_image, tree_info, tree_lat, tree_lng, tree_title, tree_species) VALUES (gen_random_uuid(), ${treeProfileId}, ${treeAddress}, ${endDate()}, now(), null, ${treeInfo}, ${treeLat}, ${treeLng}, ${treeTitle}, ${treeSpecies}) returning tree_id`
 
-    return 'Tree successfully posted'
+    console.log(result[0].treeId)
+
+    return result[0].treeId
 }
 
 export async function selectAllTrees(): Promise<Tree[]> {
