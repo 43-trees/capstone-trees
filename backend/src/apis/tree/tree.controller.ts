@@ -54,7 +54,7 @@ export async function postTreeController(request: Request, response: Response): 
         const treeCords = await convertAddress(treeAddress)
 
         const tree: Tree = {
-            treeId: uuid(),
+            treeId: null,
             treeProfileId: treeProfileId,
             treeAddress: treeAddress,
             treeEndDate: null,
@@ -71,9 +71,9 @@ export async function postTreeController(request: Request, response: Response): 
 
         const status: Status = {
             status: 200,
-            message: result,
+            message: 'Tree successfully posted',
             data: {
-                treeId: tree.treeId
+                treeId: result
             }
         }
         return response.json(status)

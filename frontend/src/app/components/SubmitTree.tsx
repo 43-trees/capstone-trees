@@ -6,6 +6,7 @@ import {DisplayStatus} from "@/app/components/displayStatus";
 import React from "react";
 import {useDropzone} from "react-dropzone";
 import {Session} from "@/utils/models/fetchSession";
+import {FormDebugger} from "@/app/components/formDebugger";
 
 type TreeSubmitProps = {
     session : Session
@@ -14,8 +15,8 @@ export function SubmitTreeComponent(props: TreeSubmitProps) {
     const { session} = props
 
     const initialValues: any = {
-        treeId: '',
-        treeProfileId: '',
+        treeId: null,
+        treeProfileId: session.profile.profileId,
         treeAddress: '',
         treeEndDate: null,
         treeDate: null,
@@ -25,10 +26,10 @@ export function SubmitTreeComponent(props: TreeSubmitProps) {
         treeLng: null,
         treeTitle: '',
         treeSpecies: '',
-        imageUrl: ''
     }
 
     const handleSubmit = (values: Tree, actions: FormikHelpers<Tree>)=> {
+        console.log("values here", values)
         const {setStatus, resetForm} = actions
         fetch('/apis/tree', {
             method: "POST",
@@ -110,7 +111,7 @@ export function SubmitTreeContent(props: FormikProps<Tree>) {
                 </div>
                 <div className="py-3">
                     <label htmlFor="title" className="block text-gray text-sm font-bold mb-2">Title</label>
-                    <input type="text" id="title" name="title"
+                    <input type="text" id="title" name="treeTitle"
                            className="input input-bordered mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"
                            onBlur={handleBlur}
                            onChange={handleChange}
@@ -119,7 +120,7 @@ export function SubmitTreeContent(props: FormikProps<Tree>) {
                 </div>
                 <div className="py-3">
                     <label htmlFor="address" className="block text-gray text-sm font-bold mb-2">Address</label>
-                    <input type="text" id="address" name="address"
+                    <input type="text" id="address" name="treeAddress"
                            className="input input-bordered mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"
                            onBlur={handleBlur}
                            onChange={handleChange}
@@ -127,7 +128,7 @@ export function SubmitTreeContent(props: FormikProps<Tree>) {
                 </div>
                 <div className="py-3">
                     <label htmlFor="info" className="block text-gray text-sm font-bold mb-2">Info</label>
-                    <input type="text" id="info" name="info"
+                    <input type="text" id="info" name="treeInfo"
                            className="input input-bordered mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"
                            onBlur={handleBlur}
                            onChange={handleChange}
@@ -139,6 +140,7 @@ export function SubmitTreeContent(props: FormikProps<Tree>) {
                         Submit
                     </button>
                 </div>
+                <FormDebugger {...props}/>
             </form>
         </>
     )

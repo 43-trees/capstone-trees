@@ -9,7 +9,7 @@ import {SubmitTreeContent} from "@/app/components/SubmitTree";
 type TreeSubmitProps = {
     session : Session
 }
-export function SubmitTreeComponent(props: TreeSubmitProps) {
+export function AddImagesComponent(props: TreeSubmitProps) {
     const { session} = props
 
     const initialValues: any = {
@@ -50,14 +50,10 @@ export function SubmitTreeComponent(props: TreeSubmitProps) {
             })
     };
 
-    // const handleChange = (event: any) => {
-    //     event.target.setAttribute('selected', true)
-    //     console.log('hello')
-    // }
 
     return (
         <>
-            <div className="test">
+            <div className="">
                 <Formik
                     initialValues={initialValues}
                     onSubmit={handleSubmit}
@@ -118,7 +114,7 @@ function ImageDropZone ({ formikProps }: any) {
 
     return (
         <>
-            <label>Tree Images</label>
+            <label className="text-neutral font-semibold">Add Tree Images</label>
             {
                 formikProps.values.imageUrl &&
                 <>
