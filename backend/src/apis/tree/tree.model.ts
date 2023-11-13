@@ -7,7 +7,7 @@ import axios from "axios"
 export type Tree = z.infer<typeof TreeSchema>
 
 export async function insertTree(tree: Tree): Promise<string> {
-    const {treeProfileId, treeAddress, treeImage, treeInfo, treeTitle, treeSpecies} = tree
+    const {treeProfileId, treeAddress, treeImage, treeInfo, treeLat, treeLng, treeTitle, treeSpecies} = tree
 
     // this function takes the current date and adds 30 days to be added into the dataset as "end date" to serve as the "lifespan" of the tree on the app before it goes inactive
     function endDate() {
@@ -15,30 +15,30 @@ export async function insertTree(tree: Tree): Promise<string> {
           return new Date(date.setDate(date.getDate() + 30)) // Set now + 30 days as the new date
       }
 
-    // function to convert address into treeLat and treeLng to pass into sql
-    async function convertAddress (address: string) {
+//     // function to convert address into treeLat and treeLng to pass into sql
+//     async function convertAddress (address: string) {
+//
+//         let formattedAddress = encodeURIComponent(address.split(' ').join( '+'))
+//         console.log(formattedAddress)
+//
+//         const GEOCODING_API_KEY = process.env.GEOCODING_API_KEY as string
+//
+//         const result = await axios({
+//             method: 'get',
+//             url: `https://api.geocod.io/v1.7/geocode?api_key=${GEOCODING_API_KEY}&q=${formattedAddress}`,
+//             // responseType: 'stream'
+//         })
+//             .then(function (response) {
+//                 const latitude = response.data.results[0].location.lat
+//                 const longitude = response.data.results[0].location.lng
+//                 return {lat: latitude, lng: longitude}
+//             })
+//         return (result)
+//     }
+//
+// const treeCords = await convertAddress(treeAddress)
 
-        let formattedAddress = encodeURIComponent(address.split(' ').join( '+'))
-        console.log(formattedAddress)
-
-        const GEOCODING_API_KEY = process.env.GEOCODING_API_KEY as string
-
-        const result = await axios({
-            method: 'get',
-            url: `https://api.geocod.io/v1.7/geocode?api_key=${GEOCODING_API_KEY}&q=${formattedAddress}`,
-            // responseType: 'stream'
-        })
-            .then(function (response) {
-                const latitude = response.data.results[0].location.lat
-                const longitude = response.data.results[0].location.lng
-                return {lat: latitude, lng: longitude}
-            })
-        return (result)
-    }
-
-const treeCords = await convertAddress(treeAddress)
-
-    await sql`INSERT INTO tree (tree_id, tree_profile_id, tree_address, tree_end_date, tree_date, tree_image, tree_info, tree_lat, tree_lng, tree_title, tree_species) VALUES (gen_random_uuid(), ${treeProfileId}, ${treeAddress}, ${endDate()}, now(), ${treeImage}, ${treeInfo}, ${treeCords.lat}, ${treeCords.lng}, ${treeTitle}, ${treeSpecies})`
+    await sql`INSERT INTO tree (tree_id, tree_profile_id, tree_address, tree_end_date, tree_date, tree_image, tree_info, tree_lat, tree_lng, tree_title, tree_species) VALUES (gen_random_uuid(), ${treeProfileId}, ${treeAddress}, ${endDate()}, now(), ${treeImage}, ${treeInfo}, ${treeLat}, ${treeLng}, ${treeTitle}, ${treeSpecies})`
 
     return 'Tree successfully posted'
 }

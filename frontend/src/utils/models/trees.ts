@@ -1,4 +1,4 @@
-import {z} from 'zod'
+import {z} from "zod"
 
 export const TreeSchema = z.object({
     treeId: z.string ({
@@ -13,11 +13,11 @@ export const TreeSchema = z.object({
     treeAddress: z.string({
         required_error:'Please provide a valid address'
     }),
-    treeEndDate: z.date({
+    treeEndDate: z.coerce.date({
         required_error: 'Please provide a valid end date or null'
     })
         .nullable(),
-    treeDate: z.date({
+    treeDate: z.coerce.date({
         required_error: 'Please provide a valid tree date or null'
 
     })
@@ -51,3 +51,5 @@ export const TreeSchema = z.object({
         .min(1, {message: 'Please provide a minimum of 1 characters'})
         .max(96,{message: 'Please provide a tree species that is no longer than 96 characters'})
 })
+
+export type Tree = z.infer<typeof TreeSchema>

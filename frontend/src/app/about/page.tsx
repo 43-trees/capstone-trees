@@ -16,19 +16,23 @@ export default function About() {
                     <div>
                         <img className="rounded-full mx-auto pb-4" src="http://placekitten.com/200/300" alt=""/>
                     </div>
-                    <p className="">This is an about me. This is an about me. THis is an about me.</p>
+                    <h2 className="text-neutral font-semibold">Nic Crow, MBA, DASM</h2>
+                    <p className="">Nic is an experienced project manager and junior developer </p>
                 </div>
                 <div>
                     <div>
                         <img className="rounded-full mx-auto pb-4" src="http://placekitten.com/200/300" alt=""/>
                     </div>
-                    <p className="">This is an about me. This is an about me. THis is an about me.</p>
+                    <h2 className="text-neutral font-semibold">Jordan DeRaad</h2>
+                    <p className="">Jordan is a passionate marketing and media professional with a vision for starting a marketing and communications company focused on the aerospace division in New Mexico. He has experience in web development, video editing, and social media marketing. Jordan is eager to help aerospace companies in New Mexico reach their marketing and communications goals.
+                    </p>
                 </div>
                 <div>
                     <div>
                         <img className="rounded-full mx-auto pb-4" src="http://placekitten.com/200/300" alt=""/>
                     </div>
-                    <p className="">This is an about me. This is an about me. THis is an about me.</p>
+                    <h2 className="text-neutral font-semibold">Rashaan Marrow</h2>
+                    <p className="">Rashaan is a dedicated developer and beyond that she is a blogger with a passion for creating visually appealing and functional websites. Rashaan excels in both web development and design, showcasing a keen eye for aesthetics and user experience. Rashaan extends creativity to the digital realm by maintaining an engaging blog. Rashaan is happy to make a lasting impact in the dynamic world of web development.</p>
                 </div>
                 </div>
             </section>
