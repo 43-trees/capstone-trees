@@ -5,31 +5,24 @@ import {Tree, TreeSchema} from "@/utils/models/trees";
 import {Formik, FormikHelpers, FormikProps} from "formik";
 import {toFormikValidationSchema} from "zod-formik-adapter";
 import {SubmitTreeContent} from "@/app/components/SubmitTree";
+import {Image} from "@/utils/models/images";
 
 type TreeSubmitProps = {
     session : Session
+    tree: Tree,
+    images : Image []
 }
 export function AddImagesComponent(props: TreeSubmitProps) {
-    const { session} = props
+    const { session, tree, images} = props
 
     const initialValues: any = {
-        treeId: '',
-        treeProfileId: '',
-        treeAddress: '',
-        treeEndDate: null,
-        treeDate: null,
-        treeImage: null,
-        treeInfo: '',
-        treeLat: null,
-        treeLng: null,
-        treeTitle: '',
-        treeSpecies: '',
-        imageUrl: ''
+        treeId: tree.treeId,
+
     }
 
     const handleSubmit = (values: Tree, actions: FormikHelpers<Tree>)=> {
         const {setStatus, resetForm} = actions
-        fetch('/apis/tree', {
+        fetch('/apis/image/upload', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
