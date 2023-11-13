@@ -16,6 +16,7 @@ import {zodErrorResponse} from '../../utils/response.utils'
 import {z} from 'zod'
 import {PublicProfileSchema} from '../profile/profile.validator'
 import axios from "axios";
+import {v4 as uuid} from "uuid";
 
 export async function postTreeController(request: Request, response: Response): Promise<Response | undefined> {
     try{
@@ -53,7 +54,7 @@ export async function postTreeController(request: Request, response: Response): 
         const treeCords = await convertAddress(treeAddress)
 
         const tree: Tree = {
-            treeId: null,
+            treeId: uuid(),
             treeProfileId: treeProfileId,
             treeAddress: treeAddress,
             treeEndDate: null,
@@ -71,7 +72,9 @@ export async function postTreeController(request: Request, response: Response): 
         const status: Status = {
             status: 200,
             message: result,
-            data: null
+            data: {
+                treeId: tree.treeId
+            }
         }
         return response.json(status)
     } catch (error) {
