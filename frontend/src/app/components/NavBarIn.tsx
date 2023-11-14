@@ -27,8 +27,8 @@ export async function NavBarIn() {
                         <li>
                             <a>Info</a>
                             <ul className="p-2">
-                                <li><a href={"/harvesting"}>Harvesting Resources</a></li>
-                                <li><a href={"beginner"}>Beginner Tips</a></li>
+                                <li><a href={"/resources"}>Resources</a></li>
+                                <li><a href={"harvesting-basics"}>Harvesting 101</a></li>
                                 <li><a href={"/about"}>About Us</a></li>
                             </ul>
                         </li>
@@ -41,8 +41,8 @@ export async function NavBarIn() {
                 <ul className="menu text-xl menu-horizontal px-1">
 
                     <li><a href={"/about"}>About Us</a></li>
-                    <li><a href={"/harvesting"}>Harvesting Resources</a></li>
-                    <li><a href={"/beginner"}>Beginner Tips</a></li>
+                    <li><a href={"/resources"}>Resources</a></li>
+                    <li><a href={"/harvesting-basics"}>Harvesting 101</a></li>
                 </ul>
             </div>
             <div className="navbar-end">
