@@ -18,21 +18,27 @@ export function SettingsFormComponent(props: SettingsFormProps) {
         profileImageUrl: "",
         profileName: profile.profileName,
         profileEmail: profile.profileEmail,
-        newPassword: "",
-        confirmPassword: "",
     };
+    const ValidationSchema = ProfileSchema.pick({
+        profileName: true,
+        profileEmail: true,
+
+    })
 
     const handleSubmit = (values: Profile, actions: FormikHelpers<Profile>) => {
+        profile.profileEmail = values.profileEmail
+        profile.profileName = values.profileName
+
         console.log("values here", values)
         const { setStatus, resetForm } = actions
 
-        fetch('/api/profile', {
-            method: 'POST',
+        fetch(`/apis/profile/${profile.profileId}`, {
+            method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
                 "authorization": `${session.authorization}`
             },
-            body: JSON.stringify(values)
+            body: JSON.stringify(profile)
         })
             .then(response => response.json()
             )
@@ -55,7 +61,7 @@ export function SettingsFormComponent(props: SettingsFormProps) {
             <Formik
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
-                validationSchema={toFormikValidationSchema(ProfileSchema)}
+                validationSchema={toFormikValidationSchema(ValidationSchema)}
             >
                 {SettingsFormContent}
             </Formik>
@@ -95,7 +101,7 @@ export function SettingsFormContent(props: FormikProps<Profile>) {
                         value={values.profileName}
                         className="input input-bordered w-full max bg-primary"
                         type="text"
-                        name="username"
+                        name="profileName"
                         id="username"
                     />
                     <DisplayError errors={errors} touched={touched} field={"username"}/>
@@ -110,7 +116,7 @@ export function SettingsFormContent(props: FormikProps<Profile>) {
                         value={values.profileEmail}
                         className="input input-bordered w-full max bg-primary"
                         type="email"
-                        name="email"
+                        name="profileEmail"
                         id="email"
                     />
                     <DisplayError errors={errors} touched={touched} field={"email"}/>

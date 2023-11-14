@@ -20,7 +20,6 @@ export async function getSession(): Promise<Session|undefined > {
     const jwtToken = cookieStore.get("jwt-token")
     if (session === undefined &&  jwtToken) {
         setJwtToken(jwtToken.value)
-        console.log(session)
         return session
     } else {
         return session
@@ -29,23 +28,23 @@ export async function getSession(): Promise<Session|undefined > {
 }
 
 export function setJwtToken(jwtToken: string) {
+    console.log("jwt-token", jwtToken)
     try {
         const  parsedJwtToken = jwtDecode(jwtToken) as any
 
         if(parsedJwtToken &&  currentTimeInSeconds < parsedJwtToken.exp) {
-            console.log("I made it here")
             session = {
                 profile: ProfileSchema.parse(parsedJwtToken.auth),
                 authorization: jwtToken,
                 exp: parsedJwtToken.exp
             }
-        console.log("")
         } else {
             session = undefined
         }
 
 
     } catch (error) {
+        console.log("error", error)
         session = undefined
 
     }

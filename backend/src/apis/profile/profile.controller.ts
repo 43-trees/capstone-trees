@@ -123,9 +123,8 @@ export async function putProfileController(request: Request, response: Response)
         }
 
         const {profileImageUrl, profileJoinDate, profileName} = validationResultForRequestBody.data
-
         const profile: PrivateProfile | null = await selectPrivateProfileByProfileId(profileId)
-
+console.log("I made it here")
         if (profile === null) {
             return response.json({
                 status: 400,
@@ -146,7 +145,6 @@ export async function putProfileController(request: Request, response: Response)
             data: null
         })
     } catch (error: unknown) {
-        console.error(error)
             return response.json({
                 status: 500,
                 message: 'internal server error',
