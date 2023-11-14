@@ -7,7 +7,6 @@ import React from "react";
 import {useDropzone} from "react-dropzone";
 import {Session} from "@/utils/models/fetchSession";
 import {FormDebugger} from "@/app/components/formDebugger";
-import {redirect, useRouter} from 'next/navigation'
 
 type TreeSubmitProps = {
     session : Session
@@ -31,9 +30,9 @@ export function SubmitTreeComponent(props: TreeSubmitProps) {
     }
 
     const handleSubmit = (values: Tree, actions: FormikHelpers<Tree>)=> {
-        console.log("values here", values)
+        console.log("values here", values.treeImage)
+        const submitValues = {...values, treeImage: null}
         const {setStatus, resetForm} = actions
-        const router = useRouter()
 
         fetch('/apis/tree', {
             method: "POST",
@@ -41,14 +40,12 @@ export function SubmitTreeComponent(props: TreeSubmitProps) {
                 "Content-Type": "application/json",
                 "authorization": `${session.authorization}`
             },
-            body: JSON.stringify(values)
+            body: JSON.stringify(submitValues)
         })
             .then(response => response.json())
             .then(json => {
                 if(json.status === 200){
-                    console.log("jason", json.data.treeId)
-                    // redirect(`/image/${json.data.treeId}`)
-                    router.push(`/image/${json.data.treeId}`)
+                    resetForm()
                 }
                 console.log("success")
                 setStatus({type: json.type, message: json.message})
@@ -140,6 +137,19 @@ export function SubmitTreeContent(props: FormikProps<Tree>) {
                            onChange={handleChange}
                            value={values.treeInfo}/>
                 </div>
+                <ImageDropZone
+                    formikProps ={
+                    {
+                        values,
+                        handleChange,
+                        handleBlur,
+                        setFieldValue,
+                        fieldValue:"treeImage",
+
+                    }
+                    }
+
+                    />
                 <DisplayStatus status={status} />
                 <div className="py-3">
                     <button type="submit" className="bg-secondary hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">
@@ -148,6 +158,51 @@ export function SubmitTreeContent(props: FormikProps<Tree>) {
                 </div>
                 <FormDebugger {...props}/>
             </form>
+        </>
+    )
+}
+
+function ImageDropZone ({ formikProps }: any) {
+
+    const onDrop = React.useCallback((acceptedFiles: any) => {
+
+        const formData = new FormData()
+        formData.append('image', acceptedFiles[0])
+
+        formikProps.setFieldValue(formikProps.fieldValue, formData)
+
+    }, [formikProps])
+    const { getInputProps, isDragActive, getRootProps } = useDropzone({ onDrop })
+
+    return (
+        <>
+            <label className="text-neutral font-semibold">Add Tree Images</label>
+            {
+                formikProps.values.imageUrl &&
+                <>
+                    <div className="bg-transparent m-0">
+                        <img  height={200}  width={200} alt="new tree image" src={formikProps.values.imageUrl} />
+                    </div>
+
+                </>
+            }
+            <div {...getRootProps()} className="d-flex flex-fill bg-light justify-content-center align-items-center border rounded">
+                <input
+                    aria-label="tree image file drag and drop area"
+                    aria-describedby="image drag drop area"
+                    className="file-input form-control-file w-50 h-50"
+                    accept="image/*"
+                    type="file"
+                    onChange={formikProps.handleChange}
+                    onBlur={formikProps.handleBlur}
+                    {...getInputProps()}
+                />
+                {
+                    isDragActive ?
+                        <span className="align-items-center" >Drop image here</span> :
+                        <span className="align-items-center" >Drag and drop image here, or click here to select an image</span>
+                }
+            </div>
         </>
     )
 }
