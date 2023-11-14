@@ -1,29 +1,14 @@
-export function Foot () {
-    const footerStyle = {
-        color: '#F8F8FF',
-        padding: '20px 0',
-       position: 'fixed',
-        width: '100%',
-        bottom: '0',
-    };
+export function Foot() {
+    return(
+        <footer className="footer absolute bottom-0 flex mt-40 text-center p-4 bg-neutral/75 text-white">
+            <aside className=" text-center mx-auto">
 
-    const containerStyle = {
-        maxWidth: '1200px',
-        margin: '0 auto',
-    };
+                <p> © Urban Orchard 2023 </p>
+            </aside>
+            <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
 
-    const pStyle = {
-        margin: 0,
-    };
+            </nav>
+        </footer>
 
-
-        return (
-            <>
-            <footer className='bg-neutral/75' style={footerStyle}>
-                <div style={containerStyle}>
-                    <p className='text-center' style={pStyle}>&copy; Urban Orchard 2023</p>
-                </div>
-            </footer>
-            </>
     )
 }

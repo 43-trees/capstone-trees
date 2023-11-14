@@ -18,7 +18,7 @@ export default function RootLayout(props : RootLayoutProps) {
     const { children } = props
     return (
         <html data-theme="light" lang="en">
-        <body>
+        <body className="min-h-screen relative">
         <NavBarIn/>
         {children}
         <Foot/>

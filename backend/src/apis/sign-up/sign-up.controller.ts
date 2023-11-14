@@ -25,7 +25,7 @@ export async function signUpProfileController (request: Request, response: Respo
 
         const profileActivationToken = setActivationToken()
 
-        const profileImageUrl = 'http://placekitten.com/300/300'
+        const profileImageUrl = 'https://res.cloudinary.com/dtcosq4b9/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1699983937/Urban_orchard_2023_nsbimg.jpg?_s=public-apps'
 
         const basePath: string = `${request.protocol}://${request.hostname}:8080${request.originalUrl}activation/${profileActivationToken}`
 

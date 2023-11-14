@@ -4,12 +4,12 @@ type NavBarProps = {
     session: Session | undefined
 }
 export async function NavBarIn() {
+    console.log("calling to session")
     const session = await getSession();
     function logout() {
         setJwtToken('')
         fetch('/apis/sign-out/')
     }
-
     if(session === undefined) {
         return ( <>   <div className="navbar rounded-b-lg text-primary bg-secondary">
             <div className="navbar-start">
@@ -27,22 +27,22 @@ export async function NavBarIn() {
                         <li>
                             <a>Info</a>
                             <ul className="p-2">
-                                <li><a href={"/harvesting"}>Harvesting Resources</a></li>
-                                <li><a href={"beginner"}>Beginner Tips</a></li>
+                                <li><a href={"/resources"}>Resources</a></li>
+                                <li><a href={"harvesting-basics"}>Harvesting 101</a></li>
                                 <li><a href={"/about"}>About Us</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
                 <a className="btn btn-ghost normal-case" href={'/'}><img  className="w-14" src="/trees-logo.png" alt="Urban Orchard Logo of hands acting as tree trunk holding the leaves"/></a>
-                <a className="btn md:display btn-ghost normal-case text-2xl" href={'/'}>Urban Orchard</a>
+                <a className="btn  btn-ghost normal-case text-2xl" href={'/'}>Urban Orchard</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu text-xl menu-horizontal px-1">
 
                     <li><a href={"/about"}>About Us</a></li>
-                    <li><a href={"/harvesting"}>Harvesting Resources</a></li>
-                    <li><a href={"/beginner"}>Beginner Tips</a></li>
+                    <li><a href={"/resources"}>Resources</a></li>
+                    <li><a href={"/harvesting-basics"}>Harvesting 101</a></li>
                 </ul>
             </div>
             <div className="navbar-end">
@@ -76,7 +76,8 @@ export async function NavBarIn() {
                         </li>
                     </ul>
                 </div>
-
+                <a className="btn btn-ghost normal-case" href={'/'}><img  className="w-12" src="/trees-logo.png" alt="Urban Orchard Logo of hands acting as tree trunk holding the leaves"/></a>
+                <a className="btn  btn-ghost hidden md:inline pt-2 normal-case text-2xl" href={'/'}>Urban Orchard</a>
 
             </div>
             <div className="flex mx-auto">
@@ -94,7 +95,7 @@ export async function NavBarIn() {
             <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full">
-                        <img src="https://placekitten.com/200/300" alt="placeholder profile picture"/>
+                        <img src={`${session.profile.profileImageUrl}`} alt="user profile image"/>
                     </div>
                 </label>
                 <ul tabIndex={0} className="mt-3 z-[1] p-2 text-neutral shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">

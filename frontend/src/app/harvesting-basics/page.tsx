@@ -15,6 +15,9 @@ export default function HarvestingBasics() {
                     </ul>
                 </div>
             </section>
+            <div className="mt-20 pt-12">
+
+            </div>
         </>
     )
 }
