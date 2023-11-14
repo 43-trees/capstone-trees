@@ -21,9 +21,6 @@
 
 ## Frontend
 ### get data for:
-- trees
-  - test map with more pins
-- comments
 - avatar
 
 ### submission form for:
@@ -36,6 +33,7 @@
 ### other updates
 - fix carousel
 - images on comments
+- reroute/content for pages when session is undefined
 
 ### styling
 - about me page
