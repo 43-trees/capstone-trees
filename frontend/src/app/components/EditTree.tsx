@@ -4,6 +4,7 @@ import {toFormikValidationSchema} from "zod-formik-adapter";
 import React from "react";
 import {Session} from "@/utils/models/fetchSession";
 import {DisplayStatus} from "@/app/components/displayStatus";
+import {useDropzone} from "react-dropzone";
 // import {useDropzone} from "react-dropzone";
 
 
@@ -130,16 +131,16 @@ function EditTreeContent(props: FormikProps<Tree>) {
                            value={values.treeInfo}/>
                 </div>
                 <div>
-                    {/*<ImageDropZone*/}
-                    {/*    formikProps={{*/}
-                    {/*        values,*/}
-                    {/*        handleChange,*/}
-                    {/*        handleBlur,*/}
-                    {/*        setFieldValue,*/}
-                    {/*        fieldValue: 'imageTreeId'*/}
-                    {/*    }}*/}
-                    {/*/>*/}
-                    {/*<DisplayStatus status={status} />*/}
+                    <ImageDropZone
+                        formikProps={{
+                            values,
+                            handleChange,
+                            handleBlur,
+                            setFieldValue,
+                            fieldValue: 'imageTreeId'
+                        }}
+                    />
+                    <DisplayStatus status={status} />
                 </div>
                 <div className="py-3">
                     <button type="submit" className="bg-secondary hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">
@@ -147,6 +148,50 @@ function EditTreeContent(props: FormikProps<Tree>) {
                     </button>
                 </div>
             </form>
+        </>
+    )
+}
+
+function ImageDropZone ({ formikProps }: any) {
+
+    const onDrop = React.useCallback((acceptedFiles: any) => {
+
+        const formData = new FormData()
+        formData.append('image', acceptedFiles[0])
+
+        formikProps.setFieldValue(formikProps.fieldValue, formData)
+
+    }, [formikProps])
+    const { getInputProps, isDragActive } = useDropzone({ onDrop })
+
+    return (
+        <>
+            <label className="text-neutral font-semibold">Add Tree Images</label>
+            {
+                formikProps.values.imageUrl &&
+                <>
+                    <div className="bg-transparent m-0">
+                        <img  height={200}  width={200} alt="new tree image" src={formikProps.values.imageUrl} />
+                    </div>
+
+                </>
+            }
+            <div className="d-flex flex-fill bg-light justify-content-center align-items-center border rounded">
+                <input
+                    aria-label="tree image file drag and drop area"
+                    aria-describedby="image drag drop area"
+                    className="form-control-file"
+                    accept="image/*"
+                    onChange={formikProps.handleChange}
+                    onBlur={formikProps.handleBlur}
+                    {...getInputProps()}
+                />
+                {
+                    isDragActive ?
+                        <span className="align-items-center" >Drop image here</span> :
+                        <span className="align-items-center" >Drag and drop image here, or click here to select an image</span>
+                }
+            </div>
         </>
     )
 }

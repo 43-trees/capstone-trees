@@ -9,9 +9,8 @@ export async function NavBarIn() {
         setJwtToken('')
         fetch('/apis/sign-out/')
     }
-    // if(session === undefined) {
 
-    if(true) {
+    if(session === undefined) {
         return ( <>   <div className="navbar rounded-b-lg text-primary bg-secondary">
             <div className="navbar-start">
                 <div className="dropdown">
