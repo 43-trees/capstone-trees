@@ -18,21 +18,27 @@ export function SettingsFormComponent(props: SettingsFormProps) {
         profileImageUrl: "",
         profileName: profile.profileName,
         profileEmail: profile.profileEmail,
-        newPassword: "",
-        confirmPassword: "",
     };
+    const ValidationSchema = ProfileSchema.pick({
+        profileName: true,
+        profileEmail: true,
+
+    })
 
     const handleSubmit = (values: Profile, actions: FormikHelpers<Profile>) => {
+        profile.profileEmail = values.profileEmail
+        profile.profileName = values.profileName
+
         console.log("values here", values)
         const { setStatus, resetForm } = actions
 
-        fetch('/api/profile', {
-            method: 'POST',
+        fetch(`/apis/profile/${profile.profileId}`, {
+            method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
                 "authorization": `${session.authorization}`
             },
-            body: JSON.stringify(values)
+            body: JSON.stringify(profile)
         })
             .then(response => response.json()
             )
@@ -55,7 +61,7 @@ export function SettingsFormComponent(props: SettingsFormProps) {
             <Formik
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
-                validationSchema={toFormikValidationSchema(ProfileSchema)}
+                validationSchema={toFormikValidationSchema(ValidationSchema)}
             >
                 {SettingsFormContent}
             </Formik>
@@ -84,21 +90,7 @@ export function SettingsFormContent(props: FormikProps<Profile>) {
                 <div>
                     <h2 className="text-3xl text-center text-neutral/80 font-semibold p-2">User Settings</h2>
                 </div>
-                <div>
-                    <label className="label font-semibold" htmlFor="profileImageUrl">
-                        Profile Image URL
-                    </label>
-                    <input
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.profileImageUrl}
-                        className="input input-bordered w-full max bg-primary"
-                        type="url"
-                        name="profileImageUrl"
-                        id="profileImageUrl"
-                    />
-                    <DisplayError errors={errors} touched={touched} field={"profileImageUrl"}/>
-                </div>
+
                 <div className="form-control">
                     <label className="label font-semibold" htmlFor="username">
                         Username
@@ -109,7 +101,7 @@ export function SettingsFormContent(props: FormikProps<Profile>) {
                         value={values.profileName}
                         className="input input-bordered w-full max bg-primary"
                         type="text"
-                        name="username"
+                        name="profileName"
                         id="username"
                     />
                     <DisplayError errors={errors} touched={touched} field={"username"}/>
@@ -124,41 +116,12 @@ export function SettingsFormContent(props: FormikProps<Profile>) {
                         value={values.profileEmail}
                         className="input input-bordered w-full max bg-primary"
                         type="email"
-                        name="email"
+                        name="profileEmail"
                         id="email"
                     />
                     <DisplayError errors={errors} touched={touched} field={"email"}/>
                 </div>
-                <div className="form-control">
-                    <label className="label font-semibold" htmlFor="newPassword">
-                        New Password
-                    </label>
-                    <input
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.newPassword}
-                        className="input input-bordered w-full max bg-primary"
-                        type="password"
-                        name="newPassword"
-                        id="newPassword"
-                    />
-                    <DisplayError errors={errors} touched={touched} field={"newPassword"}/>
-                </div>
-                <div className="form-control">
-                    <label className="label font-semibold" htmlFor="confirmPassword">
-                        Confirm Password
-                    </label>
-                    <input
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.confirmPassword}
-                        className="input input-bordered w-full max bg-primary"
-                        type="password"
-                        name="confirmPassword"
-                        id="confirmPassword"
-                    />
-                    <DisplayError errors={errors} touched={touched} field={"confirmPassword"}/>
-                </div>
+
                 <div className="py-2 flex gap-4">
                     <button className='btn btn-success bg-secondary text-white border-secondary' type="submit">Apply Changes</button>
                     <button className='btn btn-danger bg-accent border-accent text-white' onClick={handleReset} type="reset">Reset</button>
