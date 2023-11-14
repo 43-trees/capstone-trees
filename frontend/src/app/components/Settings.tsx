@@ -1,16 +1,20 @@
-import {Profile} from "@/utils/models/profiles";
-import {FormikHelpers, FormikProps} from "formik";
+'use client'
+import {Profile, ProfileSchema} from "@/utils/models/profiles";
+import {Formik, FormikHelpers, FormikProps} from "formik";
 import {DisplayError} from "@/app/components/displayError";
 import {FormDebugger} from "@/app/components/formDebugger";
 import {Session} from "@/utils/models/fetchSession";
+import {toFormikValidationSchema} from "zod-formik-adapter";
+import React from "react";
 
 type SettingsFormProps = {
     session: Session,
     profile: Profile
 }
-export default function SettingsFormComponent(props: SettingsFormProps) {
-    const{profile, session} = props
-    const initialValues = {
+export function SettingsFormComponent(props: SettingsFormProps) {
+    const{session, profile} = props
+
+    const initialValues: any = {
         profileImageUrl: "",
         profileName: profile.profileName,
         profileEmail: profile.profileEmail,
@@ -19,35 +23,48 @@ export default function SettingsFormComponent(props: SettingsFormProps) {
     };
 
     const handleSubmit = (values: Profile, actions: FormikHelpers<Profile>) => {
-        const { setStatus, resetForm } = actions;
-        const result = fetch('/api/profile', {
+        console.log("values here", values)
+        const { setStatus, resetForm } = actions
+
+        fetch('/api/profile', {
             method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "authorization": `${session.authorization}`
             },
             body: JSON.stringify(values)
-        }).then(response => response.json()).then(json => {
+        })
+            .then(response => response.json()
+            )
+            .then(json => {
             if (json.status === 200) {
                 resetForm()
             }
-            setStatus({ type: "success", message: "Your settings have been updated successfully" })
+            console.log("success")
+            setStatus({ type: json.type, message:
+                json.message })
         })
+            .catch(error => {
+                console.error(error)
+            })
     }
 
     return (
         <>
-            {/*<Formik*/}
-            {/*    initialValues={initialValues}*/}
-            {/*    onSubmit={handleSubmit}*/}
-            {/*    validationSchema={toFormikValidationSchema(ProfileSchema)}*/}
-            {/*>*/}
-            {/*    {SettingsFormContent}*/}
-            {/*</Formik>*/}
+            <div className="test">
+            <Formik
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
+                validationSchema={toFormikValidationSchema(ProfileSchema)}
+            >
+                {SettingsFormContent}
+            </Formik>
+            </div>
         </>
     )
 }
 
-function SettingsFormContent(props: FormikProps<Profile>) {
+export function SettingsFormContent(props: FormikProps<Profile>) {
     const {
         status,
         values,
@@ -63,8 +80,11 @@ function SettingsFormContent(props: FormikProps<Profile>) {
 
     return (
         <>
-            <form onSubmit={handleSubmit} className={"md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8"}>
-                <div className="form-control">
+            <form onSubmit={handleSubmit} className="md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8">
+                <div>
+                    <h2 className="text-3xl text-center text-neutral/80 font-semibold p-2">User Settings</h2>
+                </div>
+                <div>
                     <label className="label font-semibold" htmlFor="profileImageUrl">
                         Profile Image URL
                     </label>
@@ -144,7 +164,7 @@ function SettingsFormContent(props: FormikProps<Profile>) {
                     <button className='btn btn-danger bg-accent border-accent text-white' onClick={handleReset} type="reset">Reset</button>
                 </div>
             </form>
-            <FormDebugger/>
+            <FormDebugger {...props}/>
         </>
     )
-}}
+}
