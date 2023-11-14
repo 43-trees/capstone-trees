@@ -13,8 +13,6 @@ export type Session = {
 
 let session : Session|undefined = undefined
 
-console.log("session", session)
-
 const currentTimeInSeconds = new Date().getTime() / 1000
 
 export async function getSession(): Promise<Session|undefined > {
@@ -22,6 +20,7 @@ export async function getSession(): Promise<Session|undefined > {
     const jwtToken = cookieStore.get("jwt-token")
     if (session === undefined &&  jwtToken) {
         setJwtToken(jwtToken.value)
+        console.log(session)
         return session
     } else {
         return session
@@ -30,19 +29,17 @@ export async function getSession(): Promise<Session|undefined > {
 }
 
 export function setJwtToken(jwtToken: string) {
-    console.log("jwtToken", jwtToken)
     try {
         const  parsedJwtToken = jwtDecode(jwtToken) as any
 
-        console.log("token is expired", currentTimeInSeconds < parsedJwtToken.exp)
-
         if(parsedJwtToken &&  currentTimeInSeconds < parsedJwtToken.exp) {
+            console.log("I made it here")
             session = {
                 profile: ProfileSchema.parse(parsedJwtToken.auth),
                 authorization: jwtToken,
                 exp: parsedJwtToken.exp
             }
-
+        console.log("")
         } else {
             session = undefined
         }
