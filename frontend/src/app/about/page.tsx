@@ -48,7 +48,7 @@ export default function About() {
                     </div>
                 </div>
             </section>
-            <div className="my-20">
+            <div className="mt-20 pt-12">
 
             </div>
         </>
