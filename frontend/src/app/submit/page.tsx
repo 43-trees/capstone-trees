@@ -12,11 +12,12 @@ export default async function TreeSubmit() {
 
         return(
             <>
-                <section className="bg-primary p-6 my-4 rounded-lg md:w-96 mx-auto">
+                <section className="bg-accent/50 p-6 my-4 rounded-lg md:w-96 mx-auto">
                     <div>
+                        <img src='/trees-logo.png' alt="Urban Orchard Logo of hands acting as tree trunk holding the leaves"/>
                         <h2 className="text-neutral text-3xl font-semibold py-4">Please login to continue</h2>
                         <div className="flex justify-center">
-                            <button className="p-2 px-4 rounded-lg bg-secondary border-secondary hover:info text-white"><a href={"/sign-in"}>Sign-In</a></button>
+                            <button className="p-2 px-4 rounded-lg bg-secondary border-secondary hover:bg-info text-white"><a href={"/sign-in"}>Sign-In</a></button>
                         </div>
                     </div>
                 </section>
