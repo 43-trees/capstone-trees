@@ -83,7 +83,7 @@ export async function NavBarIn() {
 
                     <li><a href={"/about"}>About Us</a></li>
                     <li><a href={"/resources"}>Resources</a></li>
-                    <li><a href={"/harvesting"}>Harvesting 101</a></li>
+                    <li><a href={"/harvesting-basics"}>Harvesting 101</a></li>
                 </ul>
             </div>
             </div>
