@@ -1,36 +1,95 @@
+'use client'
 import React, {useState} from "react";
+import {Formik, FormikHelpers, FormikProps} from "formik";
+import {Comment, CommentSchema} from "@/utils/models/comments"
+import {toFormikValidationSchema} from "zod-formik-adapter";
 
-type CommentSubmitProps = {
-    commentContent: string
-    profileName: string
-    onComment: (comment: string) => void;
-};
 
-export function CommentSubmit(commentProps: CommentSubmitProps) {
-    const { profileName, onComment } = commentProps;
-    const [comment, setComment] = useState('');
+type CommentSubmitComponentProps = {
+    session : Session|undefined
+    treeId: string
+}
+export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
+    const {treeId, session} = props
 
-    const handleCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>)=> {
-        setComment(event.target.value);
-    };
+    if(session === undefined) {
+        return <></>
+    }
 
-    const handleCommentSubmit=()=> {
-        onComment(comment);
-        setComment("");
+    const {profile, authorization} = session
+
+    const initialValues: any = {
+        commentId: null,
+        commentContent: '',
+        commentDatetime: null,
+        commentImageUrl: null,
+        commentProfileId: '',
+        commentTreeId: treeId
+    }
+
+    const handleSubmit = (values: Comment, actions: FormikHelpers<Comment>)=> {
+        const {setStatus, resetForm} = actions
+        const result = fetch('/apis/comment', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `${authorization}`
+            },
+            body: JSON.stringify(values)
+        }).then(response => response.json()).then(json => {
+            if(json.status === 200){
+                resetForm()
+            }
+            setStatus({type: json.type, message: json.message})
+        })
     };
 
     return (
         <>
-            <section className="bg-base-100 p-4 rounded-lg md:w-96 mx-auto">
-                <h3 className="text-md text-start font-semibold text-secondary">{profileName}</h3>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
+                validatorSchema={toFormikValidationSchema(CommentSchema)}
+                    >
+                {CommentFormContent}
+            </Formik>
+        </>
+    )
+}
+
+function CommentFormContent(props: FormikProps<Comment>) {
+
+    const {
+        status,
+        values,
+        errors,
+        touched,
+        dirty,
+        isSubmitting,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        handleReset
+    } = props
+
+    return (
+        <>
+            <form onSubmit={handleSubmit} className="bg-base-100 p-4 my-6 rounded-lg md:w-96 mx-auto">
+                <label className="label font-semibold text-secondary" htmlFor="commentContent">Comment</label>
                 <textarea
                     placeholder="comment here"
-                    value={comment}
-                    onChange={handleCommentChange}
-                    className="text-justify">
+                    value={values.commentContent}
+                    onChange={handleChange}
+                    className="w-full"
+                    rows={5}
+                    name="commentContent"
+                    id="commentContent"
+                >
                 </textarea>
-                <button onClick={handleCommentSubmit}>Comment</button>
-            </section>
+                <div className="py-3 flex justify-end">
+                <button type="submit" className="p-2 my-2 text-white flex justify-end bg-secondary border-secondary border-2 rounded-lg ">Comment Submit</button>
+                </div>
+            </form>
         </>
     )
 }

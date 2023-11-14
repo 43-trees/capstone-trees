@@ -15,13 +15,13 @@ export async function insertProfile (profile: PrivateProfile) : Promise<string> 
 }
 
 export async function updateProfile (profile: PublicProfile): Promise<string> {
-    const {profileName, profileId} = profile
-    await sql `UPDATE profile SET profile_name = ${profileName},profile_id = ${profileId} WHERE profile_id = ${profileId}`
+    const {profileName, profileId, profileImageUrl} = profile
+    await sql `UPDATE profile SET profile_name = ${profileName},profile_id = ${profileId}, profile_image_url = ${profileImageUrl} WHERE profile_id = ${profileId}`
     return 'Profile updated successfully'
 }
 
 export async function selectPublicProfileByProfileId (profileId:string | null): Promise<PublicProfile |null> {
-    const rowList = await sql`SELECT profile_id, profile_name FROM profile WHERE profile_id = ${profileId}`
+    const rowList = await sql`SELECT profile_id, profile_name, profile_image_url, profile_join_date FROM profile WHERE profile_id = ${profileId}`
 
     const result = PublicProfileSchema.array().max(1).parse(rowList)
 

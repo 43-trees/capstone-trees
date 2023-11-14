@@ -1,18 +1,22 @@
+
 import {Map} from "./Map"
 import {Tree, TreeSchema} from "@/utils/models/trees"
 import Link from "next/link";
 import React from "react";
+import {getSession} from "@/utils/models/fetchSession";
 
 
 
 export default async function Home() {
+    const session = await getSession()
     const {trees} = await getData()
+
 
     return (
         <>
-            <section className="bg-accent/50 my-8 md:mx-72 rounded-md">
+            <section className="bg-accent/50 my-8 md:mx-72 md:rounded-md">
                 <div className="flex justify-center py-6">
-                    <div>
+                    <div className="max-w-screen-sm w-full">
                         <Map trees={trees}/>
                         <div className="py-3 flex justify-end">
                             <button type="submit" className="bg-secondary hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">
@@ -39,7 +43,7 @@ async function getData(): Promise<{trees:Tree[]}> {
         }).catch(error => {
             console.error(error)
         })
-    const trees = TreeSchema.array().parse(result?.data)
+     const trees = TreeSchema.array().parse(result?.data)
 
     return {trees}
 }

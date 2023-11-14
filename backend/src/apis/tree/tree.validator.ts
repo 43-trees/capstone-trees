@@ -27,7 +27,8 @@ export const TreeSchema = z.object({
     })
         .trim()
         .url({message:'Please provide a valid URL for tree image'})
-        .max(255, {message: 'Please provide a valid tree image (max 255 characters URL'}),
+        .max(255, {message: 'Please provide a valid tree image (max 255 characters URL'})
+        .nullable(),
     treeInfo: z.string({
         required_error: 'Please provide valid tree information'
     })
