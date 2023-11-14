@@ -27,21 +27,22 @@ console.log(session)
                         <li>
                             <a>Info</a>
                             <ul className="p-2">
-                                <li><a href={"/harvesting"}>Harvesting Resources</a></li>
-                                <li><a href={"beginner"}>Beginner Tips</a></li>
+                                <li><a href={"/resources"}>Resources</a></li>
+                                <li><a href={"harvesting-basics"}>Harvesting 101</a></li>
                                 <li><a href={"/about"}>About Us</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
-                <a className="btn btn-ghost normal-case text-2xl" href={'/'}>Urban Orchard</a>
+                <a className="btn btn-ghost normal-case" href={'/'}><img  className="w-14" src="/trees-logo.png" alt="Urban Orchard Logo of hands acting as tree trunk holding the leaves"/></a>
+                <a className="btn md:display btn-ghost normal-case text-2xl" href={'/'}>Urban Orchard</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu text-xl menu-horizontal px-1">
 
                     <li><a href={"/about"}>About Us</a></li>
-                    <li><a href={"/harvesting"}>Harvesting Resources</a></li>
-                    <li><a href={"/beginner"}>Beginner Tips</a></li>
+                    <li><a href={"/resources"}>Resources</a></li>
+                    <li><a href={"/harvesting-basics"}>Harvesting 101</a></li>
                 </ul>
             </div>
             <div className="navbar-end">
@@ -75,7 +76,8 @@ console.log(session)
                         </li>
                     </ul>
                 </div>
-                <a className="btn btn-ghost normal-case text-2xl" href={'/'}>Urban Orchard</a>
+
+
             </div>
             <div className="flex mx-auto">
             <div className="navbar-center hidden md:flex">
