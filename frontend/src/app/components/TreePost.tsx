@@ -1,5 +1,4 @@
 'use server'
-import Img from 'next/image'
 import {Tree, TreeSchema} from "@/utils/models/trees";
 import {Image, ImageSchema} from "@/utils/models/images";
 
@@ -12,7 +11,7 @@ type TreeProps = {
 export async function TreePost(treeProps: TreeProps) {
     const {tree, images} = treeProps
     let treeSpeciesAlt = `This is a ${tree.treeSpecies} tree`
-    // const {tree, images} = await getData(treeId)
+
 
     return (
         <>
@@ -40,11 +39,6 @@ export async function TreePost(treeProps: TreeProps) {
                 {/*// species of tree*/}
                 <div className="p-8">
                     <h3 className="bg-base-100 dropshadow-md md:mx-auto md:w-48 rounded-lg text-xl font-semibold text-center p-2">{tree.treeSpecies}</h3>
-                </div>
-
-                {/*// tree vote rating*/}
-                <div className="">
-                    <img src="https://placekitten.com/50/50" alt="an apple icon to rank the quality of the tree" className="mx-auto"/>
                 </div>
 
                 {/*// tree address*/}

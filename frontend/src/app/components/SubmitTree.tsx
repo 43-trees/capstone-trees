@@ -7,12 +7,14 @@ import React from "react";
 import {useDropzone} from "react-dropzone";
 import {Session} from "@/utils/models/fetchSession";
 import {FormDebugger} from "@/app/components/formDebugger";
+import { useRouter } from 'next/navigation'
 
 type TreeSubmitProps = {
     session : Session
 }
 export function SubmitTreeComponent(props: TreeSubmitProps) {
     const { session} = props
+
 
     const initialValues: any = {
         treeId: null,
@@ -31,6 +33,8 @@ export function SubmitTreeComponent(props: TreeSubmitProps) {
     const handleSubmit = (values: Tree, actions: FormikHelpers<Tree>)=> {
         console.log("values here", values)
         const {setStatus, resetForm} = actions
+        // const router = useRouter()
+
         fetch('/apis/tree', {
             method: "POST",
             headers: {
@@ -42,7 +46,9 @@ export function SubmitTreeComponent(props: TreeSubmitProps) {
             .then(response => response.json())
             .then(json => {
                 if(json.status === 200){
-                    resetForm()
+                    console.log("jason", json.data.treeId)
+                    // redirect(`/image/${json.data.treeId}`)
+                    // router.push(`/image/${json.data.treeId}`)
                 }
                 console.log("success")
                 setStatus({type: json.type, message: json.message})

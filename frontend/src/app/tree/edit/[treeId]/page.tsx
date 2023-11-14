@@ -3,6 +3,7 @@ import {Tree, TreeSchema} from "@/utils/models/trees";
 import {TreeEditComponent} from "@/app/components/EditTree";
 import {getSession} from "@/utils/models/fetchSession";
 import React from "react";
+import {Image, ImageSchema} from "@/utils/models/images";
 
 type EditProps = {
     params: {
@@ -32,7 +33,7 @@ export default async function TreeEditPage(props: EditProps) {
 }
 
 
-async function  getData(treeId: string): Promise<{tree:Tree}> {
+async function  getData(treeId: string): Promise<{tree:Tree, images: Image[]}> {
 
     const treeUrl = `${process.env.REST_API_URL}/apis/tree/${treeId}`
 
@@ -49,5 +50,23 @@ async function  getData(treeId: string): Promise<{tree:Tree}> {
 
     const tree = TreeSchema.parse(treeResult?.data)
 
-    return {tree}
+    const imageUrl = `${process.env.REST_API_URL}/apis/image/treeId/${treeId}`
+
+    const imageResult = await fetch(imageUrl, {next: {
+            revalidate:0
+        }})
+        .then(response => {
+
+            if (response.status === 200 || response.status === 304) {
+                return response.json()
+            }
+            throw new Error('retrieving images failed')
+        }).catch(error => {
+            console.error(error)
+        })
+    console.log("image result", imageResult)
+
+    const images = ImageSchema.array().parse(imageResult?.data)
+
+    return {tree, images}
 }

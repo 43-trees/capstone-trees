@@ -5,22 +5,21 @@ import {Tree, TreeSchema} from "@/utils/models/trees";
 import {Formik, FormikHelpers, FormikProps} from "formik";
 import {toFormikValidationSchema} from "zod-formik-adapter";
 import {SubmitTreeContent} from "@/app/components/SubmitTree";
-import {Image} from "@/utils/models/images";
+import {Image, ImageSchema} from "@/utils/models/images";
 
-type TreeSubmitProps = {
+type AddImageProps = {
     session : Session
     tree: Tree,
-    images : Image []
 }
-export function AddImagesComponent(props: TreeSubmitProps) {
-    const { session, tree, images} = props
+export function AddImagesComponent(props: AddImageProps) {
+    const { session, tree} = props
 
     const initialValues: any = {
         treeId: tree.treeId,
-
+        imageUrl: '',
     }
 
-    const handleSubmit = (values: Tree, actions: FormikHelpers<Tree>)=> {
+    const handleSubmit = (values: Image, actions: FormikHelpers<Image>)=> {
         const {setStatus, resetForm} = actions
         fetch('/apis/image/upload', {
             method: "POST",
@@ -50,7 +49,7 @@ export function AddImagesComponent(props: TreeSubmitProps) {
                 <Formik
                     initialValues={initialValues}
                     onSubmit={handleSubmit}
-                    validatorSchema={toFormikValidationSchema(TreeSchema)}
+                    validatorSchema={toFormikValidationSchema(ImageSchema)}
                 >
                     {AddImagesContent}
                 </Formik>
@@ -59,7 +58,7 @@ export function AddImagesComponent(props: TreeSubmitProps) {
     )
 }
 
-export function AddImagesContent(props: FormikProps<Tree>) {
+export function AddImagesContent(props: FormikProps<Image>) {
     const {
         status,
         values,
@@ -112,14 +111,14 @@ function ImageDropZone ({ formikProps }: any) {
                 formikProps.values.imageUrl &&
                 <>
                     <div className="bg-transparent m-0">
-                        <img  height={100}  width={100} alt="new tree image" src={formikProps.values.imageUrl} />
+                        <img  height={200}  width={200} alt="new tree image" src={formikProps.values.imageUrl} />
                     </div>
 
                 </>
             }
             <div className="d-flex flex-fill bg-light justify-content-center align-items-center border rounded">
                 <input
-                    aria-label="profile avatar file drag and drop area"
+                    aria-label="tree image file drag and drop area"
                     aria-describedby="image drag drop area"
                     className="form-control-file"
                     accept="image/*"
