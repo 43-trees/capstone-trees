@@ -35,7 +35,7 @@ export async function NavBarIn() {
                     </ul>
                 </div>
                 <a className="btn btn-ghost normal-case" href={'/'}><img  className="w-14" src="/trees-logo.png" alt="Urban Orchard Logo of hands acting as tree trunk holding the leaves"/></a>
-                <a className="btn md:display btn-ghost normal-case text-2xl" href={'/'}>Urban Orchard</a>
+                <a className="btn  btn-ghost normal-case text-2xl" href={'/'}>Urban Orchard</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu text-xl menu-horizontal px-1">
