@@ -76,8 +76,8 @@ export async function NavBarIn() {
                         </li>
                     </ul>
                 </div>
-                <a className="btn btn-ghost normal-case" href={'/'}><img  className="w-14" src="/trees-logo.png" alt="Urban Orchard Logo of hands acting as tree trunk holding the leaves"/></a>
-                <a className="btn  btn-ghost hidden md:display normal-case text-2xl" href={'/'}>Urban Orchard</a>
+                <a className="btn btn-ghost normal-case" href={'/'}><img  className="w-12" src="/trees-logo.png" alt="Urban Orchard Logo of hands acting as tree trunk holding the leaves"/></a>
+                <a className="btn  btn-ghost hidden md:inline pt-2 normal-case text-2xl" href={'/'}>Urban Orchard</a>
 
             </div>
             <div className="flex mx-auto">
