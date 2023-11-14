@@ -13,8 +13,6 @@ export type Session = {
 
 let session : Session|undefined = undefined
 
-console.log("session", session)
-
 const currentTimeInSeconds = new Date().getTime() / 1000
 
 export async function getSession(): Promise<Session|undefined > {
@@ -30,11 +28,9 @@ export async function getSession(): Promise<Session|undefined > {
 }
 
 export function setJwtToken(jwtToken: string) {
-    console.log("jwtToken", jwtToken)
+    console.log("jwt-token", jwtToken)
     try {
         const  parsedJwtToken = jwtDecode(jwtToken) as any
-
-        console.log("token is expired", currentTimeInSeconds < parsedJwtToken.exp)
 
         if(parsedJwtToken &&  currentTimeInSeconds < parsedJwtToken.exp) {
             session = {
@@ -42,13 +38,13 @@ export function setJwtToken(jwtToken: string) {
                 authorization: jwtToken,
                 exp: parsedJwtToken.exp
             }
-
         } else {
             session = undefined
         }
 
 
     } catch (error) {
+        console.log("error", error)
         session = undefined
 
     }
