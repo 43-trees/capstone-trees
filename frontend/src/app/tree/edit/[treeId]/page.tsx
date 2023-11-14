@@ -20,9 +20,10 @@ export default async function TreeEditPage(props: EditProps) {
 
     if(session === undefined) {
 
-        return <>
+        return ( <>
             <p>poop</p>
         </>
+        )
     }
 
     return (
