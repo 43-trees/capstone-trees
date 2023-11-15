@@ -1,15 +1,15 @@
 
 type AvatarProps = {
-    profileImageUrl: string
+    profileImageUrl: string | null,
 }
 
 export async function Avatar(avatarProps: AvatarProps) {
 const {profileImageUrl} = avatarProps
 
     return (
-        <div>
-            <div className="max-md:px-16">
-                <img className="rounded-full" src={profileImageUrl} alt="profile picture of current user"/>
+        <div className="flex">
+            <div className="mx-auto py-4">
+                <img className="rounded-full " src={profileImageUrl as string} alt="profile picture of current user"/>
             </div>
         </div>
     )}

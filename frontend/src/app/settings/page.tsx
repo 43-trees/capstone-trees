@@ -23,7 +23,9 @@ export default async function Settings() {
     const {profile} = await getData(session.profile.profileId)
     return(
         <>
-            <Avatar profileImageUrl={profile.profileImageUrl}/>
+            <div style={{width:"20rem"}} className="mx-auto">
+            <Avatar  profileImageUrl={profile.profileImageUrl}/>
+            </div>
         <SettingsFormComponent session={session} profile={profile}/>
         </>
     )
