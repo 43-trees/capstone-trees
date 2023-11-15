@@ -17,7 +17,6 @@ type TreeEditComponentProps = {
 }
 export function TreeEditComponent(props: TreeEditComponentProps) {
     const {tree, session, image} = props
-    console.log("tree", tree)
 
     const initialValues: any = {
         imageId: null,
@@ -25,46 +24,32 @@ export function TreeEditComponent(props: TreeEditComponentProps) {
         imageUrl: ''
     }
 
-    const handleSubmit = (values: Tree, actions: FormikHelpers<Tree>)=> {
+    const handleSubmit = (values: Image, actions: FormikHelpers<Image>)=> {
         const {setStatus, resetForm, setErrors} = actions
 
-        if (values.treeImage instanceof FormData === false) {
+        // @ts-ignore
+        if (values.imageUrl instanceof FormData === false) {
             setErrors({imageUrl: "You must upload a valid image for your tree."})
         }
-        fetch("/apis/image/upload/single",{
-            method: "POST",
-            headers: {
-                "authorization": `${session.authorization}`
-            },
-            body: values.treeImage
-        })
-            .then(response => response.json())
-            .then(data => {
-                if(data.status !== 200) {
-                    setStatus({type: "alert alert-danger"})
-                }
-                values.imageUrl = data.message
-                submitImage(values)
+            fetch('/apis/image/upload/single', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "authorization": `${session.authorization}`
+                },
+                body: JSON.stringify(tree)
             })
-
-        // fetch('/apis/tree', {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "authorization": `${session.authorization}`
-        //     },
-        //     body: JSON.stringify(values)
-        // })
-        //     .then(response => response.json())
-        //     .then(json => {
-        //         if(json.status === 200){
-        //             resetForm()
-        //         }
-        //         setStatus({type: json.type, message: json.message})
-        //     })
-        //     .catch(error => {
-        //         console.error(error)
-        //     })
+                .then(response => response.json())
+                .then(json => {
+                    if(json.status === 200){
+                        resetForm()
+                    }
+                    console.log("success")
+                    setStatus({type: json.type, message: json.message})
+                })
+                .catch(error => {
+                    console.error(error)
+                })
     };
 
     return (
@@ -80,7 +65,7 @@ export function TreeEditComponent(props: TreeEditComponentProps) {
     )
 }
 
-function EditTreeContent(props: FormikProps<Tree>) {
+function EditTreeContent(props: FormikProps<Image>) {
     const {
         status,
         values,
@@ -99,35 +84,7 @@ function EditTreeContent(props: FormikProps<Tree>) {
         <>
             <form  className="md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8">
                 <div>
-                    <h2 className="text-3xl text-center text-neutral/80 font-semibold p-2">Edit a Tree</h2>
-                </div>
-                <div className="py-3 dropdown flex justify-center">
-                    <label className="block text-gray text-sm font-bold mb-2">{values.treeSpecies}</label>
-                </div>
-                <div className="py-3">
-                    <label htmlFor="title" className="block text-gray text-sm font-bold mb-2">{values.treeTitle}</label>
-                    {/*<input type="text" id="title" name="title"*/}
-                    {/*       className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"*/}
-                    {/*       onBlur={handleBlur}*/}
-                    {/*       onChange={handleChange}*/}
-                    {/*       value={values.treeTitle}*/}
-                    {/*/>*/}
-                </div>
-                <div className="py-3">
-                    <label htmlFor="address" className="block text-gray text-sm font-bold mb-2">{values.treeAddress}</label>
-                    {/*<input type="text" id="address" name="address"*/}
-                    {/*       className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"*/}
-                    {/*       onBlur={handleBlur}*/}
-                    {/*       onChange={handleChange}*/}
-                    {/*       value={values.treeAddress}/>*/}
-                </div>
-                <div className="py-3">
-                    <label htmlFor="info" className="block text-gray text-sm font-bold mb-2">{values.treeInfo}</label>
-                    {/*<input type="text" id="info" name="info"*/}
-                    {/*       className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"*/}
-                    {/*       onBlur={handleBlur}*/}
-                    {/*       onChange={handleChange}*/}
-                    {/*       value={values.treeInfo}/>*/}
+                    <h2 className="text-3xl text-center text-neutral/80 font-semibold p-2">Would you like to add more images?</h2>
                 </div>
                 <div>
                     <ImageDropZone
@@ -139,8 +96,8 @@ function EditTreeContent(props: FormikProps<Tree>) {
                             fieldValue: "imageUrl"
                         }}
                     />
-                    <DisplayStatus status={status} />
                 </div>
+                <DisplayStatus status={status} />
                 <div className="py-3">
                     <button type="submit" className="bg-secondary hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">
                         Submit

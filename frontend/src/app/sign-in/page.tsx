@@ -97,7 +97,6 @@ function SignInFormContent(props: FormikProps<SignIn>) {
                 <a href={"./sign-up"} className='btn bg-neutral/90 text-white font-semibold rounded-lg' >Not a member? Sign Up</a>
                 <DisplayStatus status={status} />
             </form>
-            <FormDebugger/>
         </>
     )
 }
