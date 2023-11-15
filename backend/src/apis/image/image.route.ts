@@ -22,7 +22,7 @@ router.route('/treeId/:treeId')
 router.route('/:imageId')
     .delete(deleteImageByImageIdController)
 
-router.route('/upload')
+router.route('/upload/single')
     .post(imageUploader, imageUploadController)
 
 export const imageRoute = {basePath, router}

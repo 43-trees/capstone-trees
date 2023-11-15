@@ -8,6 +8,7 @@ import {useDropzone} from "react-dropzone";
 import {Session} from "@/utils/models/fetchSession";
 import {FormDebugger} from "@/app/components/formDebugger";
 
+
 type TreeSubmitProps = {
     session : Session
 }
@@ -32,27 +33,49 @@ export function SubmitTreeComponent(props: TreeSubmitProps) {
     const handleSubmit = (values: Tree, actions: FormikHelpers<Tree>)=> {
         console.log("values here", values.treeImage)
         const submitValues = {...values, treeImage: null}
-        const {setStatus, resetForm} = actions
+        const {setStatus, resetForm, setErrors} = actions
 
-        fetch('/apis/tree', {
+        // @ts-ignore
+        if (values.treeImage instanceof FormData === false) {
+            setErrors({treeImage: "You must upload a valid image for your tree."})
+        }
+        fetch("/apis/image/upload/single",{
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
                 "authorization": `${session.authorization}`
             },
-            body: JSON.stringify(submitValues)
+            body: values.treeImage
         })
             .then(response => response.json())
-            .then(json => {
-                if(json.status === 200){
-                    resetForm()
+            .then(data => {
+                if(data.status !== 200) {
+                    setStatus({type: "alert alert-danger"})
                 }
-                console.log("success")
-                setStatus({type: json.type, message: json.message})
+                values.treeImage = data.message
+                submitTree(values)
             })
-            .catch(error => {
-                console.error(error)
+
+        function submitTree (tree: Tree) {
+            fetch('/apis/tree', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "authorization": `${session.authorization}`
+                },
+                body: JSON.stringify(tree)
             })
+                .then(response => response.json())
+                .then(json => {
+                    if(json.status === 200){
+                        resetForm()
+                    }
+                    console.log("success")
+                    setStatus({type: json.type, message: json.message})
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        }
     };
 
     return (

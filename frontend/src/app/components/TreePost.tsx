@@ -21,14 +21,17 @@ export async function TreePost(treeProps: TreeProps) {
                 <h2 className="md:text-5xl text-4xl text-neutral/80 font-bold text-center p-4">{tree.treeTitle}</h2>
 
                 {/*// carousel of tree images*/}
-                <div id="carousel" className="md:w-1/4 mx-auto carousel  rounded-box flex">
-
+                <div id="carousel" className="md:w-1/3 mx-auto carousel  rounded-box flex">
+                    {tree.treeImage &&
+                        <div className="carousel-item -4 space-x-4 bg-neutral rounded-box h-50">
+                        <img src={tree.treeImage} alt={treeSpeciesAlt} style={{width:"50rem"}}/>
+                    </div>}
                 <div id="" className="carousel-item p-4 space-x-4 bg-neutral rounded-box">
                     {
                         images.map((image: any) =>
                     <div key={image.imageUrl} className=" carousel-item  w-96 h-72">
                         <a href="" className="btn btn-circle self-center">❮</a>
-                    <img src={image.imageUrl} alt={image.alt} className="w-11/12 object-contain rounded-box"/>
+                    <img src={image.imageUrl} alt={image.alt} style={{width:"50rem"}} className="w-11/12 object-contain rounded-box"/>
                         <a href="" className="btn btn-circle self-center">❯</a>
                     </div>
                         )}
@@ -49,14 +52,13 @@ export async function TreePost(treeProps: TreeProps) {
                 </div>
 
                 {/*// tree info*/}
-                <div>
-                    <h2 className="text-3xl text-center text-neutral/80 font-semibold md:mx-56 p-2">Tree Info</h2>
+                <div className="md:mx-64">
+                    <h2 className="text-3xl text-center text-neutral/80 font-semibold p-2">Tree Info</h2>
                     <div className="bg-base-100  p-4 rounded-lg">
                         <p className="md:text-center py-2 text-justify ">{tree.treeInfo}</p>
                     </div>
                 </div>
             </section>
-
         </>
     )
 }

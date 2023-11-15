@@ -66,6 +66,7 @@ export async function postTreeController(request: Request, response: Response): 
             treeTitle: treeTitle,
             treeSpecies: treeSpecies
         }
+        console.log("tree", tree)
 
         const result = await insertTree(tree)
 
