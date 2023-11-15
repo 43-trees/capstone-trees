@@ -80,7 +80,7 @@ export function SubmitTreeComponent(props: TreeSubmitProps) {
 
     return (
         <>
-            <div className="test">
+            <div className="">
                 <Formik
                     initialValues={initialValues}
                     onSubmit={handleSubmit}
