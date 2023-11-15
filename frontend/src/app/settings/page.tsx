@@ -4,6 +4,7 @@ import {redirect} from "next/navigation";
 import {SettingsFormComponent} from "@/app/components/Settings";
 import React from "react";
 import {Tree, TreeSchema} from "@/utils/models/trees";
+import {Avatar} from "@/app/components/Avatar";
 
 
 type SettingsFormProps = {
@@ -20,6 +21,9 @@ export default async function Settings() {
     const {profile, trees} = await getData(session.profile.profileId)
     return(
         <>
+            <div style={{width:"20rem"}} className="mx-auto">
+            <Avatar  profileImageUrl={profile.profileImageUrl} profile={profile}/>
+            </div>
         <SettingsFormComponent session={session} profile={profile}/>
             <div className="grid md:grid-cols-3 grid-cols-2">
                 <div className="py-3 font-semibold text-center text-lg text-neutral hover:text-neutral/60">
