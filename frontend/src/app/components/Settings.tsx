@@ -5,7 +5,7 @@ import {DisplayError} from "@/app/components/displayError";
 import {FormDebugger} from "@/app/components/formDebugger";
 import {Session} from "@/utils/models/fetchSession";
 import {toFormikValidationSchema} from "zod-formik-adapter";
-import React from "react";
+import React, {useState} from "react";
 import {Tree} from "@/utils/models/trees";
 import {useDropzone} from "react-dropzone";
 import {Avatar} from "@/app/components/Avatar";
@@ -74,11 +74,15 @@ export function SettingsFormComponent(props: SettingsFormProps) {
 }
 
 export function SettingsFormContent(props: FormikProps<Profile>) {
+
+    const [selectedImage, setSelectedImage] = useState(null)
+
     const {
         status,
         values,
         errors,
         touched,
+        setFieldValue,
         dirty,
         isSubmitting,
         handleChange,
@@ -100,12 +104,17 @@ export function SettingsFormContent(props: FormikProps<Profile>) {
                             values,
                             handleChange,
                             handleBlur,
-                            setFieldValue:"profileImageUrl",
+                            useState,
+                            setFieldValue,
                             fieldValue:"profileImageUrl",
+                            setSelectedImage: setSelectedImage
 
                         }
                     }
                 />
+                    <div>
+                        {selectedImage !== null ? <img src={selectedImage}/> : ""}
+                    </div>
                 </div>
                 <div className="form-control">
                     <label className="label font-semibold" htmlFor="username">
@@ -155,6 +164,12 @@ function ImageDropZone ({ formikProps }: any) {
         const formData = new FormData()
         formData.append('image', acceptedFiles[0])
 
+        const fileReader = new FileReader()
+        fileReader.readAsDataURL(acceptedFiles[0])
+        fileReader.addEventListener("load", () => {
+            formikProps.setSelectedImage(fileReader.result)
+        })
+
         formikProps.setFieldValue(formikProps.fieldValue, formData)
 
     }, [formikProps])
@@ -166,9 +181,6 @@ function ImageDropZone ({ formikProps }: any) {
             {
                 formikProps.values.profileImageUrl &&
                 <>
-                    <div className="bg-transparent m-0">
-                        <img  height={200}  width={200} alt="new tree image" src={formikProps.values.profileImageUrl} />
-                    </div>
 
                 </>
             }
