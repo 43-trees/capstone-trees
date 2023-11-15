@@ -22,9 +22,9 @@ export default async function Settings() {
         <>
         <SettingsFormComponent session={session} profile={profile}/>
 
-                <div className="py-3 grid grid-cols-3 font-semibold text-center text-lg text-neutral hover:text-neutral/60">
-                    {trees.map(tree => (<h1><a href={`tree/edit/${tree.treeId}`}>{tree.treeTitle}</a></h1>))}
-                </div>
+                {/*<div className="py-3 grid grid-cols-3 font-semibold text-center text-lg text-neutral hover:text-neutral/60">*/}
+                {/*    {trees.map(tree => (<h1><a href={`tree/edit/${tree.treeId}`}>{tree.treeTitle}</a></h1>))}*/}
+                {/*</div>*/}
             <div className="mt-20 pt-12"></div>
         </>
     )
