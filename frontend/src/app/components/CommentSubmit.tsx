@@ -5,6 +5,7 @@ import {Comment, CommentSchema} from "@/utils/models/comments"
 import {toFormikValidationSchema} from "zod-formik-adapter";
 import {Session} from "@/utils/models/fetchSession";
 import {revalidateTag} from 'next/cache'
+import {useRouter} from "next/navigation";
 
 type CommentSubmitComponentProps = {
     session : Session|undefined
@@ -12,6 +13,8 @@ type CommentSubmitComponentProps = {
 }
 export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
     const {treeId, session} = props
+    const router = useRouter()
+
 
     if(session === undefined) {
         return <></>
@@ -30,7 +33,7 @@ export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
 
     const handleSubmit = (values: Comment, actions: FormikHelpers<Comment>)=> {
         const {setStatus, resetForm} = actions
-        const result = fetch('/api/comment', {
+        const result = fetch('/apis/comment', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -40,6 +43,7 @@ export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
         }).then(response => response.json()).then(json => {
             if(json.status === 200){
                 resetForm()
+                router.refresh()
             }
             setStatus({type: json.type, message: json.message})
         })
