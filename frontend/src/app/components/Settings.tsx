@@ -163,10 +163,10 @@ function ImageDropZone ({ formikProps }: any) {
         <>
             <label className="text-neutral font-semibold">Update Profile Image</label>
             {
-                formikProps.values.imageUrl &&
+                formikProps.values.profileImageUrl &&
                 <>
                     <div className="bg-transparent m-0">
-                        <img  height={200}  width={200} alt="new tree image" src={formikProps.values.imageUrl} />
+                        <img  height={200}  width={200} alt="new tree image" src={formikProps.values.profileImageUrl} />
                     </div>
 
                 </>
