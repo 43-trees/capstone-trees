@@ -1,6 +1,4 @@
 
-
-
 type AvatarProps = {
     profileImageUrl: string
 }

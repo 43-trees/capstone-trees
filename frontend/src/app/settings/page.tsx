@@ -7,6 +7,7 @@ import {FormDebugger} from "@/app/components/formDebugger";
 import {getSession, Session} from "@/utils/models/fetchSession";
 import {redirect} from "next/navigation";
 import {SettingsFormComponent} from "@/app/components/Settings";
+import {Avatar} from "@/app/components/Avatar";
 
 
 type SettingsFormProps = {
@@ -22,6 +23,7 @@ export default async function Settings() {
     const {profile} = await getData(session.profile.profileId)
     return(
         <>
+            <Avatar profileImageUrl={profile.profileImageUrl}/>
         <SettingsFormComponent session={session} profile={profile}/>
         </>
     )
