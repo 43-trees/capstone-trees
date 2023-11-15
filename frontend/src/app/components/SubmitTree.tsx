@@ -94,6 +94,7 @@ export function SubmitTreeComponent(props: TreeSubmitProps) {
 }
 export function SubmitTreeContent(props: FormikProps<Tree>) {
 
+
     const [selectedImage, setSelectedImage] = useState(null)
 
     const {
