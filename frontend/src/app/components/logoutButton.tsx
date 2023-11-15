@@ -1,5 +1,5 @@
-'use client'
-import {setJwtToken} from "@/utils/models/fetchSession";
+import logout, {performLogout} from "@/app/sign-out/page";
+
 
 type logoutProps = {
 
@@ -7,14 +7,14 @@ type logoutProps = {
 
 export function LogoutComponent(){
 
+
+
     return(
         <>
-            <button onClick={logout}>Log Out</button>
+            {/*// @ts-ignore*/}
+            <form action={performLogout()}>
+            <button type="submit">Log Out</button>
+        </form>
         </>
     )
-}
-
-function logout() {
-    setJwtToken('')
-    fetch('/apis/sign-out/')
 }
