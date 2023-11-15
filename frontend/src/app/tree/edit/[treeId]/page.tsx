@@ -38,6 +38,7 @@ export default async function TreeEditPage(props: EditProps) {
     return (
         <>
             <TreeEditComponent tree={tree} session={session}/>
+            <div className="mt-20 pt-12"></div>
         </>
     )
 }
