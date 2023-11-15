@@ -3,11 +3,12 @@ import React, {useState} from "react";
 import {Formik, FormikHelpers, FormikProps} from "formik";
 import {Comment, CommentSchema} from "@/utils/models/comments"
 import {toFormikValidationSchema} from "zod-formik-adapter";
-
+import {Session} from "@/utils/models/fetchSession";
+import {revalidateTag} from 'next/cache'
 
 type CommentSubmitComponentProps = {
     session : Session|undefined
-    treeId: string
+    treeId: string,
 }
 export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
     const {treeId, session} = props
@@ -23,13 +24,13 @@ export function CommentSubmitComponent(props: CommentSubmitComponentProps) {
         commentContent: '',
         commentDatetime: null,
         commentImageUrl: null,
-        commentProfileId: '',
+        commentProfileId: profile.profileId,
         commentTreeId: treeId
     }
 
     const handleSubmit = (values: Comment, actions: FormikHelpers<Comment>)=> {
         const {setStatus, resetForm} = actions
-        const result = fetch('/apis/comment', {
+        const result = fetch('/api/comment', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

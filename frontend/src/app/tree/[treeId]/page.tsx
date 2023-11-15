@@ -10,6 +10,8 @@ import {Image, ImageSchema} from "@/utils/models/images";
 import {CommentSubmitComponent} from "@/app/components/CommentSubmit";
 import {Session, getSession} from "@/utils/models/fetchSession";
 
+
+
 type Props = {
     params: {
         treeId: string
@@ -31,6 +33,7 @@ export default async function Tree(props: Props) {
             <CommentComponent comments={comments} profiles={profiles}/>
                 <CommentSubmitComponent treeId={treeId} session={session}/>
             </section>
+            <div className="mt-20 pt-12"></div>
         </>
     )
 }
@@ -54,7 +57,7 @@ async function getData(treeId: string): Promise<{tree: Tree, comments: Comment[]
 
     const commentUrl = `${process.env.REST_API_URL}/apis/comment/commentTreeId/${treeId}`
 
-    const commentResult = await fetch(commentUrl)
+    const commentResult = await fetch(commentUrl, {next:{tags:["comments"]}})
         .then(response => {
 
             if (response.status === 200 || response.status === 304) {

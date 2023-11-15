@@ -50,12 +50,13 @@ export async function TreePost(treeProps: TreeProps) {
 
                 {/*// tree info*/}
                 <div>
-                    <h2 className="text-3xl text-center text-neutral/80 font-semibold p-2">Tree Info</h2>
-                    <div className="bg-base-100 p-4 rounded-lg">
+                    <h2 className="text-3xl text-center text-neutral/80 font-semibold md:mx-56 p-2">Tree Info</h2>
+                    <div className="bg-base-100  p-4 rounded-lg">
                         <p className="md:text-center py-2 text-justify ">{tree.treeInfo}</p>
                     </div>
                 </div>
             </section>
+
         </>
     )
 }
