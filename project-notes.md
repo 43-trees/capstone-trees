@@ -21,29 +21,27 @@
 
 ## Frontend
 ### get data for:
-- avatar
 
 ### submission form for:
-- settings changes
 - tree
-  - adding image (updating image table not tree table)
+  - updating image table
 - tree edit page
-  - adding image (updating image table not tree table)
+  - adding images to image table
 
 ### other updates
 - fix carousel
 - images on comments
-- reroute/content for pages when session is undefined
+- redirect after sign-in
+- logout button
+
 
 ### styling
 - about me page
   - images for all of team
-  - short bio for all of team
 
 
 ### images 
-- image upload 
-  - tree submit
+- image upload
   - comment submit
   - profile avatar
 
