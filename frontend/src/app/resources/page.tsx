@@ -3,7 +3,7 @@
 export default function Resources() {
     return (
         <>
-            <section className="bg-primary p-6 mx-56 my-12 drop-shadow-lg">
+            <section className="bg-primary p-6 md:mx-56 my-12 drop-shadow-lg">
                 <h1 className="text-3xl">Resources</h1>
                 <div className="p-6">
                 <p>Urban foraging is a great way to learn more about harvestable food and your environment. If you are harvesting due to a limited supply of food in your home, please know there are resources available to you, including those listed below. </p><br/>

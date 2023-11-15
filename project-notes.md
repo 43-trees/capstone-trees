@@ -25,18 +25,13 @@
 ### submission form for:
 - tree
   - updating image table
-- tree edit page
-  - adding images to image table
 
 ### other updates
-- fix carousel
 - redirect after sign-in
 - logout button
 
 
 ### styling
-- about me page
-  - images for all of team
 
 
 ### images 
@@ -52,5 +47,6 @@
   - changing image for vote rank
 - Images on comments
 - Update tree controller
-- 
+  - Add images to tree
+- Add carousel of images for more trees
 
