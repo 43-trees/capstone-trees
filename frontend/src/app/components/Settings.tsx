@@ -5,8 +5,10 @@ import {DisplayError} from "@/app/components/displayError";
 import {FormDebugger} from "@/app/components/formDebugger";
 import {Session} from "@/utils/models/fetchSession";
 import {toFormikValidationSchema} from "zod-formik-adapter";
-import React from "react";
+import React, {useState} from "react";
 import {Tree} from "@/utils/models/trees";
+import {useDropzone} from "react-dropzone";
+import {Avatar} from "@/app/components/Avatar";
 
 type SettingsFormProps = {
     session: Session,
@@ -72,11 +74,15 @@ export function SettingsFormComponent(props: SettingsFormProps) {
 }
 
 export function SettingsFormContent(props: FormikProps<Profile>) {
+
+    const [selectedImage, setSelectedImage] = useState(null)
+
     const {
         status,
         values,
         errors,
         touched,
+        setFieldValue,
         dirty,
         isSubmitting,
         handleChange,
@@ -91,7 +97,25 @@ export function SettingsFormContent(props: FormikProps<Profile>) {
                 <div>
                     <h2 className="text-3xl text-center text-neutral/80 font-semibold p-2">User Settings</h2>
                 </div>
+                <div>
+                <ImageDropZone
+                    formikProps ={
+                        {
+                            values,
+                            handleChange,
+                            handleBlur,
+                            useState,
+                            setFieldValue,
+                            fieldValue:"profileImageUrl",
+                            setSelectedImage: setSelectedImage
 
+                        }
+                    }
+                />
+                    <div>
+                        {selectedImage !== null ? <img src={selectedImage}/> : ""}
+                    </div>
+                </div>
                 <div className="form-control">
                     <label className="label font-semibold" htmlFor="username">
                         Username
@@ -129,6 +153,54 @@ export function SettingsFormContent(props: FormikProps<Profile>) {
                 </div>
             </form>
             <FormDebugger {...props}/>
+        </>
+    )
+}
+
+function ImageDropZone ({ formikProps }: any) {
+
+    const onDrop = React.useCallback((acceptedFiles: any) => {
+
+        const formData = new FormData()
+        formData.append('image', acceptedFiles[0])
+
+        const fileReader = new FileReader()
+        fileReader.readAsDataURL(acceptedFiles[0])
+        fileReader.addEventListener("load", () => {
+            formikProps.setSelectedImage(fileReader.result)
+        })
+
+        formikProps.setFieldValue(formikProps.fieldValue, formData)
+
+    }, [formikProps])
+    const { getInputProps, isDragActive, getRootProps } = useDropzone({ onDrop })
+
+    return (
+        <>
+            <label className="text-neutral font-semibold">Update Profile Image</label>
+            {
+                formikProps.values.profileImageUrl &&
+                <>
+
+                </>
+            }
+            <div {...getRootProps()} className="py-6 px-2 flex flex-fill bg-primary/60 justify-center align-items-center border rounded-lg font-semibold text-secondary">
+                <input
+                    aria-label="Profile image file drag and drop area"
+                    aria-describedby="image drag drop area"
+                    className="file-input form-control-file w-50 h-50"
+                    accept="image/*"
+                    type="file"
+                    onChange={formikProps.handleChange}
+                    onBlur={formikProps.handleBlur}
+                    {...getInputProps()}
+                />
+                {
+                    isDragActive ?
+                        <span className="align-items-center" >Drop image here</span> :
+                        <span className="align-items-center" >Drag and drop image here, or click here to select an image</span>
+                }
+            </div>
         </>
     )
 }
