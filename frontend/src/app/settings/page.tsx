@@ -21,7 +21,7 @@ export default async function Settings() {
     return(
         <>
         <SettingsFormComponent session={session} profile={profile}/>
-            <div className="grid md:grid-cols-3 grid-cols-2">
+            <div className="grid grid-cols-3">
                 <div className="py-3 font-semibold text-center text-lg text-neutral hover:text-neutral/60">
                     {trees.map(tree => (<h1><a href={`tree/edit/${tree.treeId}`}>{tree.treeTitle}</a></h1>))}
                 </div>

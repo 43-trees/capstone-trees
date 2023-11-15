@@ -14,7 +14,7 @@ type EditProps = {
 export default async function TreeEditPage(props: EditProps) {
     const {params: {treeId}} = props
 
-    const tree = await getData(treeId)
+    const {tree} = await getData(treeId)
 
     const session = await getSession()
 

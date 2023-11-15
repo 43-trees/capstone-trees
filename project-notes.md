@@ -33,6 +33,7 @@
 - images on comments
 - redirect after sign-in
 - logout button
+- adding list view of trees below map?
 
 
 ### styling
