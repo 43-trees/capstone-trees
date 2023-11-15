@@ -6,10 +6,11 @@ import {FormDebugger} from "@/app/components/formDebugger";
 import {Session} from "@/utils/models/fetchSession";
 import {toFormikValidationSchema} from "zod-formik-adapter";
 import React from "react";
+import {Tree} from "@/utils/models/trees";
 
 type SettingsFormProps = {
     session: Session,
-    profile: Profile
+    profile: Profile,
 }
 export function SettingsFormComponent(props: SettingsFormProps) {
     const{session, profile} = props
