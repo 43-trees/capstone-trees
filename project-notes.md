@@ -30,10 +30,8 @@
 
 ### other updates
 - fix carousel
-- images on comments
 - redirect after sign-in
 - logout button
-- adding list view of trees below map?
 
 
 ### styling
@@ -43,7 +41,6 @@
 
 ### images 
 - image upload
-  - comment submit
   - profile avatar
 
 
@@ -53,4 +50,7 @@
   - calculating votes
   - voting on tree (server action)
   - changing image for vote rank
+- Images on comments
+- Update tree controller
+- 
 
