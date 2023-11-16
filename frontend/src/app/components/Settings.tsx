@@ -6,18 +6,19 @@ import {FormDebugger} from "@/app/components/formDebugger";
 import {Session} from "@/utils/models/fetchSession";
 import {toFormikValidationSchema} from "zod-formik-adapter";
 import React, {useState} from "react";
-import {Tree} from "@/utils/models/trees";
 import {useDropzone} from "react-dropzone";
-import {Avatar} from "@/app/components/Avatar";
 
 type SettingsFormProps = {
     session: Session,
     profile: Profile,
+
 }
 export function SettingsFormComponent(props: SettingsFormProps) {
     const{session, profile} = props
 
     const initialValues: any = {
+        profileId: profile.profileId,
+        profileJoinDate: profile.profileJoinDate,
         profileImageUrl: "",
         profileName: profile.profileName,
         profileEmail: profile.profileEmail,
@@ -33,29 +34,55 @@ export function SettingsFormComponent(props: SettingsFormProps) {
         profile.profileName = values.profileName
 
         console.log("values here", values)
-        const { setStatus, resetForm } = actions
+        const { setStatus, setErrors, resetForm } = actions
 
-        fetch(`/apis/profile/${profile.profileId}`, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-                "authorization": `${session.authorization}`
-            },
-            body: JSON.stringify(profile)
-        })
-            .then(response => response.json()
-            )
-            .then(json => {
-            if (json.status === 200) {
-                resetForm()
+    // @ts-ignore
+        if (values.profileImageUrl instanceof FormData === false) {
+        setErrors({profileImageUrl: "You must upload a valid image for this profile"})
+    }
+    fetch("/apis/image/upload/single", {
+        method: "POST",
+        headers: {
+            "authorization": `${session.authorization}`
+        },
+        body: values.profileImageUrl
+    })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status !== 200)
+            {
+                setStatus({type: "alert alert-danger"})
             }
-            console.log("success")
-            setStatus({ type: json.type, message:
-                json.message })
+            console.log("data here", data)
+            values.profileImageUrl = data.message
+            updateProfile(values)
         })
-            .catch(error => {
-                console.error(error)
+
+        function updateProfile(profile: Profile) {
+            console.log("profile", profile)
+            fetch(`/apis/profile/${session.profile.profileId}`, {
+                method: 'PUT',
+                next:{revalidate: 0},
+                headers: {
+                    "Content-Type": "application/json",
+                    "authorization": `${session.authorization}`
+                },
+                body: JSON.stringify({...profile, profileId: session.profile.profileId})
             })
+                .then(response => response.json()
+                )
+                .then(json => {
+                    if (json.status === 200) {
+                        resetForm()
+                    }
+                    console.log("success")
+                    setStatus({ type: json.type, message:
+                        json.message })
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        }
     }
 
     return (
