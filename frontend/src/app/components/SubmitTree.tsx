@@ -6,7 +6,7 @@ import {DisplayStatus} from "@/app/components/displayStatus";
 import React, {useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {Session} from "@/utils/models/fetchSession";
-import {FormDebugger} from "@/app/components/formDebugger";
+// import {FormDebugger} from "@/app/components/formDebugger";
 
 
 type TreeSubmitProps = {

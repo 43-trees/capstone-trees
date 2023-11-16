@@ -3,7 +3,7 @@ import React from "react";
 import {TreePost} from "@/app/components/TreePost";
 import {Comment as CommentComponent} from "@/app/components/CommentPost";
 import {Tree, TreeSchema} from "@/utils/models/trees";
-import {useParams} from "next/navigation";
+// import {useParams} from "next/navigation";
 import {Comment, CommentSchema} from "@/utils/models/comments";
 import {Profile, ProfileSchema} from "@/utils/models/profiles";
 import {Image, ImageSchema} from "@/utils/models/images";

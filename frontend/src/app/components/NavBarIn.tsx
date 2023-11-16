@@ -1,5 +1,5 @@
 import {getSession, Session, setJwtToken} from "@/utils/models/fetchSession";
-import {LogoutComponent} from "@/app/components/logoutButton";
+// import {LogoutComponent} from "@/app/components/logoutButton";
 
 type NavBarProps = {
     session: Session | undefined

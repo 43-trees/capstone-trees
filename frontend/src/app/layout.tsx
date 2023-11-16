@@ -7,7 +7,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 export const metadata: Metadata = {
     title: 'Urban Orchard',
-    description: 'description goes here',
+    description: 'Fruit tree finder',
 }
 
 type RootLayoutProps = {

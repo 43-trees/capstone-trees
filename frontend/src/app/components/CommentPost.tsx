@@ -1,6 +1,6 @@
 'use server'
 import {Comment, CommentSchema} from "@/utils/models/comments";
-import {Profile, ProfileSchema} from "@/utils/models/profiles";
+// import {Profile, ProfileSchema} from "@/utils/models/profiles";
 
 
 type CommentProps = {

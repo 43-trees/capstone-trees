@@ -1,5 +1,5 @@
 import {Profile} from "@/utils/models/profiles";
-import {Session} from "@/utils/models/fetchSession";
+// import {Session} from "@/utils/models/fetchSession";
 
 
 type AvatarProps = {

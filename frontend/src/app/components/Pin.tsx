@@ -1,9 +1,10 @@
 'use client'
 import {Marker, Popup} from 'react-map-gl'
 import React, {useState} from "react";
-import {Tree} from '../../../../backend/src/apis/tree/tree.model'
+
 import Link from "next/link";
-import {Image} from "next/dist/client/image-component";
+// import {Image} from "next/dist/client/image-component";
+import {Tree} from "@/utils/models/trees";
 
 type PinProps = {
     index: number,
