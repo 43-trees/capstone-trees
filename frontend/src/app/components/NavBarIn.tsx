@@ -1,4 +1,5 @@
 import {getSession, Session, setJwtToken} from "@/utils/models/fetchSession";
+import {LogoutComponent} from "@/app/components/logoutButton";
 
 type NavBarProps = {
     session: Session | undefined
@@ -6,10 +7,7 @@ type NavBarProps = {
 export async function NavBarIn() {
     console.log("calling to session")
     const session = await getSession();
-    function logout() {
-        setJwtToken('')
-        fetch('/apis/sign-out/')
-    }
+
     if(session === undefined) {
         return ( <>   <div className="navbar rounded-b-lg text-primary bg-secondary">
             <div className="navbar-start">
@@ -101,7 +99,9 @@ export async function NavBarIn() {
                 <ul tabIndex={0} className="mt-3 z-[1] p-2 text-neutral shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
 
                     <li><a href={"/settings"}>User Settings</a></li>
-                    <li><a href={"/"}>Logout</a></li>
+                    <li>
+
+                    </li>
                 </ul>
             </div>
             </div>

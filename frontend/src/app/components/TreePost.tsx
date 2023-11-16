@@ -21,7 +21,7 @@ export async function TreePost(treeProps: TreeProps) {
                 <h2 className="md:text-5xl text-4xl text-neutral/80 font-bold text-center p-4">{tree.treeTitle}</h2>
 
                 {/*// carousel of tree images*/}
-                <div id="carousel" className="md:w-1/3 mx-auto carousel  rounded-box flex">
+                <div id="carousel" className="md:w-1/2 mx-auto carousel  rounded-box flex">
                     {tree.treeImage &&
                         <div className="carousel-item -4 space-x-4 bg-neutral rounded-box h-50">
                         <img src={tree.treeImage} alt={treeSpeciesAlt} style={{width:"50rem"}}/>

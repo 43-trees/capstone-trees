@@ -14,7 +14,7 @@ export default function About() {
                 <div className="flex md:flex-row flex-col gap-12">
                     <div>
                         <div>
-                            <img className="rounded-full mx-auto pb-4" src="http://placekitten.com/200/300" alt=""/>
+                            <img className="rounded-full mx-auto pb-8" src="/Nic.jpg" alt="Urban Orchard developer Nic standing outside"/>
                         </div>
                         <h2 className="text-neutral font-semibold text-center text-xl">Nic Crow, MBA, DASM</h2>
                         <p className="">Nic is an accomplished project manager, dedicated web developer, and enthusiastic problem solver. After nearly a decade in public affairs, they are excited to leverage their communications and organizational strengths in the tech sphere. Nic is a committed team player who brings a positive attitude and winning strategy to their projects.</p>
@@ -37,7 +37,7 @@ export default function About() {
                     </div>
                     <div>
                         <div>
-                            <img className="rounded-full mx-auto pb-4" src="/Rashaan.jpg" alt="Urban Orchard developer Rashaan"/>
+                            <img className="rounded-full mx-auto pb-4 w-64" src="/Rashaan.jpg" alt="Urban Orchard developer Rashaan"/>
                         </div>
                         <h2 className="text-neutral font-semibold text-center text-xl">Rashaan Marrow</h2>
                         <p className="">Rashaan is a dedicated developer and beyond that she is a blogger with a passion for creating visually appealing and functional websites. Rashaan excels in both web development and design, showcasing a keen eye for aesthetics and user experience. Rashaan extends creativity to the digital realm by maintaining an engaging blog. Rashaan is happy to make a lasting impact in the dynamic world of web development.</p>

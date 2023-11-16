@@ -3,7 +3,7 @@ import {Tree, TreeSchema} from "@/utils/models/trees";
 import {Formik, FormikHelpers, FormikProps} from "formik";
 import {toFormikValidationSchema} from "zod-formik-adapter";
 import {DisplayStatus} from "@/app/components/displayStatus";
-import React from "react";
+import React, {useState} from "react";
 import {useDropzone} from "react-dropzone";
 import {Session} from "@/utils/models/fetchSession";
 import {FormDebugger} from "@/app/components/formDebugger";
@@ -80,7 +80,7 @@ export function SubmitTreeComponent(props: TreeSubmitProps) {
 
     return (
         <>
-            <div className="test">
+            <div className="">
                 <Formik
                     initialValues={initialValues}
                     onSubmit={handleSubmit}
@@ -93,6 +93,9 @@ export function SubmitTreeComponent(props: TreeSubmitProps) {
     )
 }
 export function SubmitTreeContent(props: FormikProps<Tree>) {
+
+
+    const [selectedImage, setSelectedImage] = useState(null)
 
     const {
         status,
@@ -168,7 +171,7 @@ export function SubmitTreeContent(props: FormikProps<Tree>) {
                         handleBlur,
                         setFieldValue,
                         fieldValue:"treeImage",
-
+                        setSelectedImage: setSelectedImage
                     }
                     }
 
@@ -179,7 +182,6 @@ export function SubmitTreeContent(props: FormikProps<Tree>) {
                         Submit
                     </button>
                 </div>
-                <FormDebugger {...props}/>
             </form>
         </>
     )
@@ -191,6 +193,12 @@ function ImageDropZone ({ formikProps }: any) {
 
         const formData = new FormData()
         formData.append('image', acceptedFiles[0])
+
+        const fileReader = new FileReader()
+        fileReader.readAsDataURL(acceptedFiles[0])
+        fileReader.addEventListener("load", () => {
+            formikProps.setSelectedImage(fileReader.result)
+        })
 
         formikProps.setFieldValue(formikProps.fieldValue, formData)
 
@@ -209,7 +217,7 @@ function ImageDropZone ({ formikProps }: any) {
 
                 </>
             }
-            <div {...getRootProps()} className="d-flex flex-fill bg-light justify-content-center align-items-center border rounded">
+            <div {...getRootProps()} className="py-6 px-2 flex flex-fill bg-primary/60 justify-center align-items-center border rounded-lg font-semibold text-secondary">
                 <input
                     aria-label="tree image file drag and drop area"
                     aria-describedby="image drag drop area"

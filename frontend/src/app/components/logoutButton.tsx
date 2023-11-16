@@ -1,14 +1,20 @@
-import {setJwtToken} from "@/utils/models/fetchSession";
+import logout, {performLogout} from "@/app/sign-out/page";
+
 
 type logoutProps = {
 
 }
 
-export function logoutComponent(){
+export function LogoutComponent(){
+
+
 
     return(
         <>
-            <button onClick={logout}>Log Out</button>
+            {/*// @ts-ignore*/}
+            <form action={performLogout()}>
+            <button type="submit">Log Out</button>
+        </form>
         </>
     )
 }

@@ -28,7 +28,7 @@ export async function getSession(): Promise<Session|undefined > {
 }
 
 export function setJwtToken(jwtToken: string) {
-    console.log("jwt-token", jwtToken)
+
     try {
         const  parsedJwtToken = jwtDecode(jwtToken) as any
 

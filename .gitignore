@@ -17,9 +17,9 @@ project.env
 */.DS_Store
 */.env.local
 */.env.development.local
-.env.development
+frontend/.env.development
 */.env.test.local
-.env.development
+frontend/.env.development
 
 
 */npm-debug.log*
