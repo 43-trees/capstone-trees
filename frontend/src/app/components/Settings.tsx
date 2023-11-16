@@ -179,7 +179,6 @@ export function SettingsFormContent(props: FormikProps<Profile>) {
                     <button className='btn btn-danger bg-accent border-accent text-white' onClick={handleReset} type="reset">Reset</button>
                 </div>
             </form>
-            <FormDebugger {...props}/>
         </>
     )
 }
